@@ -1,6 +1,7 @@
 import React from 'react';
-import { Tenant } from '../types.js';
+import { Tenant, NotificationItem } from '../types.js';
 import { ShieldCheck, Bot, Sparkles, Database, Code, RefreshCw, Zap, Building2, ExternalLink } from 'lucide-react';
+import { NotificationBell } from './NotificationBell.js';
 
 interface NavbarProps {
   tenants: Tenant[];
@@ -10,6 +11,9 @@ interface NavbarProps {
   setActiveTab: (tab: string) => void;
   onSimulateWebhook: () => void;
   isSimulating: boolean;
+  notifications?: NotificationItem[];
+  onMarkNotificationRead?: (id: string) => void;
+  onMarkAllNotificationsRead?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -19,7 +23,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
   onSimulateWebhook,
-  isSimulating
+  isSimulating,
+  notifications = [],
+  onMarkNotificationRead = () => {},
+  onMarkAllNotificationsRead = () => {}
 }) => {
   return (
     <header className="bg-zinc-950 border-b border-zinc-800 text-zinc-50 sticky top-0 z-40">
@@ -49,8 +56,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Tenant Switcher & Actions */}
+          {/* Tenant Switcher, Notifications & Actions */}
           <div className="flex items-center space-x-3">
+            {/* Real-time Notification Bell */}
+            <NotificationBell
+              notifications={notifications}
+              onMarkRead={onMarkNotificationRead}
+              onMarkAllRead={onMarkAllNotificationsRead}
+            />
+
             {/* Tenant Selector */}
             <div className="relative flex items-center bg-zinc-900 rounded-md p-1 border border-zinc-800">
               <Building2 className="h-4 w-4 text-zinc-400 ml-2 mr-1.5" />

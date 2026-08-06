@@ -13,7 +13,7 @@ import {
   onSnapshot 
 } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
-import { Tenant, Lead, Message } from '../types.js';
+import { Tenant, Lead, Message, NotificationItem } from '../types.js';
 
 const app = getApps().length === 0 ? initializeApp({
   apiKey: firebaseConfig.apiKey,
@@ -32,6 +32,7 @@ export const firestoreDb = firebaseConfig.firestoreDatabaseId && firebaseConfig.
 export const TENANTS_COLLECTION = 'tenants';
 export const LEADS_COLLECTION = 'leads';
 export const MESSAGES_COLLECTION = 'messages';
+export const NOTIFICATIONS_COLLECTION = 'notifications';
 
 // Helper functions for Firestore persistence
 export async function saveTenantToFirestore(tenant: Tenant): Promise<void> {
@@ -58,6 +59,29 @@ export async function saveMessageToFirestore(message: Message): Promise<void> {
     await setDoc(docRef, message, { merge: true });
   } catch (err) {
     console.error('Error saving message to Firestore:', err);
+  }
+}
+
+export async function saveNotificationToFirestore(notification: NotificationItem): Promise<void> {
+  try {
+    const docRef = doc(firestoreDb, NOTIFICATIONS_COLLECTION, notification.id);
+    await setDoc(docRef, notification, { merge: true });
+  } catch (err) {
+    console.error('Error saving notification to Firestore:', err);
+  }
+}
+
+export async function fetchNotificationsFromFirestore(): Promise<NotificationItem[]> {
+  try {
+    const querySnapshot = await getDocs(collection(firestoreDb, NOTIFICATIONS_COLLECTION));
+    const items: NotificationItem[] = [];
+    querySnapshot.forEach((doc) => {
+      items.push(doc.data() as NotificationItem);
+    });
+    return items;
+  } catch (err) {
+    console.error('Error fetching notifications from Firestore:', err);
+    return [];
   }
 }
 

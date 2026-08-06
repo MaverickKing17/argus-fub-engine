@@ -61,6 +61,17 @@ export interface Message {
   status?: 'sent' | 'delivered' | 'received' | 'failed';
 }
 
+export interface NotificationItem {
+  id: string;
+  tenant_id: string;
+  lead_id?: string;
+  event_type: 'LEAD_QUALIFIED' | 'URGENT_INTENT' | 'HUMAN_HANDOFF';
+  title: string;
+  message: string;
+  is_read: boolean;
+  created_at: string;
+}
+
 export interface DashboardKPIs {
   totalLeads: number;
   activeSMSThreads: number;

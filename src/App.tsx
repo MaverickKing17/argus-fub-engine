@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Tenant, Lead, DashboardKPIs, IntegrationHealth } from './types.js';
+import { Tenant, Lead, DashboardKPIs, IntegrationHealth, NotificationItem } from './types.js';
 import { Navbar } from './components/Navbar.js';
 import { DashboardOverview } from './components/DashboardOverview.js';
 import { ConversationFeed } from './components/ConversationFeed.js';
@@ -16,6 +16,7 @@ export default function App() {
   const [currentTenant, setCurrentTenant] = useState<Tenant | null>(null);
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [leads, setLeads] = useState<Lead[]>([]);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [selectedLeadId, setSelectedLeadId] = useState<string | undefined>();
   const [kpis, setKpis] = useState<DashboardKPIs>({
     totalLeads: 0,
@@ -70,6 +71,13 @@ export default function App() {
       if (healthRes.ok) {
         const data = await healthRes.json();
         if (data.health) setHealth(data.health);
+      }
+
+      // Notifications
+      const notifsRes = await fetch(`/api/v1/notifications${tenantId ? `?tenantId=${tenantId}` : ''}`);
+      if (notifsRes.ok) {
+        const data = await notifsRes.json();
+        setNotifications(data.notifications || []);
       }
     } catch (err) {
       console.error('Error fetching dashboard data:', err);
@@ -147,6 +155,25 @@ export default function App() {
     }
   };
 
+  const handleMarkNotificationRead = async (id: string) => {
+    try {
+      await fetch(`/api/v1/notifications/${id}/read`, { method: 'PUT' });
+      setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, is_read: true } : n)));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleMarkAllNotificationsRead = async () => {
+    try {
+      const tenantId = currentTenant?.id;
+      await fetch(`/api/v1/notifications/read-all${tenantId ? `?tenantId=${tenantId}` : ''}`, { method: 'PUT' });
+      setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   if (!currentTenant) {
     return (
       <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center p-4">
@@ -169,6 +196,9 @@ export default function App() {
         setActiveTab={setActiveTab}
         onSimulateWebhook={handleSimulateWebhook}
         isSimulating={isSimulatingWebhook}
+        notifications={notifications}
+        onMarkNotificationRead={handleMarkNotificationRead}
+        onMarkAllNotificationsRead={handleMarkAllNotificationsRead}
       />
 
       {/* Main App Content Viewport */}

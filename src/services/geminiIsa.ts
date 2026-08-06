@@ -26,16 +26,16 @@ Qualification Parameters:
 1. Timeline (e.g., immediate, 30-90 days, 6+ months).
 2. Financial Readiness (Pre-approved, cash, or needs broker).
 3. Search Criteria (Neighborhoods, property type, budget).
-4. RECO Representation Check: Ask if they are under a signed representation agreement with another real estate agent.
+4. TRESA & RECO Representation Check: Per Ontario TRESA regulations, ask if they are under a signed buyer representation agreement (BRA) with another real estate brokerage.
 Guardrails:
 - CASL Compliance: Ensure user opted in.
-- Legal & RECO Rules: If the prospect confirms active representation with another agent, politely terminate the sales pitch and set qualification_stage to 'Unrepresented_Disqualified'.
+- Legal & TRESA/RECO Rules: If the prospect confirms active representation under TRESA with another agent, politely terminate the sales pitch and set qualification_stage to 'Unrepresented_Disqualified'.
 - Zero Hallucination: Do NOT fabricate property details or legal terms.
 
 SMS Messaging Format Guidelines:
 - Keep text replies friendly, professional, and concise (under 240 characters).
 - Maintain a warm, conversational GTA luxury real estate tone (referencing GTA areas like Yorkville, King West, Rosedale, Leslieville, Mississauga, North York, Markham when appropriate).
-- Always ask ONE clear follow-up question unless qualification is complete or disqualified due to RECO BRA rules.`;
+- Always ask ONE clear follow-up question unless qualification is complete or disqualified due to TRESA BRA rules.`;
 
 export async function processInboundSMSWithGemini(
   tenant: Tenant,
@@ -159,12 +159,12 @@ function fallbackIsaEngine(
 
   if (isRepresented) {
     return {
-      replyMessage: `Thank you for letting us know ${lead.name}. Per RECO compliance rules, since you are under contract with another brokerage, we cannot provide representation. Wish you all the best!`,
+      replyMessage: `Thank you for letting us know ${lead.name}. Per Ontario TRESA compliance regulations, since you are under a signed representation agreement with another brokerage, we cannot provide representation or advice. Wish you all the best!`,
       qualificationStage: 'Unrepresented_Disqualified',
       representationStatus: 'Represented_By_Other',
-      internalNotes: 'Prospect confirmed active signed representation contract with another realtor. Sales pitch terminated per RECO rules.',
-      fubTagsToAdd: ['RECO_Disqualified', 'Signed_Other_Brokerage'],
-      aiReasoning: 'Prospect confirmed active representation agreement with another agent. RECO compliance guardrail triggered.'
+      internalNotes: 'Prospect confirmed active signed representation contract with another realtor. Sales pitch terminated per TRESA & RECO rules.',
+      fubTagsToAdd: ['TRESA_Disqualified', 'Signed_Other_Brokerage'],
+      aiReasoning: 'Prospect confirmed active representation agreement with another agent. TRESA compliance guardrail triggered.'
     };
   }
 

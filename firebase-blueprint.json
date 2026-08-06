@@ -54,6 +54,22 @@
         "created_at": { "type": "string", "format": "date-time" }
       },
       "required": ["id", "lead_id", "direction", "body"]
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Real-time high priority speed-to-lead and handoff alerts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tenant_id": { "type": "string" },
+        "lead_id": { "type": "string" },
+        "event_type": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "is_read": { "type": "boolean" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "tenant_id", "event_type", "title", "message"]
     }
   }
 }

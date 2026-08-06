@@ -52,12 +52,39 @@ CREATE TABLE IF NOT EXISTS messages (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- 5. Notifications Table
+CREATE TABLE IF NOT EXISTS notifications (
+    id VARCHAR(64) PRIMARY KEY,
+    tenant_id VARCHAR(64) NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+    lead_id VARCHAR(64) REFERENCES leads(id) ON DELETE SET NULL,
+    event_type VARCHAR(50) NOT NULL CHECK (event_type IN ('LEAD_QUALIFIED', 'URGENT_INTENT', 'HUMAN_HANDOFF')),
+    title VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Indexes for Speed & Multi-Tenant Querying
 CREATE INDEX IF NOT EXISTS idx_leads_tenant_id ON leads(tenant_id);
 CREATE INDEX IF NOT EXISTS idx_leads_phone ON leads(phone);
 CREATE INDEX IF NOT EXISTS idx_leads_fub_person_id ON leads(fub_person_id);
 CREATE INDEX IF NOT EXISTS idx_messages_lead_id ON messages(lead_id);
 CREATE INDEX IF NOT EXISTS idx_messages_created_at ON messages(created_at);
+CREATE INDEX IF NOT EXISTS idx_notifications_tenant_id ON notifications(tenant_id);
+
+-- Row Level Security (RLS) & Multi-Tenant Isolation
+ALTER TABLE tenants ENABLE ROW LEVEL SECURITY;
+ALTER TABLE leads ENABLE ROW LEVEL SECURITY;
+ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE notifications ENABLE ROW LEVEL SECURITY;
+
+-- Multi-tenant isolation policies based on current_setting('app.current_tenant_id')
+CREATE POLICY tenant_isolation_policy_tenants ON tenants FOR ALL USING (id = current_setting('app.current_tenant_id', true));
+CREATE POLICY tenant_isolation_policy_leads ON leads FOR ALL USING (tenant_id = current_setting('app.current_tenant_id', true));
+CREATE POLICY tenant_isolation_policy_messages ON messages FOR ALL USING (
+    lead_id IN (SELECT id FROM leads WHERE tenant_id = current_setting('app.current_tenant_id', true))
+);
+CREATE POLICY tenant_isolation_policy_notifications ON notifications FOR ALL USING (tenant_id = current_setting('app.current_tenant_id', true));
 
 -- Sample Initial Tenant Seed
 INSERT INTO tenants (id, team_name, fub_api_key, twilio_sid, twilio_phone_number, created_at)

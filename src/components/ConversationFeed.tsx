@@ -155,7 +155,7 @@ export const ConversationFeed: React.FC<ConversationFeedProps> = ({
                 <span className="text-zinc-400">Budget:</span> <strong className="text-blue-400">{currentLead.budget}</strong>
               </div>
               <div className="bg-zinc-800 px-2.5 py-1 rounded text-xs border border-zinc-700">
-                <span className="text-zinc-400">RECO BRA:</span>{' '}
+                <span className="text-zinc-400">TRESA BRA:</span>{' '}
                 <strong className={currentLead.representation_status === 'Represented_By_Other' ? 'text-rose-400' : 'text-emerald-400'}>
                   {currentLead.representation_status.replace('_', ' ')}
                 </strong>
@@ -166,7 +166,7 @@ export const ConversationFeed: React.FC<ConversationFeedProps> = ({
           {/* Chat Messages Body */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3.5 scrollbar-thin flex flex-col">
             <div className="bg-zinc-950/60 p-2.5 rounded-lg border border-zinc-800 text-center text-xs text-zinc-400 max-w-lg mx-auto">
-              🤖 <strong>Automated Speed-to-Lead SMS Feed</strong> — Responding in &lt; 30s with Ontario RECO compliance.
+              🤖 <strong>Automated Speed-to-Lead SMS Feed</strong> — Responding in &lt; 30s with Ontario TRESA & RECO compliance.
             </div>
 
             {messages.map((msg) => {

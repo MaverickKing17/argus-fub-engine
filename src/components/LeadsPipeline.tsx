@@ -81,7 +81,7 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
                 <option value="New" className="bg-zinc-900">New Leads</option>
                 <option value="Engaged" className="bg-zinc-900">Engaged in SMS</option>
                 <option value="Qualified" className="bg-zinc-900">Qualified Appointments</option>
-                <option value="Unrepresented_Disqualified" className="bg-zinc-900">RECO Disqualified</option>
+                <option value="Unrepresented_Disqualified" className="bg-zinc-900">TRESA Disqualified</option>
               </select>
             </div>
           </div>
@@ -117,7 +117,7 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
                 <th className="py-3 px-4 font-semibold">Qualification Stage</th>
                 <th className="py-3 px-4 font-semibold">Budget & Timeline</th>
                 <th className="py-3 px-4 font-semibold">Pre-Approved</th>
-                <th className="py-3 px-4 font-semibold">RECO BRA Status</th>
+                <th className="py-3 px-4 font-semibold">TRESA BRA Status</th>
                 <th className="py-3 px-4 font-semibold">Follow Up Boss Sync</th>
                 <th className="py-3 px-4 font-semibold text-right">Actions</th>
               </tr>

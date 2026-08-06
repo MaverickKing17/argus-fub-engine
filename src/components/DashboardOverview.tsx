@@ -34,7 +34,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             {tenant.team_name} Performance Dashboard
           </h2>
           <p className="text-zinc-400 text-xs mt-1 max-w-2xl">
-            Qualifying GTA inbound prospects via Gemini 3.6 Flash SMS. Auto-enforcing RECO representation compliance and syncing notes to Follow Up Boss.
+            Qualifying GTA inbound prospects via Gemini 3.6 Flash SMS. Auto-enforcing TRESA & RECO representation compliance and syncing notes to Follow Up Boss.
           </p>
         </div>
         <div className="flex items-center space-x-3 w-full md:w-auto">
@@ -90,7 +90,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             <span className="text-2xl font-bold font-mono text-zinc-100">{kpis.conversionRate}%</span>
             <span className="text-blue-400 text-xs font-semibold">{kpis.disqualifiedLeads} Disqualified</span>
           </div>
-          <p className="text-[11px] text-zinc-500 mt-2">RECO Compliance Safeguarded</p>
+          <p className="text-[11px] text-zinc-500 mt-2">TRESA & RECO Compliance Safeguarded</p>
         </div>
       </div>
 

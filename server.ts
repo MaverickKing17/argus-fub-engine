@@ -363,6 +363,24 @@ async function startServer() {
     }
   });
 
+  // Notifications API
+  app.get('/api/v1/notifications', (req: Request, res: Response) => {
+    const tenantId = req.query.tenantId as string;
+    const notifications = dbStore.getNotifications(tenantId);
+    res.json({ notifications });
+  });
+
+  app.put('/api/v1/notifications/:id/read', (req: Request, res: Response) => {
+    dbStore.markNotificationRead(req.params.id);
+    res.json({ success: true });
+  });
+
+  app.put('/api/v1/notifications/read-all', (req: Request, res: Response) => {
+    const tenantId = req.query.tenantId as string;
+    dbStore.markAllNotificationsRead(tenantId);
+    res.json({ success: true });
+  });
+
   // Integration Health Endpoint
   app.get('/api/v1/health/integrations', (req: Request, res: Response) => {
     res.json({ health: dbStore.getIntegrationHealth() });

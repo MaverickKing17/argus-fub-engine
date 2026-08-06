@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Tenant } from '../types.js';
-import { Save, CheckCircle2, Building2, Key, Phone, ShieldCheck, Sparkles } from 'lucide-react';
+import { Save, CheckCircle2, Building2, Key, Phone, ShieldCheck, Sparkles, Eye, EyeOff, Lock } from 'lucide-react';
 
 interface SettingsPanelProps {
   tenant: Tenant;
@@ -11,6 +11,16 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
   const [formData, setFormData] = useState<Tenant>({ ...tenant });
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  
+  // Security Masking Toggles
+  const [showFubKey, setShowFubKey] = useState(false);
+  const [showTwilioSid, setShowTwilioSid] = useState(false);
+  const [showTwilioToken, setShowTwilioToken] = useState(false);
+
+  const maskString = (str: string) => {
+    if (!str || str.length <= 8) return '••••••••••••';
+    return `${str.substring(0, 8)}••••••••••••${str.substring(str.length - 4)}`;
+  };
 
   const handleChange = (field: keyof Tenant, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -45,9 +55,14 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
     <div className="space-y-5 max-w-4xl mx-auto">
       <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-bold text-zinc-100">ISA & Tenant Configuration</h2>
+          <h2 className="text-lg font-bold text-zinc-100 flex items-center space-x-2">
+            <span>ISA & Tenant Configuration</span>
+            <span className="bg-emerald-950 text-emerald-400 text-[10px] px-2 py-0.5 rounded border border-emerald-800 flex items-center gap-1 font-mono">
+              <Lock className="h-3 w-3" /> Encrypted & Masked
+            </span>
+          </h2>
           <p className="text-xs text-zinc-400 mt-0.5">
-            Customize Follow Up Boss credentials, Twilio SMS routing, and Toronto ISA RECO parameters for {tenant.team_name}.
+            Manage credentials, Twilio SMS routing, and Ontario TRESA & RECO compliance rules for {tenant.team_name}.
           </p>
         </div>
         {saveSuccess && (
@@ -63,7 +78,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
         <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800 shadow-sm space-y-4">
           <div className="flex items-center space-x-2 text-xs font-bold text-zinc-200 uppercase tracking-wider border-b border-zinc-800 pb-2.5">
             <Key className="h-4 w-4 text-blue-400" />
-            <span>1. API Credentials & Authentication</span>
+            <span>1. API Credentials & Authentication (Masked Vault)</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -84,28 +99,75 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
               <label className="block text-xs font-medium text-zinc-300 mb-1">
                 Follow Up Boss (FUB) API Key
               </label>
-              <input
-                id="fub-api-key-input"
-                type="password"
-                value={formData.fub_api_key}
-                onChange={(e) => handleChange('fub_api_key', e.target.value)}
-                placeholder="fk_live_..."
-                className="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-md px-3 py-1.5 text-xs text-zinc-100 focus:outline-none font-mono"
-              />
+              <div className="relative">
+                <input
+                  id="fub-api-key-input"
+                  type={showFubKey ? "text" : "password"}
+                  value={formData.fub_api_key}
+                  onChange={(e) => handleChange('fub_api_key', e.target.value)}
+                  placeholder="fub_live_..."
+                  className="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-md px-3 py-1.5 pr-10 text-xs text-zinc-100 focus:outline-none font-mono"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowFubKey(!showFubKey)}
+                  className="absolute right-2.5 top-2 text-zinc-400 hover:text-zinc-200 transition-colors"
+                >
+                  {showFubKey ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                </button>
+              </div>
+              <p className="text-[10px] font-mono text-zinc-500 mt-0.5">
+                Masked Preview: {maskString(formData.fub_api_key)}
+              </p>
             </div>
 
             <div>
               <label className="block text-xs font-medium text-zinc-300 mb-1">
                 Twilio Account SID
               </label>
-              <input
-                id="twilio-sid-input"
-                type="text"
-                value={formData.twilio_sid}
-                onChange={(e) => handleChange('twilio_sid', e.target.value)}
-                placeholder="AC..."
-                className="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-md px-3 py-1.5 text-xs text-zinc-100 focus:outline-none font-mono"
-              />
+              <div className="relative">
+                <input
+                  id="twilio-sid-input"
+                  type={showTwilioSid ? "text" : "password"}
+                  value={formData.twilio_sid}
+                  onChange={(e) => handleChange('twilio_sid', e.target.value)}
+                  placeholder="AC..."
+                  className="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-md px-3 py-1.5 pr-10 text-xs text-zinc-100 focus:outline-none font-mono"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowTwilioSid(!showTwilioSid)}
+                  className="absolute right-2.5 top-2 text-zinc-400 hover:text-zinc-200 transition-colors"
+                >
+                  {showTwilioSid ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                </button>
+              </div>
+              <p className="text-[10px] font-mono text-zinc-500 mt-0.5">
+                Masked Preview: {maskString(formData.twilio_sid)}
+              </p>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-zinc-300 mb-1">
+                Twilio Auth Token
+              </label>
+              <div className="relative">
+                <input
+                  id="twilio-token-input"
+                  type={showTwilioToken ? "text" : "password"}
+                  value={formData.twilio_auth_token}
+                  onChange={(e) => handleChange('twilio_auth_token', e.target.value)}
+                  placeholder="tw_auth_..."
+                  className="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-md px-3 py-1.5 pr-10 text-xs text-zinc-100 focus:outline-none font-mono"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowTwilioToken(!showTwilioToken)}
+                  className="absolute right-2.5 top-2 text-zinc-400 hover:text-zinc-200 transition-colors"
+                >
+                  {showTwilioToken ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                </button>
+              </div>
             </div>
 
             <div>
@@ -124,11 +186,11 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
           </div>
         </div>
 
-        {/* Section 2: Toronto ISA Parameters & RECO Rules */}
+        {/* Section 2: Toronto ISA Parameters & TRESA Rules */}
         <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800 shadow-sm space-y-4">
           <div className="flex items-center space-x-2 text-xs font-bold text-zinc-200 uppercase tracking-wider border-b border-zinc-800 pb-2.5">
             <ShieldCheck className="h-4 w-4 text-blue-400" />
-            <span>2. Toronto ISA Qualification & RECO Rules</span>
+            <span>2. Toronto ISA Qualification & TRESA & RECO Rules</span>
           </div>
 
           <div className="space-y-4">
@@ -175,7 +237,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
 
             <div>
               <label className="block text-xs font-medium text-zinc-300 mb-1">
-                RECO Representation Check Wording (Mandatory for Ontario)
+                TRESA & RECO Representation Check Wording (Mandatory for Ontario)
               </label>
               <textarea
                 id="reco-disclaimer-input"
@@ -185,7 +247,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-blue-500 rounded-md px-3 py-1.5 text-xs text-zinc-100 focus:outline-none"
               />
               <p className="text-[11px] text-zinc-500 mt-1">
-                Under RECO rules, Gemini ISA must verify if the buyer has signed a Buyer Representation Agreement (BRA) with another brokerage.
+                Under Ontario TRESA regulations, Gemini ISA must verify if the buyer has signed a Buyer Representation Agreement (BRA) with another brokerage before offering representation or advice.
               </p>
             </div>
 

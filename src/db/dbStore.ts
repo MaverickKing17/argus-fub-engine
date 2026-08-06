@@ -1,11 +1,13 @@
-import { Tenant, Lead, Message, DashboardKPIs, IntegrationHealth } from '../types.js';
+import { Tenant, Lead, Message, DashboardKPIs, IntegrationHealth, NotificationItem } from '../types.js';
 import { 
   saveTenantToFirestore, 
   saveLeadToFirestore, 
   saveMessageToFirestore,
+  saveNotificationToFirestore,
   fetchTenantsFromFirestore,
   fetchLeadsFromFirestore,
-  fetchMessagesFromFirestore
+  fetchMessagesFromFirestore,
+  fetchNotificationsFromFirestore
 } from './firestoreStore.js';
 import fs from 'fs';
 import path from 'path';
@@ -25,7 +27,7 @@ const initialTenants: Tenant[] = [
       minBudget: 1500000,
       maxBudget: 8000000,
       caslOptInNotice: 'By replying YES, you consent to receive transactional SMS updates from Yorkville Luxury Group per CASL regulations.',
-      recoDisclaimer: 'Per RECO regulations: Are you currently under a signed buyer representation agreement with another real estate brokerage?',
+      recoDisclaimer: 'Per Ontario TRESA regulations: Are you currently under a signed buyer representation agreement (BRA) with another real estate brokerage?',
       autoTagQualified: ['GTA_Luxury_Buyer', 'ISA_Qualified', 'SpeedToLead_Verified']
     }
   },
@@ -200,6 +202,7 @@ class DBStore {
   private tenants: Map<string, Tenant> = new Map();
   private leads: Map<string, Lead> = new Map();
   private messages: Map<string, Message> = new Map();
+  private notifications: Map<string, NotificationItem> = new Map();
 
   constructor() {
     initialTenants.forEach((t) => {
@@ -213,6 +216,34 @@ class DBStore {
     initialMessages.forEach((m) => {
       this.messages.set(m.id, m);
       saveMessageToFirestore(m).catch(() => {});
+    });
+
+    // Seed initial notifications
+    const initNotifs: NotificationItem[] = [
+      {
+        id: 'notif_01',
+        tenant_id: 'tenant_yorkville_01',
+        lead_id: 'lead_yov_101',
+        event_type: 'LEAD_QUALIFIED',
+        title: 'New High-Value Lead Qualified! 🏆',
+        message: 'Marcus Vance ($2.5M - $3.2M budget, Yorkville) is pre-approved and unrepresented.',
+        is_read: false,
+        created_at: new Date(Date.now() - 10 * 60 * 1000).toISOString()
+      },
+      {
+        id: 'notif_02',
+        tenant_id: 'tenant_yorkville_01',
+        lead_id: 'lead_yov_102',
+        event_type: 'URGENT_INTENT',
+        title: 'Inbound Inquiry - EV Charger ⚡',
+        message: 'Sophia Chen inquired about EV charger parking spot in Forest Hill.',
+        is_read: false,
+        created_at: new Date(Date.now() - 35 * 60 * 1000).toISOString()
+      }
+    ];
+    initNotifs.forEach((n) => {
+      this.notifications.set(n.id, n);
+      saveNotificationToFirestore(n).catch(() => {});
     });
 
     // Sync from Firestore if remote data exists
@@ -232,6 +263,10 @@ class DBStore {
       const remoteMessages = await fetchMessagesFromFirestore();
       if (remoteMessages.length > 0) {
         remoteMessages.forEach((m) => this.messages.set(m.id, m));
+      }
+      const remoteNotifs = await fetchNotificationsFromFirestore();
+      if (remoteNotifs.length > 0) {
+        remoteNotifs.forEach((n) => this.notifications.set(n.id, n));
       }
     } catch (e) {
       console.warn('Firestore initial sync skipped or fallback to local memory:', e);
@@ -313,6 +348,8 @@ class DBStore {
   updateLead(id: string, updates: Partial<Lead>): Lead {
     const existing = this.leads.get(id);
     if (!existing) throw new Error(`Lead ${id} not found`);
+    
+    const previousStage = existing.qualification_stage;
     const updated = {
       ...existing,
       ...updates,
@@ -320,7 +357,71 @@ class DBStore {
     };
     this.leads.set(id, updated);
     saveLeadToFirestore(updated).catch(() => {});
+
+    // Auto Trigger Real-Time High-Priority Notifications
+    if (previousStage !== updated.qualification_stage) {
+      if (updated.qualification_stage === 'Qualified') {
+        this.addNotification({
+          tenant_id: updated.tenant_id,
+          lead_id: updated.id,
+          event_type: 'LEAD_QUALIFIED',
+          title: `LEAD QUALIFIED: ${updated.name}`,
+          message: `${updated.name} (${updated.budget || 'Budget set'}) has been fully qualified by Gemini ISA. Immediate follow-up recommended!`
+        });
+      } else if (updated.qualification_stage === 'Unrepresented_Disqualified') {
+        this.addNotification({
+          tenant_id: updated.tenant_id,
+          lead_id: updated.id,
+          event_type: 'HUMAN_HANDOFF',
+          title: `TRESA Disqualification: ${updated.name}`,
+          message: `${updated.name} confirmed active signed representation with another brokerage. Outreach halted per TRESA rules.`
+        });
+      }
+    }
+
     return updated;
+  }
+
+  // Notification CRUD
+  getNotifications(tenantId?: string): NotificationItem[] {
+    const list = Array.from(this.notifications.values());
+    if (tenantId) {
+      return list.filter((n) => n.tenant_id === tenantId)
+                 .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    }
+    return list.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+  }
+
+  addNotification(notifData: Omit<NotificationItem, 'id' | 'created_at' | 'is_read'>): NotificationItem {
+    const id = `notif_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    const newNotif: NotificationItem = {
+      ...notifData,
+      id,
+      is_read: false,
+      created_at: new Date().toISOString()
+    };
+    this.notifications.set(id, newNotif);
+    saveNotificationToFirestore(newNotif).catch(() => {});
+    return newNotif;
+  }
+
+  markNotificationRead(id: string): void {
+    const existing = this.notifications.get(id);
+    if (existing) {
+      existing.is_read = true;
+      this.notifications.set(id, existing);
+      saveNotificationToFirestore(existing).catch(() => {});
+    }
+  }
+
+  markAllNotificationsRead(tenantId?: string): void {
+    this.notifications.forEach((n, id) => {
+      if (!tenantId || n.tenant_id === tenantId) {
+        n.is_read = true;
+        this.notifications.set(id, n);
+        saveNotificationToFirestore(n).catch(() => {});
+      }
+    });
   }
 
   // Message CRUD
