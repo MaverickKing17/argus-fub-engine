@@ -51,6 +51,7 @@ const initialTenants: Tenant[] = [
 ];
 
 const initialLeads: Lead[] = [
+  // --- The Yorkville Luxury Group (GTA) Prospects ---
   {
     id: 'lead_yov_101',
     tenant_id: 'tenant_yorkville_01',
@@ -87,6 +88,152 @@ const initialLeads: Lead[] = [
     last_contact_at: new Date(Date.now() - 45 * 60 * 1000).toISOString(),
     created_at: new Date(Date.now() - 5 * 3600 * 1000).toISOString()
   },
+  {
+    id: 'lead_yov_103',
+    tenant_id: 'tenant_yorkville_01',
+    fub_person_id: 'fub_person_88104',
+    name: 'Victoria Tremblay',
+    phone: '+14165558833',
+    email: 'v.tremblay@tremblaycapital.ca',
+    qualification_stage: 'Qualified',
+    timeline: 'Immediate',
+    budget: '$4.5M - $5.5M',
+    pre_approved: true,
+    representation_status: 'Unrepresented',
+    search_criteria: 'Custom Detached Estate on Bridle Path or Post Road with pool',
+    notes: 'Cash buyer relocating from Montreal. Unrepresented status verified via TRESA disclosure.',
+    tags: ['Bridle_Path_Estate', 'Cash_Buyer', 'ISA_Qualified'],
+    last_contact_at: new Date(Date.now() - 20 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 6 * 3600 * 1000).toISOString()
+  },
+  {
+    id: 'lead_yov_104',
+    tenant_id: 'tenant_yorkville_01',
+    fub_person_id: 'fub_person_88105',
+    name: 'Harrison Forde',
+    phone: '+14167720091',
+    email: 'h.forde@fordelaw.com',
+    qualification_stage: 'New',
+    timeline: '30 Days',
+    budget: '$2.8M - $3.5M',
+    pre_approved: false,
+    representation_status: 'Needs_Verification',
+    search_criteria: 'Classic Rosedale Heritage Home on South Drive',
+    notes: 'Inbound Realtor.ca inquiry. Automated speed-to-lead SMS outreach dispatched.',
+    tags: ['Rosedale_Inquiry', 'SpeedToLead_Active'],
+    last_contact_at: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 8 * 60 * 1000).toISOString()
+  },
+  {
+    id: 'lead_yov_105',
+    tenant_id: 'tenant_yorkville_01',
+    fub_person_id: 'fub_person_88106',
+    name: 'Camilla Sterling',
+    phone: '+16473339102',
+    email: 'c.sterling@sterlingholdings.ca',
+    qualification_stage: 'Engaged',
+    timeline: '60 Days',
+    budget: '$3.0M - $3.8M',
+    pre_approved: true,
+    representation_status: 'Needs_Verification',
+    search_criteria: 'Four Seasons Residences Yorkville high-floor 2 Bed suite',
+    notes: 'Inquired regarding valet parking spots and monthly condo maintenance inclusions.',
+    tags: ['FourSeasons_Residences', 'Engaged_ISA'],
+    last_contact_at: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 4 * 3600 * 1000).toISOString()
+  },
+  {
+    id: 'lead_yov_106',
+    tenant_id: 'tenant_yorkville_01',
+    fub_person_id: 'fub_person_88107',
+    name: 'Julien St-Pierre',
+    phone: '+14169992211',
+    email: 'jstpierre@biotech-gta.com',
+    qualification_stage: 'Qualified',
+    timeline: '30-60 Days',
+    budget: '$3.2M - $4.0M',
+    pre_approved: true,
+    representation_status: 'Unrepresented',
+    search_criteria: 'The Annex Luxury Freehold Townhouse with private elevator',
+    notes: 'RBC Wealth Management pre-approved. Confirmed unrepresented via TRESA Form IBR.',
+    tags: ['TheAnnex_Townhome', 'ISA_Qualified'],
+    last_contact_at: new Date(Date.now() - 50 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 7 * 3600 * 1000).toISOString()
+  },
+  {
+    id: 'lead_yov_107',
+    tenant_id: 'tenant_yorkville_01',
+    fub_person_id: 'fub_person_88108',
+    name: 'Brandon Mercer',
+    phone: '+14164441099',
+    email: 'b.mercer@mercerllp.com',
+    qualification_stage: 'Unrepresented_Disqualified',
+    timeline: 'Immediate',
+    budget: '$2.0M',
+    pre_approved: true,
+    representation_status: 'Represented_By_Other',
+    search_criteria: 'Yorkville 2 Bed Condo',
+    notes: 'Prospect confirmed signing a Buyer Representation Agreement (BRA) with Chestnut Park last week. Pitch halted per RECO compliance rules.',
+    tags: ['RECO_Disqualified', 'BRA_ChestnutPark'],
+    last_contact_at: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 10 * 3600 * 1000).toISOString()
+  },
+  {
+    id: 'lead_yov_108',
+    tenant_id: 'tenant_yorkville_01',
+    fub_person_id: 'fub_person_88109',
+    name: 'Dr. Natalie Brooks',
+    phone: '+16472228833',
+    email: 'dr.brooks@uhnhealth.ca',
+    qualification_stage: 'Engaged',
+    timeline: '90 Days',
+    budget: '$2.2M - $2.7M',
+    pre_approved: true,
+    representation_status: 'Needs_Verification',
+    search_criteria: 'Lawrence Park Executive Family Home near Sunnybrook Hospital',
+    notes: 'UHN Surgeon. Seeking quiet cul-de-sac location in top school catchment.',
+    tags: ['LawrencePark_Family', 'Engaged_ISA'],
+    last_contact_at: new Date(Date.now() - 1 * 3600 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 12 * 3600 * 1000).toISOString()
+  },
+  {
+    id: 'lead_yov_109',
+    tenant_id: 'tenant_yorkville_01',
+    fub_person_id: 'fub_person_88110',
+    name: 'Chloe Zhang',
+    phone: '+14168883344',
+    email: 'chloe.zhang@investments.ca',
+    qualification_stage: 'Unrepresented_Disqualified',
+    timeline: '60 Days',
+    budget: '$3.5M',
+    pre_approved: true,
+    representation_status: 'Represented_By_Other',
+    search_criteria: 'Sub-Penthouse on Cumberland St',
+    notes: 'Currently represented under contract with Sotheby’s International Realty. Disqualified.',
+    tags: ['RECO_Disqualified', 'BRA_Sothebys'],
+    last_contact_at: new Date(Date.now() - 4 * 3600 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 14 * 3600 * 1000).toISOString()
+  },
+  {
+    id: 'lead_yov_110',
+    tenant_id: 'tenant_yorkville_01',
+    fub_person_id: 'fub_person_88111',
+    name: 'Liam O’Connor',
+    phone: '+16475550011',
+    email: 'liam@oconnordigital.io',
+    qualification_stage: 'New',
+    timeline: '30-90 Days',
+    budget: '$1.9M - $2.4M',
+    pre_approved: false,
+    representation_status: 'Needs_Verification',
+    search_criteria: 'Rosedale Ravine View Condo or Luxury Loft',
+    notes: 'Inbound Google PPC ad lead. Initial SMS sent via ARGUS ISA.',
+    tags: ['PPC_Inbound', 'SpeedToLead_Active'],
+    last_contact_at: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 3 * 60 * 1000).toISOString()
+  },
+
+  // --- King West Modern Living Co. Prospects ---
   {
     id: 'lead_kw_201',
     tenant_id: 'tenant_king_west_02',
@@ -168,6 +315,59 @@ const initialMessages: Message[] = [
     created_at: new Date(Date.now() - 14 * 60 * 1000).toISOString(),
     ai_reasoning: 'RECO confirmed unrepresented. All parameters satisfied. Updated qualification_stage to Qualified & pushed FUB tags.',
     status: 'delivered'
+  },
+
+  // Conversation for Victoria Tremblay
+  {
+    id: 'msg_yov_vt_1',
+    lead_id: 'lead_yov_103',
+    direction: 'outbound',
+    body: 'Hello Victoria! Welcome to Yorkville Luxury Group. I saw your inquiry for Bridle Path properties. What timeline and budget are you aiming for?',
+    created_at: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
+    status: 'delivered'
+  },
+  {
+    id: 'msg_yov_vt_2',
+    lead_id: 'lead_yov_103',
+    direction: 'inbound',
+    body: 'Looking for a $5M cash budget in Bridle Path. We want to move immediately from Montreal.',
+    created_at: new Date(Date.now() - 40 * 60 * 1000).toISOString(),
+    status: 'received'
+  },
+  {
+    id: 'msg_yov_vt_3',
+    lead_id: 'lead_yov_103',
+    direction: 'outbound',
+    body: 'Understood! Per Ontario RECO disclosure requirements, are you currently working under contract with another brokerage in Ontario?',
+    created_at: new Date(Date.now() - 25 * 60 * 1000).toISOString(),
+    ai_reasoning: 'Captured $5M cash budget and immediate timeline. Executing required TRESA representation check.',
+    status: 'delivered'
+  },
+  {
+    id: 'msg_yov_vt_4',
+    lead_id: 'lead_yov_103',
+    direction: 'inbound',
+    body: 'No contract signed yet. We are completely unrepresented.',
+    created_at: new Date(Date.now() - 20 * 60 * 1000).toISOString(),
+    status: 'received'
+  },
+
+  // Conversation for Sophia Chen
+  {
+    id: 'msg_yov_sc_1',
+    lead_id: 'lead_yov_102',
+    direction: 'outbound',
+    body: 'Hi Sophia! Thank you for reaching out regarding Forest Hill condominiums. Are you looking to purchase in the near future?',
+    created_at: new Date(Date.now() - 90 * 60 * 1000).toISOString(),
+    status: 'delivered'
+  },
+  {
+    id: 'msg_yov_sc_2',
+    lead_id: 'lead_yov_102',
+    direction: 'inbound',
+    body: 'Hi! Yes looking for 2+1 beds in Forest Hill under $2.2M in about 90 days. Does the building have EV charging?',
+    created_at: new Date(Date.now() - 45 * 60 * 1000).toISOString(),
+    status: 'received'
   },
 
   // Conversation for David Miller (Disqualified)

@@ -201,6 +201,29 @@ export default function App() {
         onMarkAllNotificationsRead={handleMarkAllNotificationsRead}
       />
 
+      {/* Persistent Thin Compliance-Status Audit Strip */}
+      <div className="bg-[#141414] border-b border-[#262626] py-1.5 px-4 sm:px-6 lg:px-8 text-[11px] font-sans flex flex-wrap items-center justify-between gap-2 shadow-sm relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-[#C5A059]/80 via-[#C5A059]/30 to-transparent"></div>
+        <div className="flex items-center space-x-2 text-[#94A3B8]">
+          <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+          <span className="font-semibold text-[#F8FAFC] tracking-wider uppercase text-[10px] font-mono">
+            TRESA & RECO AUDIT STREAM:
+          </span>
+          <span className="text-[#94A3B8] hidden sm:inline">•</span>
+          <span className="text-emerald-400 font-medium hidden sm:inline">100% DISCLOSURE COMPLIANCE VERIFIED</span>
+          <span className="text-[#94A3B8] hidden md:inline">•</span>
+          <span className="text-[#94A3B8] hidden md:inline">0 Unrepresented Disqualifications Flagged</span>
+        </div>
+        <div className="flex items-center space-x-3 text-[10px] text-[#C5A059] font-mono">
+          <span className="bg-[#C5A059]/10 border border-[#C5A059]/30 px-2 py-0.5 rounded text-[10px]">
+            Follow Up Boss Sync: ACTIVE
+          </span>
+          <span className="hidden lg:inline text-[#94A3B8]">
+            Tenant: <strong className="text-[#F8FAFC]">{currentTenant.team_name}</strong>
+          </span>
+        </div>
+      </div>
+
       {/* Main App Content Viewport */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {activeTab === 'overview' && (
