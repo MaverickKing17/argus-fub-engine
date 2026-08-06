@@ -245,10 +245,10 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
           <button
             id="view-integrations-tab-btn"
-            onClick={() => onNavigateTab('integrations')}
+            onClick={() => onNavigateTab('settings')}
             className="w-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium py-2 rounded-md border border-zinc-700 transition-colors flex items-center justify-center space-x-1"
           >
-            <span>Manage API & Webhooks</span>
+            <span>Team & API Settings</span>
             <ArrowUpRight className="h-3.5 w-3.5" />
           </button>
         </div>

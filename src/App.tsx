@@ -9,9 +9,7 @@ import { Navbar } from './components/Navbar.js';
 import { DashboardOverview } from './components/DashboardOverview.js';
 import { ConversationFeed } from './components/ConversationFeed.js';
 import { LeadsPipeline } from './components/LeadsPipeline.js';
-import { IntegrationsPanel } from './components/IntegrationsPanel.js';
 import { SettingsPanel } from './components/SettingsPanel.js';
-import { SchemaViewer } from './components/SchemaViewer.js';
 
 export default function App() {
   const [tenants, setTenants] = useState<Tenant[]>([]);
@@ -206,20 +204,9 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'integrations' && (
-          <IntegrationsPanel
-            health={health}
-            tenant={currentTenant}
-            onRefreshHealth={fetchData}
-            onSimulateWebhook={handleSimulateWebhook}
-          />
-        )}
-
         {activeTab === 'settings' && (
           <SettingsPanel tenant={currentTenant} onUpdateTenant={handleUpdateTenant} />
         )}
-
-        {activeTab === 'schema' && <SchemaViewer />}
       </main>
     </div>
   );

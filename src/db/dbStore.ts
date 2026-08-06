@@ -1,4 +1,12 @@
 import { Tenant, Lead, Message, DashboardKPIs, IntegrationHealth } from '../types.js';
+import { 
+  saveTenantToFirestore, 
+  saveLeadToFirestore, 
+  saveMessageToFirestore,
+  fetchTenantsFromFirestore,
+  fetchLeadsFromFirestore,
+  fetchMessagesFromFirestore
+} from './firestoreStore.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -194,9 +202,40 @@ class DBStore {
   private messages: Map<string, Message> = new Map();
 
   constructor() {
-    initialTenants.forEach((t) => this.tenants.set(t.id, t));
-    initialLeads.forEach((l) => this.leads.set(l.id, l));
-    initialMessages.forEach((m) => this.messages.set(m.id, m));
+    initialTenants.forEach((t) => {
+      this.tenants.set(t.id, t);
+      saveTenantToFirestore(t).catch(() => {});
+    });
+    initialLeads.forEach((l) => {
+      this.leads.set(l.id, l);
+      saveLeadToFirestore(l).catch(() => {});
+    });
+    initialMessages.forEach((m) => {
+      this.messages.set(m.id, m);
+      saveMessageToFirestore(m).catch(() => {});
+    });
+
+    // Sync from Firestore if remote data exists
+    this.initFirestoreSync().catch(console.error);
+  }
+
+  private async initFirestoreSync() {
+    try {
+      const remoteTenants = await fetchTenantsFromFirestore();
+      if (remoteTenants.length > 0) {
+        remoteTenants.forEach((t) => this.tenants.set(t.id, t));
+      }
+      const remoteLeads = await fetchLeadsFromFirestore();
+      if (remoteLeads.length > 0) {
+        remoteLeads.forEach((l) => this.leads.set(l.id, l));
+      }
+      const remoteMessages = await fetchMessagesFromFirestore();
+      if (remoteMessages.length > 0) {
+        remoteMessages.forEach((m) => this.messages.set(m.id, m));
+      }
+    } catch (e) {
+      console.warn('Firestore initial sync skipped or fallback to local memory:', e);
+    }
   }
 
   // Tenant CRUD
@@ -213,6 +252,7 @@ class DBStore {
     if (!existing) throw new Error(`Tenant ${id} not found`);
     const updated = { ...existing, ...updates };
     this.tenants.set(id, updated);
+    saveTenantToFirestore(updated).catch(() => {});
     return updated;
   }
 
@@ -224,6 +264,7 @@ class DBStore {
       created_at: new Date().toISOString()
     };
     this.tenants.set(id, newTenant);
+    saveTenantToFirestore(newTenant).catch(() => {});
     return newTenant;
   }
 
@@ -265,6 +306,7 @@ class DBStore {
       last_contact_at: now
     };
     this.leads.set(id, newLead);
+    saveLeadToFirestore(newLead).catch(() => {});
     return newLead;
   }
 
@@ -277,6 +319,7 @@ class DBStore {
       last_contact_at: new Date().toISOString()
     };
     this.leads.set(id, updated);
+    saveLeadToFirestore(updated).catch(() => {});
     return updated;
   }
 
@@ -295,6 +338,7 @@ class DBStore {
       created_at: new Date().toISOString()
     };
     this.messages.set(id, newMsg);
+    saveMessageToFirestore(newMsg).catch(() => {});
 
     // Update lead last contact
     if (this.leads.has(messageData.lead_id)) {

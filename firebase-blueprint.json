@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "tenants": {
+      "title": "Tenants",
+      "description": "Multi-tenant real estate team profiles, FUB credentials, Twilio routing and ISA settings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "team_name": { "type": "string" },
+        "fub_api_key": { "type": "string" },
+        "twilio_sid": { "type": "string" },
+        "twilio_auth_token": { "type": "string" },
+        "twilio_phone_number": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "isa_settings": { "type": "object" }
+      },
+      "required": ["id", "team_name", "twilio_phone_number"]
+    },
+    "leads": {
+      "title": "Leads",
+      "description": "Inbound buyer/seller leads qualified by Gemini ISA",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tenant_id": { "type": "string" },
+        "fub_person_id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "qualification_stage": { "type": "string" },
+        "timeline": { "type": "string" },
+        "budget": { "type": "string" },
+        "pre_approved": { "type": "boolean" },
+        "representation_status": { "type": "string" },
+        "search_criteria": { "type": "string" },
+        "notes": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "last_contact_at": { "type": "string", "format": "date-time" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "tenant_id", "name", "phone", "qualification_stage"]
+    },
+    "messages": {
+      "title": "Messages",
+      "description": "Multi-turn SMS conversation history between prospects and Gemini ISA",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "lead_id": { "type": "string" },
+        "direction": { "type": "string" },
+        "body": { "type": "string" },
+        "ai_reasoning": { "type": "string" },
+        "status": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "lead_id", "direction", "body"]
+    }
+  }
+}

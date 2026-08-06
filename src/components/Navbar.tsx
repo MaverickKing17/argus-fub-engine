@@ -92,9 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             { id: 'overview', label: 'Overview KPIs', icon: Zap },
             { id: 'conversations', label: 'Live SMS Threads', icon: Bot },
             { id: 'leads', label: 'Leads Pipeline', icon: ShieldCheck },
-            { id: 'integrations', label: 'Webhooks & Health', icon: ExternalLink },
-            { id: 'settings', label: 'ISA Settings', icon: Code },
-            { id: 'schema', label: 'SQL Migrations', icon: Database }
+            { id: 'settings', label: 'Team Configuration', icon: Building2 }
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
