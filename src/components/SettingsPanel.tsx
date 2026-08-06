@@ -61,7 +61,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
               <Lock className="h-3 w-3" /> Encrypted & Masked
             </span>
           </h2>
-          <p className="text-xs text-[#94A3B8] mt-0.5">
+          <p className="text-xs text-[#CBD5E1] font-medium mt-0.5">
             Manage credentials, Twilio SMS routing, and Ontario TRESA & RECO compliance rules for {tenant.team_name}.
           </p>
         </div>
@@ -116,7 +116,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
                   {showFubKey ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
                 </button>
               </div>
-              <p className="text-[10px] font-mono text-[#A1A1AA] mt-0.5">
+              <p className="text-[10px] font-mono text-[#CBD5E1] mt-0.5 font-medium">
                 Masked Preview: {maskString(formData.fub_api_key)}
               </p>
             </div>
@@ -137,12 +137,12 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
                 <button
                   type="button"
                   onClick={() => setShowTwilioSid(!showTwilioSid)}
-                  className="absolute right-2.5 top-2 text-[#A1A1AA] hover:text-[#F5F5F7] transition-colors"
+                  className="absolute right-2.5 top-2 text-[#CBD5E1] hover:text-[#F5F5F7] transition-colors"
                 >
                   {showTwilioSid ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
                 </button>
               </div>
-              <p className="text-[10px] font-mono text-[#A1A1AA] mt-0.5">
+              <p className="text-[10px] font-mono text-[#CBD5E1] mt-0.5 font-medium">
                 Masked Preview: {maskString(formData.twilio_sid)}
               </p>
             </div>
@@ -246,7 +246,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
                 onChange={(e) => handleIsaChange('recoDisclaimer', e.target.value)}
                 className="w-full bg-[#0A0A0A] border border-[#262626] focus:border-[#C5A059] rounded-md px-3 py-1.5 text-xs text-[#F5F5F7] focus:outline-none"
               />
-              <p className="text-[11px] text-[#A1A1AA] mt-1">
+              <p className="text-[11px] text-[#CBD5E1] mt-1 font-medium">
                 Under Ontario TRESA regulations, Gemini ISA must verify if the buyer has signed a Buyer Representation Agreement (BRA) with another brokerage before offering representation or advice.
               </p>
             </div>

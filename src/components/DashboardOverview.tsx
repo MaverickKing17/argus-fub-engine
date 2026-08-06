@@ -33,7 +33,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           <h2 className="text-2xl font-bold text-[#F8FAFC] tracking-tight">
             {tenant.team_name} Performance Dashboard
           </h2>
-          <p className="text-[#94A3B8] text-xs mt-1.5 max-w-2xl leading-relaxed">
+          <p className="text-[#E2E8F0] text-xs font-medium mt-1.5 max-w-2xl leading-relaxed">
             Qualifying GTA inbound prospects via ARGUS Autonomous ISA SMS. Auto-enforcing TRESA & RECO representation compliance and syncing notes to Follow Up Boss.
           </p>
         </div>
@@ -54,7 +54,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         {/* KPI 1: Leads Processed */}
         <div className="card-pop p-5 flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[#94A3B8] text-[10px] uppercase font-bold tracking-widest font-sans">
+            <span className="text-[#CBD5E1] text-[10px] uppercase font-bold tracking-widest font-sans">
               Leads Processed (24h)
             </span>
             <span className="text-[#10B981] text-[10px] font-semibold flex items-center font-mono bg-[#10B981]/10 px-1.5 py-0.5 rounded border border-[#10B981]/20">
@@ -89,16 +89,16 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </svg>
             </div>
           </div>
-          <p className="text-[11px] text-[#94A3B8] font-sans">Instant 30s response SLA active</p>
+          <p className="text-[11px] text-[#CBD5E1] font-medium font-sans">Instant 30s response SLA active</p>
         </div>
 
         {/* KPI 2: Active SMS Threads */}
         <div className="card-pop p-5 flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[#94A3B8] text-[10px] uppercase font-bold tracking-widest font-sans">
+            <span className="text-[#CBD5E1] text-[10px] uppercase font-bold tracking-widest font-sans">
               Active SMS Threads
             </span>
-            <span className="text-[#E5C178] text-[10px] font-mono bg-[#E5C178]/10 px-1.5 py-0.5 rounded border border-[#E5C178]/25">
+            <span className="text-[#E5C178] text-[10px] font-mono bg-[#E5C178]/10 px-1.5 py-0.5 rounded border border-[#E5C178]/25 font-bold">
               {kpis.avgSpeedToLeadSeconds}s avg speed
             </span>
           </div>
@@ -130,13 +130,13 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </svg>
             </div>
           </div>
-          <p className="text-[11px] text-[#94A3B8] font-sans">Normal load • Multi-turn active</p>
+          <p className="text-[11px] text-[#CBD5E1] font-medium font-sans">Normal load • Multi-turn active</p>
         </div>
 
         {/* KPI 3: Qualified Appointments */}
         <div className="card-pop p-5 flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[#94A3B8] text-[10px] uppercase font-bold tracking-widest font-sans">
+            <span className="text-[#CBD5E1] text-[10px] uppercase font-bold tracking-widest font-sans">
               Qualified Appointments
             </span>
             <span className="px-2 py-0.5 bg-[#10B981]/15 text-[#10B981] text-[10px] font-bold border border-[#10B981]/30 rounded uppercase font-mono">
@@ -171,16 +171,16 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </svg>
             </div>
           </div>
-          <p className="text-[11px] text-[#94A3B8] font-sans">High Intent • Synced to FUB</p>
+          <p className="text-[11px] text-[#CBD5E1] font-medium font-sans">High Intent • Synced to FUB</p>
         </div>
 
         {/* KPI 4: Conversion Rate */}
         <div className="card-pop p-5 flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[#94A3B8] text-[10px] uppercase font-bold tracking-widest font-sans">
+            <span className="text-[#CBD5E1] text-[10px] uppercase font-bold tracking-widest font-sans">
               Conversion Rate
             </span>
-            <span className="text-[#C5A059] text-[10px] font-semibold font-mono">
+            <span className="text-[#E5C178] text-[10px] font-bold font-mono">
               {kpis.disqualifiedLeads} Disqualified
             </span>
           </div>
@@ -212,7 +212,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </svg>
             </div>
           </div>
-          <p className="text-[11px] text-[#94A3B8] font-sans">TRESA Compliance Safeguarded</p>
+          <p className="text-[11px] text-[#CBD5E1] font-medium font-sans">TRESA Compliance Safeguarded</p>
         </div>
       </div>
 
@@ -223,15 +223,15 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           <div>
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#262626]">
               <div>
-                <h3 className="text-base font-serif font-normal text-[#F8FAFC] tracking-wide">
+                <h3 className="text-base font-bold text-[#F8FAFC] tracking-wide">
                   Live Inbound Qualification Stream
                 </h3>
-                <p className="text-xs text-[#94A3B8] mt-0.5">Real-time status of GTA prospects in system</p>
+                <p className="text-xs text-[#CBD5E1] font-medium mt-0.5">Real-time status of GTA prospects in system</p>
               </div>
               <button
                 id="view-all-leads-btn"
                 onClick={() => onNavigateTab('leads')}
-                className="text-xs font-bold text-[#C5A059] hover:text-[#B38E46] flex items-center space-x-1 transition-colors cursor-pointer"
+                className="text-xs font-bold text-[#E5C178] hover:text-[#F3DAA0] flex items-center space-x-1 transition-colors cursor-pointer"
               >
                 <span>View All Pipeline</span>
                 <ArrowUpRight className="h-3.5 w-3.5" />
@@ -261,21 +261,21 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                       </div>
                       <div>
                         <div className="flex items-center space-x-2">
-                          <h4 className="font-semibold text-xs sm:text-sm text-[#F8FAFC] group-hover:text-[#C5A059] transition-colors">{lead.name}</h4>
-                          <span className="text-[10px] text-[#94A3B8] font-mono">{lead.phone}</span>
+                          <h4 className="font-bold text-xs sm:text-sm text-[#F8FAFC] group-hover:text-[#E5C178] transition-colors">{lead.name}</h4>
+                          <span className="text-[10px] text-[#E2E8F0] font-mono font-medium">{lead.phone}</span>
                         </div>
-                        <p className="text-xs text-[#94A3B8] truncate max-w-sm mt-0.5">
+                        <p className="text-xs text-[#CBD5E1] font-medium truncate max-w-sm mt-0.5">
                           {lead.search_criteria || 'Inbound property inquiry'}
                         </p>
                         <div className="flex flex-wrap items-center gap-1.5 mt-2">
-                          <span className="text-[10px] bg-[#0A0A0A] px-2 py-0.5 rounded text-[#F8FAFC] font-mono border border-[#262626]">
+                          <span className="text-[10px] bg-[#0A0A0A] px-2 py-0.5 rounded text-[#F8FAFC] font-mono border border-[#262626] font-semibold">
                             {lead.budget}
                           </span>
-                          <span className="text-[10px] bg-[#0A0A0A] px-2 py-0.5 rounded text-[#F8FAFC] font-mono border border-[#262626]">
-                            Timeline: {lead.timeline}
+                          <span className="text-[10px] bg-[#0A0A0A] px-2 py-0.5 rounded text-[#CBD5E1] font-mono border border-[#262626]">
+                            Timeline: <span className="text-white font-semibold">{lead.timeline}</span>
                           </span>
                           {lead.pre_approved && (
-                            <span className="text-[9px] bg-[#10B981]/15 text-[#10B981] px-1.5 py-0.5 rounded border border-[#10B981]/30 font-semibold">
+                            <span className="text-[9px] bg-[#10B981]/15 text-[#10B981] px-1.5 py-0.5 rounded border border-[#10B981]/30 font-bold uppercase tracking-wide">
                               Pre-Approved
                             </span>
                           )}
@@ -293,7 +293,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                       }`}>
                         {lead.qualification_stage.replace('_', ' ')}
                       </span>
-                      <span className="text-[10px] text-[#94A3B8] mt-1.5 font-mono">
+                      <span className="text-[10px] text-[#CBD5E1] font-medium mt-1.5 font-mono">
                         {new Date(lead.last_contact_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     </div>

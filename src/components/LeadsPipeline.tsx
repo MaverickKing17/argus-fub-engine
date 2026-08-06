@@ -52,7 +52,7 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h2 className="text-xl font-bold text-[#F8FAFC]">Leads & Qualification Pipeline</h2>
-            <p className="text-xs text-[#94A3B8] mt-0.5">
+            <p className="text-xs text-[#CBD5E1] font-medium mt-0.5">
               Multi-tenant Database Tracking for {tenant.team_name} (Follow Up Boss Synced)
             </p>
           </div>
@@ -60,25 +60,25 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
           <div className="flex flex-wrap items-center gap-3">
             {/* Search Input */}
             <div className="relative flex-1 md:w-64">
-              <Search className="h-3.5 w-3.5 absolute left-3 top-2.5 text-[#94A3B8]" />
+              <Search className="h-3.5 w-3.5 absolute left-3 top-2.5 text-[#CBD5E1]" />
               <input
                 id="search-leads-input"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search name, phone, area..."
-                className="w-full bg-[#0A0A0A] border border-[#262626] focus:border-[#C5A059] rounded-lg pl-8 pr-3 py-1.5 text-xs text-[#F8FAFC] placeholder-[#94A3B8] focus:outline-none"
+                className="w-full bg-[#0A0A0A] border border-[#262626] focus:border-[#E5C178] rounded-lg pl-8 pr-3 py-1.5 text-xs text-[#F8FAFC] placeholder-[#CBD5E1] focus:outline-none"
               />
             </div>
 
             {/* Stage Filter Selector */}
             <div className="flex items-center space-x-1.5 bg-[#0A0A0A] p-1 rounded-lg border border-[#262626]">
-              <Filter className="h-3.5 w-3.5 text-[#94A3B8] ml-2" />
+              <Filter className="h-3.5 w-3.5 text-[#CBD5E1] ml-2" />
               <select
                 id="filter-stage-select"
                 value={selectedStage}
                 onChange={(e) => setSelectedStage(e.target.value)}
-                className="bg-transparent text-xs text-[#F8FAFC] font-medium cursor-pointer focus:outline-none pr-2 py-0.5"
+                className="bg-transparent text-xs text-[#F8FAFC] font-semibold cursor-pointer focus:outline-none pr-2 py-0.5"
               >
                 <option value="ALL" className="bg-[#141414]">All Qualification Stages ({leads.length})</option>
                 <option value="New" className="bg-[#141414]">New Leads</option>
@@ -94,16 +94,16 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
           {[
             { stage: 'New', count: leads.filter((l) => l.qualification_stage === 'New').length, color: 'text-[#F8FAFC] bg-[#0A0A0A] border-[#262626]' },
-            { stage: 'Engaged', count: leads.filter((l) => l.qualification_stage === 'Engaged').length, color: 'text-[#C5A059] bg-[#C5A059]/10 border-[#C5A059]/30' },
+            { stage: 'Engaged', count: leads.filter((l) => l.qualification_stage === 'Engaged').length, color: 'text-[#E5C178] bg-[#E5C178]/10 border-[#E5C178]/30' },
             { stage: 'Qualified', count: leads.filter((l) => l.qualification_stage === 'Qualified').length, color: 'text-[#10B981] bg-[#10B981]/10 border-[#10B981]/30' },
             { stage: 'Unrepresented_Disqualified', count: leads.filter((l) => l.qualification_stage === 'Unrepresented_Disqualified').length, color: 'text-rose-400 bg-rose-950/40 border-rose-900' }
           ].map((item) => (
             <div
               key={item.stage}
               onClick={() => setSelectedStage(item.stage)}
-              className={`p-3 rounded-lg border cursor-pointer transition-all ${item.color} ${selectedStage === item.stage ? 'ring-1 ring-[#C5A059]' : ''}`}
+              className={`p-3 rounded-lg border cursor-pointer transition-all ${item.color} ${selectedStage === item.stage ? 'ring-1 ring-[#E5C178]' : ''}`}
             >
-              <div className="text-[10px] font-bold uppercase tracking-widest text-[#94A3B8]">{item.stage.replace('_', ' ')}</div>
+              <div className="text-[10px] font-bold uppercase tracking-widest text-[#CBD5E1]">{item.stage.replace('_', ' ')}</div>
               <div className="text-2xl font-bold mt-0.5">{item.count}</div>
             </div>
           ))}
@@ -116,13 +116,13 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
         <div className="lg:col-span-2 card-executive shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-[#F8FAFC] text-xs">
-              <thead className="bg-[#0A0A0A] text-[#94A3B8] text-[10px] uppercase font-mono tracking-widest border-b border-[#262626]">
+              <thead className="bg-[#0A0A0A] text-[#CBD5E1] text-[10px] uppercase font-mono tracking-widest border-b border-[#262626]">
                 <tr>
-                  <th className="py-3 px-3.5 font-semibold">Prospect Details</th>
-                  <th className="py-3 px-3.5 font-semibold">Stage</th>
-                  <th className="py-3 px-3.5 font-semibold">Budget</th>
-                  <th className="py-3 px-3.5 font-semibold">TRESA BRA</th>
-                  <th className="py-3 px-3.5 font-semibold text-right">Action</th>
+                  <th className="py-3 px-3.5 font-bold">Prospect Details</th>
+                  <th className="py-3 px-3.5 font-bold">Stage</th>
+                  <th className="py-3 px-3.5 font-bold">Budget</th>
+                  <th className="py-3 px-3.5 font-bold">TRESA BRA</th>
+                  <th className="py-3 px-3.5 font-bold text-right">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#262626]/60">
@@ -139,7 +139,7 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
                         onSelectLead(lead.id);
                       }}
                       className={`cursor-pointer transition-colors ${
-                        isSelected ? 'bg-[#262626]/70 border-l-2 border-[#C5A059]' : 'hover:bg-[#0A0A0A]/60'
+                        isSelected ? 'bg-[#262626]/70 border-l-2 border-[#E5C178]' : 'hover:bg-[#0A0A0A]/60'
                       }`}
                     >
                       <td className="py-3 px-3.5">
@@ -150,8 +150,8 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
                             {lead.name.split(' ').map((n) => n[0]).join('')}
                           </div>
                           <div className="min-w-0">
-                            <h4 className="font-semibold text-xs text-[#F8FAFC] truncate">{lead.name}</h4>
-                            <div className="text-[10px] text-[#94A3B8] font-mono mt-0.5">
+                            <h4 className="font-bold text-xs text-[#F8FAFC] truncate">{lead.name}</h4>
+                            <div className="text-[10px] text-[#CBD5E1] font-mono mt-0.5 font-medium">
                               <span>{lead.phone}</span>
                             </div>
                           </div>
@@ -165,8 +165,8 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
                       </td>
 
                       <td className="py-3 px-3.5">
-                        <div className="font-mono text-xs font-semibold text-[#F8FAFC]">{lead.budget}</div>
-                        <div className="text-[10px] text-[#94A3B8]">{lead.timeline}</div>
+                        <div className="font-mono text-xs font-bold text-[#F8FAFC]">{lead.budget}</div>
+                        <div className="text-[10px] text-[#CBD5E1] font-medium">{lead.timeline}</div>
                       </td>
 
                       <td className="py-3 px-3.5">
@@ -175,7 +175,7 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
                             ? 'bg-rose-950/60 text-rose-400 border-rose-800/60'
                             : lead.representation_status === 'Unrepresented'
                             ? 'bg-[#10B981]/15 text-[#10B981] border-[#10B981]/30'
-                            : 'bg-[#262626] text-[#94A3B8] border-[#262626]'
+                            : 'bg-[#262626] text-[#CBD5E1] border-[#262626]'
                         }`}>
                           {lead.representation_status.replace('_', ' ')}
                         </span>
@@ -212,8 +212,8 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
                   {selectedLead.name.split(' ').map((n) => n[0]).join('')}
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-[#F8FAFC]">{selectedLead.name}</h3>
-                  <span className="text-[10px] text-[#94A3B8] font-mono">{selectedLead.phone}</span>
+                  <h3 className="text-sm font-bold text-[#F8FAFC]">{selectedLead.name}</h3>
+                  <span className="text-[10px] text-[#CBD5E1] font-mono font-medium">{selectedLead.phone}</span>
                 </div>
               </div>
               <span className={`text-[10px] px-2 py-0.5 rounded font-bold border uppercase tracking-wider ${getStageBadgeClass(selectedLead.qualification_stage)}`}>
@@ -222,22 +222,22 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
             </div>
 
             {/* Quick Contact Info */}
-            <div className="space-y-2 text-xs text-[#94A3B8]">
+            <div className="space-y-2 text-xs text-[#CBD5E1]">
               <div className="p-2.5 bg-[#0A0A0A] rounded-lg border border-[#262626]">
                 <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-[11px] font-medium text-[#94A3B8]"><Mail className="h-3.5 w-3.5 text-[#C5A059]" /> Email</span>
-                  <span className="text-[#F8FAFC] font-mono text-[11px]">{selectedLead.email}</span>
+                  <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#CBD5E1]"><Mail className="h-3.5 w-3.5 text-[#E5C178]" /> Email</span>
+                  <span className="text-[#F8FAFC] font-mono text-[11px] font-semibold">{selectedLead.email}</span>
                 </div>
               </div>
 
               <div className="p-2.5 bg-[#0A0A0A] rounded-lg border border-[#262626] space-y-1">
-                <span className="flex items-center gap-1.5 text-[11px] font-medium text-[#94A3B8]"><Building2 className="h-3.5 w-3.5 text-[#C5A059]" /> Property Criteria</span>
-                <p className="text-[#F8FAFC] text-xs font-normal leading-normal">{selectedLead.search_criteria || 'Yorkville / Downtown GTA'}</p>
+                <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#CBD5E1]"><Building2 className="h-3.5 w-3.5 text-[#E5C178]" /> Property Criteria</span>
+                <p className="text-[#F8FAFC] text-xs font-medium leading-normal">{selectedLead.search_criteria || 'Yorkville / Downtown GTA'}</p>
               </div>
 
               <div className="p-2.5 bg-[#0A0A0A] rounded-lg border border-[#262626]">
                 <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-[11px] font-medium text-[#94A3B8]"><Calendar className="h-3.5 w-3.5 text-[#C5A059]" /> Budget & Timeline</span>
+                  <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#CBD5E1]"><Calendar className="h-3.5 w-3.5 text-[#E5C178]" /> Budget & Timeline</span>
                   <span className="text-[#10B981] font-mono text-[11px] font-bold">{selectedLead.budget} ({selectedLead.timeline})</span>
                 </div>
               </div>
@@ -245,45 +245,45 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
 
             {/* TRESA & RECO Regulatory Audit Status Checklist */}
             <div className="p-3 bg-[#0A0A0A] rounded-lg border border-[#262626] space-y-2">
-              <div className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] flex items-center gap-1.5 font-mono">
-                <ShieldCheck className="h-3.5 w-3.5 text-[#C5A059]" />
+              <div className="text-[10px] font-bold uppercase tracking-widest text-[#E5C178] flex items-center gap-1.5 font-mono">
+                <ShieldCheck className="h-3.5 w-3.5 text-[#E5C178]" />
                 <span>Ontario RECO & TRESA Compliance Audit</span>
               </div>
               <div className="space-y-1.5 text-[11px]">
-                <div className="flex items-center justify-between text-[#94A3B8]">
+                <div className="flex items-center justify-between text-[#CBD5E1] font-medium">
                   <span>1. Information Before Representation (IBR):</span>
                   <span className="text-[#10B981] font-bold">VERIFIED</span>
                 </div>
-                <div className="flex items-center justify-between text-[#94A3B8]">
+                <div className="flex items-center justify-between text-[#CBD5E1] font-medium">
                   <span>2. BRA Representation Status:</span>
                   <span className={selectedLead.representation_status === 'Represented_By_Other' ? 'text-rose-400 font-bold' : 'text-[#10B981] font-bold'}>
                     {selectedLead.representation_status.replace('_', ' ')}
                   </span>
                 </div>
-                <div className="flex items-center justify-between text-[#94A3B8]">
+                <div className="flex items-center justify-between text-[#CBD5E1] font-medium">
                   <span>3. FUB CRM Audit Log Tagging:</span>
-                  <span className="text-[#10B981] font-mono">SYNCED</span>
+                  <span className="text-[#10B981] font-mono font-bold">SYNCED</span>
                 </div>
               </div>
             </div>
 
             {/* FUB Deal Notes Snippet */}
             <div className="space-y-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#94A3B8] flex items-center gap-1">
-                <FileText className="h-3 w-3 text-[#C5A059]" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#CBD5E1] flex items-center gap-1">
+                <FileText className="h-3 w-3 text-[#E5C178]" />
                 <span>Follow Up Boss Note Summary</span>
               </span>
-              <p className="p-3 bg-[#0A0A0A] rounded-lg border border-[#262626] text-xs text-[#94A3B8] italic leading-relaxed">
+              <p className="p-3 bg-[#0A0A0A] rounded-lg border border-[#262626] text-xs text-[#CBD5E1] italic leading-relaxed font-normal">
                 "{selectedLead.notes || `Inbound lead inquiring about ${selectedLead.search_criteria || 'luxury properties'}. Target budget ${selectedLead.budget}. Pre-approval status: ${selectedLead.pre_approved ? 'Verified' : 'Pending'}.`}"
               </p>
             </div>
 
             {/* CRM Tags */}
             <div className="space-y-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#94A3B8]">Synced FUB Tags</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#CBD5E1]">Synced FUB Tags</span>
               <div className="flex flex-wrap gap-1">
                 {(selectedLead.tags || ['argus-isa', 'tresa-verified', 'gta-luxury']).map((tag, idx) => (
-                  <span key={idx} className="bg-[#0A0A0A] text-[#C5A059] text-[10px] px-2 py-0.5 rounded border border-[#262626] font-mono">
+                  <span key={idx} className="bg-[#0A0A0A] text-[#E5C178] text-[10px] px-2 py-0.5 rounded border border-[#262626] font-mono font-semibold">
                     #{tag}
                   </span>
                 ))}

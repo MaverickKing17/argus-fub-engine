@@ -66,10 +66,10 @@ export const ConversationFeed: React.FC<ConversationFeedProps> = ({
       <div className="w-full md:w-80 border-b md:border-b-0 md:border-r border-[#262626] flex flex-col bg-[#0A0A0A]/60 shrink-0">
         <div className="p-3.5 border-b border-[#262626] flex items-center justify-between bg-[#141414]">
           <div>
-            <h3 className="font-semibold text-[#F8FAFC] text-sm tracking-wide">Live SMS Threads</h3>
-            <p className="text-[10px] text-[#94A3B8] font-mono">{tenant.team_name}</p>
+            <h3 className="font-bold text-[#F8FAFC] text-sm tracking-wide">Live SMS Threads</h3>
+            <p className="text-[10px] text-[#CBD5E1] font-mono font-medium">{tenant.team_name}</p>
           </div>
-          <span className="bg-[#0A0A0A] text-[#C5A059] text-[10px] px-2 py-0.5 rounded font-mono border border-[#262626]">
+          <span className="bg-[#0A0A0A] text-[#E5C178] text-[10px] font-bold px-2 py-0.5 rounded font-mono border border-[#262626]">
             {leads.length} Active
           </span>
         </div>
@@ -101,23 +101,23 @@ export const ConversationFeed: React.FC<ConversationFeedProps> = ({
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-0.5">
-                    <h4 className="text-xs font-semibold text-[#F8FAFC] truncate">{lead.name}</h4>
-                    <span className="text-[10px] text-[#94A3B8] font-mono">
+                    <h4 className="text-xs font-bold text-[#F8FAFC] truncate">{lead.name}</h4>
+                    <span className="text-[10px] text-[#CBD5E1] font-mono font-medium">
                       {new Date(lead.last_contact_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#94A3B8] truncate">{lead.phone}</p>
+                  <p className="text-[11px] text-[#CBD5E1] font-medium truncate">{lead.phone}</p>
                   <div className="flex items-center space-x-1.5 mt-1.5">
                     <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold border uppercase tracking-wider ${
                       isQ
                         ? 'bg-[#10B981]/15 text-[#10B981] border-[#10B981]/30'
                         : isDis
                         ? 'bg-rose-950/60 text-rose-300 border-rose-800/50'
-                        : 'bg-[#C5A059]/15 text-[#C5A059] border-[#C5A059]/30'
+                        : 'bg-[#E5C178]/15 text-[#E5C178] border-[#E5C178]/30'
                     }`}>
                       {lead.qualification_stage.replace('_', ' ')}
                     </span>
-                    <span className="text-[10px] text-[#94A3B8] truncate font-mono">{lead.budget}</span>
+                    <span className="text-[10px] text-[#E2E8F0] font-semibold truncate font-mono">{lead.budget}</span>
                   </div>
                 </div>
               </button>
@@ -158,11 +158,11 @@ export const ConversationFeed: React.FC<ConversationFeedProps> = ({
               </div>
               <div>
                 <div className="flex items-center space-x-2">
-                  <h3 className="text-sm font-semibold text-[#F8FAFC]">{currentLead.name}</h3>
-                  <span className="text-xs text-[#94A3B8] font-mono">{currentLead.phone}</span>
+                  <h3 className="text-sm font-bold text-[#F8FAFC]">{currentLead.name}</h3>
+                  <span className="text-xs text-[#E2E8F0] font-mono font-medium">{currentLead.phone}</span>
                 </div>
-                <div className="text-[10px] text-[#10B981] flex items-center gap-1 mt-0.5 font-mono">
-                  ● <span className="text-[#94A3B8] uppercase">ARGUS ISA Engine Actively Monitoring</span>
+                <div className="text-[10px] text-[#10B981] flex items-center gap-1 mt-0.5 font-mono font-semibold">
+                  ● <span className="text-[#CBD5E1] uppercase">ARGUS ISA Engine Actively Monitoring</span>
                 </div>
               </div>
             </div>
@@ -170,14 +170,14 @@ export const ConversationFeed: React.FC<ConversationFeedProps> = ({
             {/* Extracted Parameters Badges */}
             <div className="flex flex-wrap items-center gap-2">
               <div className="bg-[#0A0A0A] px-2.5 py-1 rounded-lg text-xs border border-[#262626]">
-                <span className="text-[#94A3B8]">Timeline:</span> <strong className="text-[#C5A059]">{currentLead.timeline}</strong>
+                <span className="text-[#CBD5E1]">Timeline:</span> <strong className="text-[#E5C178] font-bold">{currentLead.timeline}</strong>
               </div>
               <div className="bg-[#0A0A0A] px-2.5 py-1 rounded-lg text-xs border border-[#262626]">
-                <span className="text-[#94A3B8]">Budget:</span> <strong className="text-[#C5A059]">{currentLead.budget}</strong>
+                <span className="text-[#CBD5E1]">Budget:</span> <strong className="text-[#E5C178] font-bold">{currentLead.budget}</strong>
               </div>
               <div className="bg-[#0A0A0A] px-2.5 py-1 rounded-lg text-xs border border-[#262626]">
-                <span className="text-[#94A3B8]">TRESA BRA:</span>{' '}
-                <strong className={currentLead.representation_status === 'Represented_By_Other' ? 'text-rose-400' : 'text-[#10B981]'}>
+                <span className="text-[#CBD5E1]">TRESA BRA:</span>{' '}
+                <strong className={currentLead.representation_status === 'Represented_By_Other' ? 'text-rose-400 font-bold' : 'text-[#10B981] font-bold'}>
                   {currentLead.representation_status.replace('_', ' ')}
                 </strong>
               </div>

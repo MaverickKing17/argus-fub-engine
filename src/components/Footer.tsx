@@ -30,13 +30,13 @@ export function Footer({ teamName }: FooterProps) {
               </div>
             </div>
 
-            <p className="text-xs leading-relaxed text-[#94A3B8]">
+            <p className="text-xs leading-relaxed text-[#CBD5E1] font-medium">
               Autonomous speed-to-lead ISA engine tailored specifically for high-ticket Toronto & GTA luxury real estate brokerages. Fully integrated with Follow Up Boss & TRESA v2 RECO compliance standards.
             </p>
 
             <div className="flex items-center space-x-2 text-[11px] text-[#E5C178] font-mono">
               <CheckCircle2 className="h-3.5 w-3.5 text-[#10B981]" />
-              <span>Active Tenant: <strong className="text-white">{teamName}</strong></span>
+              <span>Active Tenant: <strong className="text-white font-bold">{teamName}</strong></span>
             </div>
           </div>
 
@@ -46,26 +46,26 @@ export function Footer({ teamName }: FooterProps) {
               <Building2 className="h-3.5 w-3.5 text-[#E5C178]" />
               <span>GTA Luxury Enclaves</span>
             </h4>
-            <ul className="space-y-2 text-xs">
-              <li className="flex items-center justify-between text-[#94A3B8] hover:text-white transition-colors cursor-default">
+            <ul className="space-y-2 text-xs font-medium">
+              <li className="flex items-center justify-between text-[#CBD5E1] hover:text-white transition-colors cursor-default">
                 <span>Yorkville & Cumberland</span>
-                <span className="text-[10px] font-mono text-[#E5C178]">$2.5M - $15M+</span>
+                <span className="text-[10px] font-mono font-bold text-[#E5C178]">$2.5M - $15M+</span>
               </li>
-              <li className="flex items-center justify-between text-[#94A3B8] hover:text-white transition-colors cursor-default">
+              <li className="flex items-center justify-between text-[#CBD5E1] hover:text-white transition-colors cursor-default">
                 <span>The Bridle Path & Post Rd</span>
-                <span className="text-[10px] font-mono text-[#E5C178]">$5.0M - $30M+</span>
+                <span className="text-[10px] font-mono font-bold text-[#E5C178]">$5.0M - $30M+</span>
               </li>
-              <li className="flex items-center justify-between text-[#94A3B8] hover:text-white transition-colors cursor-default">
+              <li className="flex items-center justify-between text-[#CBD5E1] hover:text-white transition-colors cursor-default">
                 <span>Rosedale & Moore Park</span>
-                <span className="text-[10px] font-mono text-[#E5C178]">$3.0M - $12M+</span>
+                <span className="text-[10px] font-mono font-bold text-[#E5C178]">$3.0M - $12M+</span>
               </li>
-              <li className="flex items-center justify-between text-[#94A3B8] hover:text-white transition-colors cursor-default">
+              <li className="flex items-center justify-between text-[#CBD5E1] hover:text-white transition-colors cursor-default">
                 <span>Forest Hill & Park Lane</span>
-                <span className="text-[10px] font-mono text-[#E5C178]">$3.5M - $18M+</span>
+                <span className="text-[10px] font-mono font-bold text-[#E5C178]">$3.5M - $18M+</span>
               </li>
-              <li className="flex items-center justify-between text-[#94A3B8] hover:text-white transition-colors cursor-default">
+              <li className="flex items-center justify-between text-[#CBD5E1] hover:text-white transition-colors cursor-default">
                 <span>Lawrence Park & The Annex</span>
-                <span className="text-[10px] font-mono text-[#E5C178]">$2.2M - $8M+</span>
+                <span className="text-[10px] font-mono font-bold text-[#E5C178]">$2.2M - $8M+</span>
               </li>
             </ul>
           </div>
@@ -80,9 +80,9 @@ export function Footer({ teamName }: FooterProps) {
               <div className="p-2.5 rounded-lg bg-[#111522] border border-[#283042] space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-white text-[11px]">TRESA v2 Standard</span>
-                  <span className="text-[10px] text-[#10B981] font-mono">ENFORCED</span>
+                  <span className="text-[10px] text-[#10B981] font-mono font-bold">ENFORCED</span>
                 </div>
-                <p className="text-[11px] text-[#94A3B8] leading-normal">
+                <p className="text-[11px] text-[#CBD5E1] leading-normal font-normal">
                   Mandatory Information Before Representation (IBR) disclosures executed automatically via SMS before intent capture.
                 </p>
               </div>
@@ -90,9 +90,9 @@ export function Footer({ teamName }: FooterProps) {
               <div className="p-2.5 rounded-lg bg-[#111522] border border-[#283042] space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-white text-[11px]">RECO BRA Audit Trail</span>
-                  <span className="text-[10px] text-[#10B981] font-mono">ACTIVE</span>
+                  <span className="text-[10px] text-[#10B981] font-mono font-bold">ACTIVE</span>
                 </div>
-                <p className="text-[11px] text-[#94A3B8] leading-normal">
+                <p className="text-[11px] text-[#CBD5E1] leading-normal font-normal">
                   Immediate halt on leads represented under active Buyer Representation Agreements with competing GTA brokerages.
                 </p>
               </div>
@@ -107,20 +107,20 @@ export function Footer({ teamName }: FooterProps) {
             </h4>
             <div className="space-y-2 text-xs font-mono">
               <div className="flex items-center justify-between p-2 rounded bg-[#111522] border border-[#283042]">
-                <span className="text-[#94A3B8] text-[11px]">Follow Up Boss API</span>
-                <span className="text-[#10B981] text-[11px] font-semibold flex items-center gap-1">
+                <span className="text-[#CBD5E1] text-[11px] font-medium">Follow Up Boss API</span>
+                <span className="text-[#10B981] text-[11px] font-bold flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span> 142ms
                 </span>
               </div>
               <div className="flex items-center justify-between p-2 rounded bg-[#111522] border border-[#283042]">
-                <span className="text-[#94A3B8] text-[11px]">Twilio SMS Gateway</span>
-                <span className="text-[#10B981] text-[11px] font-semibold flex items-center gap-1">
+                <span className="text-[#CBD5E1] text-[11px] font-medium">Twilio SMS Gateway</span>
+                <span className="text-[#10B981] text-[11px] font-bold flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span> 98ms
                 </span>
               </div>
               <div className="flex items-center justify-between p-2 rounded bg-[#111522] border border-[#283042]">
-                <span className="text-[#94A3B8] text-[11px]">Gemini 3.6 Luxury ISA</span>
-                <span className="text-[#10B981] text-[11px] font-semibold flex items-center gap-1">
+                <span className="text-[#CBD5E1] text-[11px] font-medium">Gemini 3.6 Luxury ISA</span>
+                <span className="text-[#10B981] text-[11px] font-bold flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span> 380ms
                 </span>
               </div>
@@ -129,22 +129,22 @@ export function Footer({ teamName }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-[#283042] flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#94A3B8]">
+        <div className="pt-8 border-t border-[#283042] flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#CBD5E1]">
           <div className="flex items-center space-x-2">
             <span>© {new Date().getFullYear()} ARGUS AI Technologies Inc. All rights reserved.</span>
             <span>•</span>
-            <span className="text-[#E5C178]">Toronto Luxury Real Estate Suite</span>
+            <span className="text-[#E5C178] font-semibold">Toronto Luxury Real Estate Suite</span>
           </div>
 
           <div className="flex items-center space-x-6">
-            <span className="flex items-center gap-1.5 text-[11px] hover:text-white transition-colors cursor-pointer">
+            <span className="flex items-center gap-1.5 text-[11px] text-[#CBD5E1] hover:text-white transition-colors cursor-pointer font-medium">
               <Lock className="h-3 w-3 text-[#10B981]" /> Enterprise Vault Sec
             </span>
-            <span className="flex items-center gap-1.5 text-[11px] hover:text-white transition-colors cursor-pointer">
+            <span className="flex items-center gap-1.5 text-[11px] text-[#CBD5E1] hover:text-white transition-colors cursor-pointer font-medium">
               <Globe className="h-3 w-3 text-[#E5C178]" /> RECO & TRESA Policy
             </span>
-            <span className="flex items-center gap-1.5 text-[11px] hover:text-white transition-colors cursor-pointer">
-              <ExternalLink className="h-3 w-3 text-[#94A3B8]" /> FUB Integration Docs
+            <span className="flex items-center gap-1.5 text-[11px] text-[#CBD5E1] hover:text-white transition-colors cursor-pointer font-medium">
+              <ExternalLink className="h-3 w-3 text-[#E5C178]" /> FUB Integration Docs
             </span>
           </div>
         </div>

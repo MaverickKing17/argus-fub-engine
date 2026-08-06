@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span>TRESA V2 COMPLIANT</span>
                   </span>
                 </div>
-                <p className="text-xs text-[#94A3B8] tracking-wide hidden sm:block mt-0.5 font-sans">
+                <p className="text-xs text-[#CBD5E1] font-medium tracking-wide hidden sm:block mt-0.5 font-sans">
                   Autonomous Luxury Lead Engine | GTA Brokerage Suite
                 </p>
               </div>
@@ -105,10 +105,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 id="open-docs-support-btn"
                 onClick={() => setShowDocsModal(true)}
-                className="text-[#94A3B8] hover:text-[#C5A059] text-xs font-medium transition-colors flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[#262626] bg-[#141414] hover:border-[#C5A059]/40 cursor-pointer shrink-0"
+                className="text-[#CBD5E1] hover:text-[#E5C178] text-xs font-semibold transition-colors flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[#262626] bg-[#141414] hover:border-[#E5C178]/50 cursor-pointer shrink-0"
                 title="ARGUS AI Brokerage Executive Guide & Support Documentation"
               >
-                <BookOpen className="h-3.5 w-3.5 text-[#C5A059]" />
+                <BookOpen className="h-3.5 w-3.5 text-[#E5C178]" />
                 <span className="hidden sm:inline">Docs & Support</span>
               </button>
 
@@ -144,14 +144,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => setActiveTab(tab.id)}
                   className={`relative pb-3 px-1 text-xs sm:text-sm font-medium flex items-center space-x-2 transition-colors whitespace-nowrap cursor-pointer ${
                     isActive
-                      ? 'text-[#F8FAFC] font-semibold'
-                      : 'text-[#94A3B8] hover:text-[#F8FAFC]'
+                      ? 'text-[#FFFFFF] font-bold'
+                      : 'text-[#CBD5E1] hover:text-[#FFFFFF] font-medium'
                   }`}
                 >
-                  <Icon className={`h-4 w-4 ${isActive ? 'text-[#C5A059]' : 'text-[#94A3B8]'}`} />
+                  <Icon className={`h-4 w-4 ${isActive ? 'text-[#E5C178]' : 'text-[#CBD5E1]'}`} />
                   <span>{tab.label}</span>
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C5A059] rounded-full shadow-[0_0_8px_rgba(197,160,89,0.6)]"></span>
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#E5C178] rounded-full shadow-[0_0_8px_rgba(229,193,120,0.6)]"></span>
                   )}
                 </button>
               );
@@ -180,23 +180,23 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span>ARGUS AI Executive Suite Guide</span>
                     <span className="bg-[#C5A059]/15 text-[#C5A059] text-[10px] font-mono px-2 py-0.5 rounded border border-[#C5A059]/30">v2.5</span>
                   </h3>
-                  <p className="text-xs text-[#94A3B8] mt-0.5">
+                  <p className="text-xs text-[#CBD5E1] font-medium mt-0.5">
                     Documentation, Ontario TRESA v2 Compliance Protocol & Support Channels
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setShowDocsModal(false)}
-                className="text-[#94A3B8] hover:text-[#F8FAFC] p-1 rounded-lg hover:bg-[#262626] transition-colors"
+                className="text-[#CBD5E1] hover:text-[#FFFFFF] p-1 rounded-lg hover:bg-[#262626] transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {/* Modal Body / Documentation Sections */}
-            <div className="space-y-4 text-xs text-[#94A3B8] leading-relaxed max-h-[60vh] overflow-y-auto pr-1">
+            <div className="space-y-4 text-xs text-[#CBD5E1] font-normal leading-relaxed max-h-[60vh] overflow-y-auto pr-1">
               <div className="p-3.5 bg-[#0A0A0A] rounded-xl border border-[#262626] space-y-2">
-                <div className="flex items-center space-x-2 text-[#C5A059] font-bold text-xs uppercase tracking-wider">
+                <div className="flex items-center space-x-2 text-[#E5C178] font-bold text-xs uppercase tracking-wider">
                   <ShieldCheck className="h-4 w-4" />
                   <span>1. Ontario TRESA & RECO Compliance Protocols</span>
                 </div>
@@ -217,7 +217,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <div className="p-3.5 bg-[#0A0A0A] rounded-xl border border-[#262626] space-y-2">
                 <div className="flex items-center space-x-2 text-[#F8FAFC] font-bold text-xs uppercase tracking-wider">
-                  <Building2 className="h-4 w-4 text-[#C5A059]" />
+                  <Building2 className="h-4 w-4 text-[#E5C178]" />
                   <span>3. Multi-Tenant Brokerage Configuration</span>
                 </div>
                 <p>
@@ -227,18 +227,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <div className="p-3.5 bg-[#0A0A0A] rounded-xl border border-[#262626] space-y-2">
                 <div className="flex items-center space-x-2 text-[#F8FAFC] font-bold text-xs uppercase tracking-wider">
-                  <HelpCircle className="h-4 w-4 text-[#C5A059]" />
+                  <HelpCircle className="h-4 w-4 text-[#E5C178]" />
                   <span>4. Concierge Technical Support & Escalations</span>
                 </div>
                 <p>
-                  For integration support, webhook secret rotators, or custom ISA persona tuning for your GTA brokerage, contact our concierge desk at <span className="text-[#C5A059] font-mono">support@argusai.com</span> or reach your dedicated account representative.
+                  For integration support, webhook secret rotators, or custom ISA persona tuning for your GTA brokerage, contact our concierge desk at <span className="text-[#E5C178] font-mono font-semibold">support@argusai.com</span> or reach your dedicated account representative.
                 </p>
               </div>
             </div>
 
             {/* Footer Action */}
             <div className="border-t border-[#262626] pt-4 flex items-center justify-between">
-              <span className="text-[11px] text-[#94A3B8] font-mono">ARGUS AI Executive Suite • Version 2.5</span>
+              <span className="text-[11px] text-[#CBD5E1] font-mono font-medium">ARGUS AI Executive Suite • Version 2.5</span>
               <button
                 onClick={() => setShowDocsModal(false)}
                 className="bg-gradient-to-r from-[#C5A059] to-[#B38E46] text-zinc-950 font-bold px-4 py-2 rounded-lg text-xs hover:brightness-110 transition-all cursor-pointer"
