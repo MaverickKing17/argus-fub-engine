@@ -151,17 +151,17 @@ export default function App() {
 
   if (!currentTenant) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center p-4">
         <div className="text-center space-y-3">
-          <div className="h-10 w-10 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin mx-auto"></div>
-          <p className="text-xs font-mono text-slate-400">Loading ARGUS AI Sales Closer Engine...</p>
+          <div className="h-10 w-10 rounded-full border-2 border-blue-500 border-t-transparent animate-spin mx-auto"></div>
+          <p className="text-xs font-mono text-zinc-400">Loading ARGUS AI Sales Closer Engine...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500 selection:text-white">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans selection:bg-blue-600 selection:text-white">
       {/* Top Navbar */}
       <Navbar
         tenants={tenants}

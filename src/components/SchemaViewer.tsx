@@ -30,16 +30,16 @@ export const SchemaViewer: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-1">
+          <div className="flex items-center space-x-2 text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">
             <Database className="h-3.5 w-3.5" />
             <span>PostgreSQL / Supabase Migration DDL</span>
           </div>
-          <h2 className="text-xl font-bold text-slate-100">Multi-Tenant Database Architecture</h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <h2 className="text-lg font-bold text-zinc-100">Multi-Tenant Database Architecture</h2>
+          <p className="text-xs text-zinc-400 mt-0.5">
             SQL schema migration for tenants, leads, messages, indexes, and RECO qualification stage constraints.
           </p>
         </div>
@@ -48,15 +48,15 @@ export const SchemaViewer: React.FC = () => {
           <button
             id="copy-sql-migration-btn"
             onClick={handleCopy}
-            className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-700 flex items-center space-x-1.5 transition-colors"
+            className="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold px-3.5 py-1.5 rounded-md border border-zinc-700 flex items-center space-x-1.5 transition-colors"
           >
-            {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4 text-slate-400" />}
+            {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4 text-zinc-400" />}
             <span>{copied ? 'Copied SQL!' : 'Copy DDL'}</span>
           </button>
           <button
             id="download-sql-migration-btn"
             onClick={handleDownload}
-            className="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-lg shadow-cyan-950 flex items-center space-x-1.5 transition-all"
+            className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-1.5 rounded-md shadow-sm flex items-center space-x-1.5 transition-colors"
           >
             <Download className="h-4 w-4" />
             <span>Download .sql</span>
@@ -67,52 +67,52 @@ export const SchemaViewer: React.FC = () => {
       {/* ERD Relationship Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Table 1 */}
-        <div className="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-lg space-y-2">
-          <div className="flex items-center space-x-2 text-cyan-400 font-bold text-sm">
+        <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 shadow-sm space-y-2">
+          <div className="flex items-center space-x-2 text-blue-400 font-bold text-xs">
             <Layers className="h-4 w-4" />
             <span>1. tenants</span>
           </div>
-          <p className="text-xs text-slate-400">Stores real estate team profiles, FUB keys, Twilio credentials, and custom ISA settings.</p>
-          <div className="text-[11px] text-slate-500 font-mono bg-slate-950 p-2 rounded border border-slate-800">
+          <p className="text-xs text-zinc-400">Stores real estate team profiles, FUB keys, Twilio credentials, and custom ISA settings.</p>
+          <div className="text-[11px] text-zinc-500 font-mono bg-zinc-950 p-2 rounded border border-zinc-800">
             Primary Key: id (VARCHAR)
           </div>
         </div>
 
         {/* Table 2 */}
-        <div className="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-lg space-y-2">
-          <div className="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
+        <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 shadow-sm space-y-2">
+          <div className="flex items-center space-x-2 text-emerald-400 font-bold text-xs">
             <Layers className="h-4 w-4" />
             <span>2. leads</span>
           </div>
-          <p className="text-xs text-slate-400">Tracks inbound buyer/seller leads, qualification stage, timeline, budget, and RECO BRA status.</p>
-          <div className="text-[11px] text-slate-500 font-mono bg-slate-950 p-2 rounded border border-slate-800">
+          <p className="text-xs text-zinc-400">Tracks inbound buyer/seller leads, qualification stage, timeline, budget, and RECO BRA status.</p>
+          <div className="text-[11px] text-zinc-500 font-mono bg-zinc-950 p-2 rounded border border-zinc-800">
             Foreign Key: tenant_id -&gt; tenants(id)
           </div>
         </div>
 
         {/* Table 3 */}
-        <div className="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-lg space-y-2">
-          <div className="flex items-center space-x-2 text-purple-400 font-bold text-sm">
+        <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 shadow-sm space-y-2">
+          <div className="flex items-center space-x-2 text-purple-400 font-bold text-xs">
             <Layers className="h-4 w-4" />
             <span>3. messages</span>
           </div>
-          <p className="text-xs text-slate-400">Multi-turn SMS conversation history between Gemini ISA and prospects with AI rationale.</p>
-          <div className="text-[11px] text-slate-500 font-mono bg-slate-950 p-2 rounded border border-slate-800">
+          <p className="text-xs text-zinc-400">Multi-turn SMS conversation history between Gemini ISA and prospects with AI rationale.</p>
+          <div className="text-[11px] text-zinc-500 font-mono bg-zinc-950 p-2 rounded border border-zinc-800">
             Foreign Key: lead_id -&gt; leads(id)
           </div>
         </div>
       </div>
 
       {/* Code Viewer Container */}
-      <div className="bg-slate-950 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden">
-        <div className="bg-slate-900 px-4 py-3 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
+      <div className="bg-zinc-950 rounded-xl border border-zinc-800 shadow-sm overflow-hidden">
+        <div className="bg-zinc-900 px-4 py-3 border-b border-zinc-800 flex items-center justify-between text-xs text-zinc-400 font-mono">
           <div className="flex items-center space-x-2">
-            <Code className="h-4 w-4 text-cyan-400" />
+            <Code className="h-4 w-4 text-blue-400" />
             <span>001_initial_schema.sql</span>
           </div>
           <span className="text-emerald-400 font-bold">PostgreSQL Standard DDL</span>
         </div>
-        <pre className="p-6 text-xs font-mono text-cyan-200/90 leading-relaxed overflow-x-auto max-h-[500px] scrollbar-thin select-all">
+        <pre className="p-5 text-xs font-mono text-zinc-300 leading-relaxed overflow-x-auto max-h-[500px] scrollbar-thin select-all">
           {sqlContent || '-- Loading schema definition...'}
         </pre>
       </div>
