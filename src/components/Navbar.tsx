@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Tenant, NotificationItem } from '../types.js';
-import { ShieldCheck, Bot, Sparkles, Zap, Building2, Plus, CheckCircle2, BookOpen, X, ExternalLink, HelpCircle, FileText } from 'lucide-react';
+import { ShieldCheck, Bot, Sparkles, Zap, Building2, Plus, CheckCircle2, BookOpen, X, ExternalLink, HelpCircle, FileText, Scale } from 'lucide-react';
 import { NotificationBell } from './NotificationBell.js';
+import { LegalModal } from './LegalModal.js';
 
 interface NavbarProps {
   tenants: Tenant[];
@@ -29,6 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onMarkAllNotificationsRead = () => {}
 }) => {
   const [showDocsModal, setShowDocsModal] = useState(false);
+  const [showLegalModal, setShowLegalModal] = useState(false);
 
   return (
     <>
@@ -110,6 +112,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <BookOpen className="h-3.5 w-3.5 text-[#E5C178]" />
                 <span className="hidden sm:inline">Docs & Support</span>
+              </button>
+
+              {/* Legal Governance Button */}
+              <button
+                id="open-legal-governance-btn"
+                onClick={() => setShowLegalModal(true)}
+                className="text-[#CBD5E1] hover:text-[#E5C178] text-xs font-semibold transition-colors flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[#262626] bg-[#141414] hover:border-[#E5C178]/50 cursor-pointer shrink-0"
+                title="View Terms & Conditions, Privacy Policy, RECO Disclaimer, DMCA & CASL Policies"
+              >
+                <Scale className="h-3.5 w-3.5 text-[#E5C178]" />
+                <span className="hidden lg:inline">Legal Policies</span>
               </button>
 
               {/* Executive Metallic Champagne Gold Action Button */}
@@ -249,6 +262,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
       )}
+
+      {/* ARGUS AI Legal Policies Modal */}
+      <LegalModal
+        isOpen={showLegalModal}
+        onClose={() => setShowLegalModal(false)}
+        teamName={currentTenant.team_name}
+      />
     </>
   );
 };
