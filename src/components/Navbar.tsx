@@ -29,28 +29,28 @@ export const Navbar: React.FC<NavbarProps> = ({
   onMarkAllNotificationsRead = () => {}
 }) => {
   return (
-    <header className="bg-zinc-950 border-b border-zinc-800 text-zinc-50 sticky top-0 z-40">
+    <header className="bg-[#0A0A0A] border-b border-[#262626] text-[#F5F5F7] sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo & Name */}
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-lg text-white shadow-sm shrink-0">
+            <div className="w-8 h-8 bg-[#C5A059] rounded-lg flex items-center justify-center font-bold text-lg text-black shadow-sm shrink-0">
               A
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="font-bold tracking-tight text-lg text-zinc-100">
-                  ARGUS <span className="text-blue-500 font-extrabold">AI</span>
+                <span className="font-bold tracking-tight text-lg text-[#F5F5F7]">
+                  ARGUS <span className="text-[#C5A059] font-extrabold">AI</span>
                 </span>
-                <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold border border-emerald-500/20 rounded uppercase tracking-wider flex items-center space-x-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="px-2 py-0.5 bg-[#10B981]/10 text-[#10B981] text-[10px] font-bold border border-[#10B981]/20 rounded uppercase tracking-wider flex items-center space-x-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
                   <span>LIVE</span>
                 </span>
-                <span className="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-bold border border-blue-500/20 rounded uppercase tracking-wider hidden sm:inline-block">
+                <span className="px-2 py-0.5 bg-[#C5A059]/10 text-[#C5A059] text-[10px] font-bold border border-[#C5A059]/30 rounded uppercase tracking-wider hidden sm:inline-block font-mono">
                   GEMINI-3.6-FLASH
                 </span>
               </div>
-              <p className="text-[11px] text-zinc-400 hidden sm:block">
+              <p className="text-[11px] text-[#A1A1AA] hidden sm:block">
                 High Density GTA Real Estate Speed-to-Lead Engine
               </p>
             </div>
@@ -66,8 +66,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             />
 
             {/* Tenant Selector */}
-            <div className="relative flex items-center bg-zinc-900 rounded-md p-1 border border-zinc-800">
-              <Building2 className="h-4 w-4 text-zinc-400 ml-2 mr-1.5" />
+            <div className="relative flex items-center bg-[#141414] rounded-md p-1 border border-[#262626]">
+              <Building2 className="h-4 w-4 text-[#A1A1AA] ml-2 mr-1.5" />
               <select
                 id="tenant-switcher-select"
                 value={currentTenant?.id}
@@ -75,10 +75,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                   const selected = tenants.find((t) => t.id === e.target.value);
                   if (selected) onSelectTenant(selected);
                 }}
-                className="bg-transparent text-xs text-zinc-200 font-medium focus:outline-none pr-3 cursor-pointer"
+                className="bg-transparent text-xs text-[#F5F5F7] font-medium focus:outline-none pr-3 cursor-pointer"
               >
                 {tenants.map((t) => (
-                  <option key={t.id} value={t.id} className="bg-zinc-900 text-zinc-100">
+                  <option key={t.id} value={t.id} className="bg-[#141414] text-[#F5F5F7]">
                     {t.team_name}
                   </option>
                 ))}
@@ -90,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="simulate-inbound-lead-btn"
               onClick={onSimulateWebhook}
               disabled={isSimulating}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs font-bold transition-colors shadow-sm flex items-center space-x-1.5 disabled:opacity-50"
+              className="bg-[#C5A059] hover:bg-[#B38E46] text-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs font-bold transition-colors shadow-sm flex items-center space-x-1.5 disabled:opacity-50"
               title="Simulate inbound FUB lead creation & instant 30s SMS outreach"
             >
               <Sparkles className={`h-3.5 w-3.5 ${isSimulating ? 'animate-spin' : ''}`} />
@@ -101,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Tab Navigation Menu */}
-        <div className="flex space-x-1 sm:space-x-2 border-t border-zinc-800/80 overflow-x-auto py-1.5 scrollbar-none">
+        <div className="flex space-x-1 sm:space-x-2 border-t border-[#262626] overflow-x-auto py-1.5 scrollbar-none">
           {[
             { id: 'overview', label: 'Overview KPIs', icon: Zap },
             { id: 'conversations', label: 'Live SMS Threads', icon: Bot },
@@ -117,11 +117,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-3 py-1.5 text-xs font-medium rounded-md whitespace-nowrap transition-colors ${
                   isActive
-                    ? 'bg-zinc-900 text-zinc-100 border border-zinc-800 shadow-sm'
-                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50'
+                    ? 'bg-[#141414] text-[#F5F5F7] border border-[#C5A059]/40 shadow-sm'
+                    : 'text-[#A1A1AA] hover:text-[#F5F5F7] hover:bg-[#141414]/60'
                 }`}
               >
-                <Icon className={`h-3.5 w-3.5 ${isActive ? 'text-blue-400' : 'text-zinc-500'}`} />
+                <Icon className={`h-3.5 w-3.5 ${isActive ? 'text-[#C5A059]' : 'text-[#A1A1AA]'}`} />
                 <span>{tab.label}</span>
               </button>
             );
@@ -131,3 +131,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+

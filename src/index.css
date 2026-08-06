@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+@theme {
+  --color-obsidian: #0A0A0A;
+  --color-card-dark: #141414;
+  --color-card-border: #262626;
+  --color-bronze: #C5A059;
+  --color-bronze-hover: #B38E46;
+  --color-bronze-muted: rgba(197, 160, 89, 0.15);
+  --color-bronze-border: rgba(197, 160, 89, 0.3);
+  --color-emerald-accent: #10B981;
+  --color-off-white: #F5F5F7;
+  --color-muted-silver: #A1A1AA;
+}
+
+body {
+  background-color: #0A0A0A;
+  color: #F5F5F7;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
