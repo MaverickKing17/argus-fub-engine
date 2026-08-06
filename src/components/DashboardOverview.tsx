@@ -24,10 +24,10 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   return (
     <div className="space-y-6 font-sans">
       {/* Banner Card */}
-      <div className="card-executive p-6 shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+      <div className="card-pop p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
         <div>
-          <div className="flex items-center space-x-2 text-[10px] font-bold text-[#C5A059] uppercase tracking-widest mb-1.5 font-mono">
-            <Zap className="h-3.5 w-3.5 text-[#C5A059]" />
+          <div className="flex items-center space-x-2 text-[10px] font-bold text-[#E5C178] uppercase tracking-widest mb-1.5 font-mono">
+            <Zap className="h-3.5 w-3.5 text-[#E5C178]" />
             <span>Autonomous Speed-to-Lead Automation Engine</span>
           </div>
           <h2 className="text-2xl font-bold text-[#F8FAFC] tracking-tight">
@@ -41,7 +41,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           <button
             id="overview-test-lead-btn"
             onClick={onSimulateWebhook}
-            className="w-full md:w-auto bg-gradient-to-r from-[#C5A059] to-[#B38E46] hover:brightness-110 text-zinc-950 text-xs font-bold px-4 py-2.5 rounded-lg transition-all shadow-md flex items-center justify-center space-x-2 border border-[#C5A059]/30 cursor-pointer"
+            className="w-full md:w-auto btn-executive-primary text-xs px-4 py-2.5 rounded-lg flex items-center justify-center space-x-2"
           >
             <Sparkles className="h-4 w-4" />
             <span>Fire Inbound FUB Webhook</span>
@@ -49,10 +49,10 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </div>
       </div>
 
-      {/* KPI Cards Ribbon with Micro-Sparklines & Serif Typography */}
+      {/* KPI Cards Ribbon with Micro-Sparklines & Executive Pop Effect */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* KPI 1: Leads Processed */}
-        <div className="card-executive p-5 flex flex-col justify-between space-y-3">
+        <div className="card-pop p-5 flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[#94A3B8] text-[10px] uppercase font-bold tracking-widest font-sans">
               Leads Processed (24h)
@@ -93,12 +93,12 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </div>
 
         {/* KPI 2: Active SMS Threads */}
-        <div className="card-executive p-5 flex flex-col justify-between space-y-3">
+        <div className="card-pop p-5 flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[#94A3B8] text-[10px] uppercase font-bold tracking-widest font-sans">
               Active SMS Threads
             </span>
-            <span className="text-[#C5A059] text-[10px] font-mono bg-[#C5A059]/10 px-1.5 py-0.5 rounded border border-[#C5A059]/20">
+            <span className="text-[#E5C178] text-[10px] font-mono bg-[#E5C178]/10 px-1.5 py-0.5 rounded border border-[#E5C178]/25">
               {kpis.avgSpeedToLeadSeconds}s avg speed
             </span>
           </div>
@@ -112,7 +112,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               <svg className="w-full h-full" viewBox="0 0 100 30" fill="none">
                 <path
                   d="M0 20 Q 25 28, 50 15 T 75 18 T 100 8"
-                  stroke="#C5A059"
+                  stroke="#E5C178"
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
@@ -123,8 +123,8 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                 />
                 <defs>
                   <linearGradient id="sparkline-grad-2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#C5A059" />
-                    <stop offset="100%" stopColor="#C5A059" stopOpacity="0" />
+                    <stop offset="0%" stopColor="#E5C178" />
+                    <stop offset="100%" stopColor="#E5C178" stopOpacity="0" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -134,7 +134,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </div>
 
         {/* KPI 3: Qualified Appointments */}
-        <div className="card-executive p-5 flex flex-col justify-between space-y-3">
+        <div className="card-pop p-5 flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[#94A3B8] text-[10px] uppercase font-bold tracking-widest font-sans">
               Qualified Appointments
@@ -175,7 +175,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </div>
 
         {/* KPI 4: Conversion Rate */}
-        <div className="card-executive p-5 flex flex-col justify-between space-y-3">
+        <div className="card-pop p-5 flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[#94A3B8] text-[10px] uppercase font-bold tracking-widest font-sans">
               Conversion Rate

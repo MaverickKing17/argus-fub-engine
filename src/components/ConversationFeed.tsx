@@ -290,9 +290,9 @@ export const ConversationFeed: React.FC<ConversationFeedProps> = ({
                   id="send-sms-simulation-btn"
                   type="submit"
                   disabled={!inputText.trim() || isLoadingMessage}
-                  className="bg-gradient-to-r from-[#C5A059] to-[#B38E46] hover:brightness-110 text-zinc-950 font-bold px-4 py-2 rounded-lg text-xs shadow-md flex items-center space-x-1.5 transition-all disabled:opacity-50 border border-[#C5A059]/30 cursor-pointer"
+                  className="btn-executive-primary font-bold px-4 py-2 rounded-lg text-xs flex items-center space-x-1.5 disabled:opacity-50 shrink-0"
                 >
-                  <Send className="h-3.5 w-3.5" />
+                  <Send className="h-3.5 w-3.5 text-[#07090E]" />
                   <span className="hidden sm:inline">Send SMS</span>
                 </button>
               </div>

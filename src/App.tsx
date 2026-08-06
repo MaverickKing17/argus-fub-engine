@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Tenant, Lead, DashboardKPIs, IntegrationHealth, NotificationItem } from './types.js';
+import { dbStore } from './db/dbStore.js';
 import { Navbar } from './components/Navbar.js';
 import { DashboardOverview } from './components/DashboardOverview.js';
 import { ConversationFeed } from './components/ConversationFeed.js';
@@ -12,25 +13,14 @@ import { LeadsPipeline } from './components/LeadsPipeline.js';
 import { SettingsPanel } from './components/SettingsPanel.js';
 
 export default function App() {
-  const [tenants, setTenants] = useState<Tenant[]>([]);
-  const [currentTenant, setCurrentTenant] = useState<Tenant | null>(null);
+  const [tenants, setTenants] = useState<Tenant[]>(() => dbStore.getTenants());
+  const [currentTenant, setCurrentTenant] = useState<Tenant | null>(() => dbStore.getTenants()[0] || null);
   const [activeTab, setActiveTab] = useState<string>('overview');
-  const [leads, setLeads] = useState<Lead[]>([]);
-  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
-  const [selectedLeadId, setSelectedLeadId] = useState<string | undefined>();
-  const [kpis, setKpis] = useState<DashboardKPIs>({
-    totalLeads: 0,
-    activeSMSThreads: 0,
-    qualifiedAppointments: 0,
-    disqualifiedLeads: 0,
-    conversionRate: 0,
-    avgSpeedToLeadSeconds: 18
-  });
-  const [health, setHealth] = useState<IntegrationHealth>({
-    fub: { status: 'healthy', latencyMs: 142, lastSync: new Date().toISOString() },
-    twilio: { status: 'healthy', latencyMs: 98, lastMessageAt: new Date().toISOString() },
-    gemini: { status: 'healthy', latencyMs: 380, model: 'gemini-3.6-flash' }
-  });
+  const [leads, setLeads] = useState<Lead[]>(() => dbStore.getLeads(dbStore.getTenants()[0]?.id));
+  const [notifications, setNotifications] = useState<NotificationItem[]>(() => dbStore.getNotifications(dbStore.getTenants()[0]?.id));
+  const [selectedLeadId, setSelectedLeadId] = useState<string | undefined>(() => dbStore.getLeads(dbStore.getTenants()[0]?.id)?.[0]?.id);
+  const [kpis, setKpis] = useState<DashboardKPIs>(() => dbStore.getKPIs(dbStore.getTenants()[0]?.id));
+  const [health, setHealth] = useState<IntegrationHealth>(() => dbStore.getIntegrationHealth());
   const [isLoadingMessage, setIsLoadingMessage] = useState(false);
   const [isSimulatingWebhook, setIsSimulatingWebhook] = useState(false);
 

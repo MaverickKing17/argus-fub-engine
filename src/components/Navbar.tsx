@@ -112,15 +112,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="hidden sm:inline">Docs & Support</span>
               </button>
 
-              {/* Executive Warm Bronze Gradient Action Button */}
+              {/* Executive Metallic Champagne Gold Action Button */}
               <button
                 id="simulate-inbound-lead-btn"
                 onClick={onSimulateWebhook}
                 disabled={isSimulating}
-                className="bg-gradient-to-r from-[#C5A059] to-[#B38E46] text-zinc-950 font-semibold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:brightness-110 shadow-lg shadow-amber-900/20 transition-all flex items-center space-x-2 text-xs sm:text-sm cursor-pointer disabled:opacity-50 border border-[#C5A059]/30 shrink-0"
+                className="btn-executive-primary px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-all flex items-center space-x-2 text-xs sm:text-sm cursor-pointer disabled:opacity-50 shrink-0"
                 title="Simulate inbound FUB lead creation & instant 30s SMS outreach"
               >
-                <Plus className={`h-4 w-4 text-zinc-950 stroke-[2.5] ${isSimulating ? 'animate-spin' : ''}`} />
+                <Plus className={`h-4 w-4 text-[#07090E] stroke-[2.5] ${isSimulating ? 'animate-spin' : ''}`} />
                 <span className="hidden md:inline">+ Simulate Inbound Lead</span>
                 <span className="md:hidden">+ Trigger Lead</span>
               </button>

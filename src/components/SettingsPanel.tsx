@@ -53,15 +53,15 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
 
   return (
     <div className="space-y-5 max-w-4xl mx-auto">
-      <div className="bg-[#141414] p-5 rounded-xl border border-[#262626] shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="card-pop p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-bold text-[#F5F5F7] flex items-center space-x-2">
+          <h2 className="text-lg font-bold text-[#F8FAFC] flex items-center space-x-2">
             <span>ISA & Tenant Configuration</span>
             <span className="bg-[#10B981]/15 text-[#10B981] text-[10px] px-2 py-0.5 rounded border border-[#10B981]/30 flex items-center gap-1 font-mono">
               <Lock className="h-3 w-3" /> Encrypted & Masked
             </span>
           </h2>
-          <p className="text-xs text-[#A1A1AA] mt-0.5">
+          <p className="text-xs text-[#94A3B8] mt-0.5">
             Manage credentials, Twilio SMS routing, and Ontario TRESA & RECO compliance rules for {tenant.team_name}.
           </p>
         </div>
@@ -75,7 +75,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Section 1: API & Credentials */}
-        <div className="bg-[#141414] p-5 rounded-xl border border-[#262626] shadow-sm space-y-4">
+        <div className="card-pop p-5 space-y-4">
           <div className="flex items-center space-x-2 text-xs font-bold text-[#F5F5F7] uppercase tracking-wider border-b border-[#262626] pb-2.5">
             <Key className="h-4 w-4 text-[#C5A059]" />
             <span>1. API Credentials & Authentication (Masked Vault)</span>
@@ -187,9 +187,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
         </div>
 
         {/* Section 2: Toronto ISA Parameters & TRESA Rules */}
-        <div className="bg-[#141414] p-5 rounded-xl border border-[#262626] shadow-sm space-y-4">
+        <div className="card-pop p-5 space-y-4">
           <div className="flex items-center space-x-2 text-xs font-bold text-[#F5F5F7] uppercase tracking-wider border-b border-[#262626] pb-2.5">
-            <ShieldCheck className="h-4 w-4 text-[#C5A059]" />
+            <ShieldCheck className="h-4 w-4 text-[#E5C178]" />
             <span>2. Toronto ISA Qualification & TRESA & RECO Rules</span>
           </div>
 
@@ -272,9 +272,9 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({ tenant, onUpdateTe
             id="save-tenant-settings-btn"
             type="submit"
             disabled={isSaving}
-            className="bg-[#C5A059] hover:bg-[#B38E46] text-black font-bold px-6 py-2 rounded-md text-xs shadow-sm flex items-center space-x-2 transition-colors disabled:opacity-50"
+            className="btn-executive-primary px-6 py-2 rounded-lg text-xs font-bold flex items-center space-x-2 disabled:opacity-50"
           >
-            <Save className="h-4 w-4" />
+            <Save className="h-4 w-4 text-[#07090E]" />
             <span>{isSaving ? 'Saving Changes...' : 'Save Configuration'}</span>
           </button>
         </div>
