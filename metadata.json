@@ -1,0 +1,6 @@
+{
+  "name": "ARGUS AI Sales Closer",
+  "description": "Multi-tenant B2B SaaS platform for Toronto real estate teams featuring speed-to-lead SMS qualification via Gemini AI, Twilio, and Follow Up Boss.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
