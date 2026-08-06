@@ -11,6 +11,7 @@ import { DashboardOverview } from './components/DashboardOverview.js';
 import { ConversationFeed } from './components/ConversationFeed.js';
 import { LeadsPipeline } from './components/LeadsPipeline.js';
 import { SettingsPanel } from './components/SettingsPanel.js';
+import { Footer } from './components/Footer.js';
 
 export default function App() {
   const [tenants, setTenants] = useState<Tenant[]>(() => dbStore.getTenants());
@@ -251,6 +252,8 @@ export default function App() {
           <SettingsPanel tenant={currentTenant} onUpdateTenant={handleUpdateTenant} />
         )}
       </main>
+
+      <Footer teamName={currentTenant.team_name} />
     </div>
   );
 }

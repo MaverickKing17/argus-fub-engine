@@ -39,10 +39,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center space-x-3.5 shrink-0">
               <div className="w-9 h-9 rounded-lg border border-[#C5A059]/40 bg-[#141414] shadow-md flex items-center justify-center shrink-0 overflow-hidden">
                 <img
-                  src="https://i.imgur.com/5Ep4YzA.png"
+                  src="https://i.imgur.com/1Ww7pS4.png"
                   alt="ARGUS AI Logo"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-contain p-0.5"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div>
