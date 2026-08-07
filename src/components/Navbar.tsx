@@ -83,7 +83,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
 
               {/* Brokerage Tenant Selector Box */}
-              <div className="relative flex items-center bg-[#0E1826] rounded-lg px-2.5 sm:px-3 py-1.5 border border-white/[0.08] hover:border-[#E5C178]/50 transition-all shadow-sm max-w-[200px] sm:max-w-none">
+              <div className="relative flex items-center bg-[#0E1826] rounded-lg px-2.5 sm:px-3 py-1.5 border border-white/[0.08] hover:border-[#E5C178]/50 transition-all shadow-sm max-w-[240px] sm:max-w-[320px] md:max-w-[380px]">
                 <div className="relative flex items-center shrink-0 mr-2">
                   <Building2 className="h-4 w-4 text-[#E5C178]" />
                   <span className="absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full bg-[#10B981] ring-2 ring-[#0E1826]" title="Follow Up Boss Account Connected"></span>
@@ -95,10 +95,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                     const selected = tenants.find((t) => t.id === e.target.value);
                     if (selected) onSelectTenant(selected);
                   }}
-                  className="bg-transparent text-xs sm:text-sm text-[#F8FAFC] font-medium focus:outline-none pr-1 cursor-pointer truncate"
+                  className="bg-transparent text-xs sm:text-sm text-[#F8FAFC] font-semibold focus:outline-none pr-2 cursor-pointer truncate w-full"
                 >
                   {tenants.map((t) => (
-                    <option key={t.id} value={t.id} className="bg-[#0E1826] text-[#F8FAFC]">
+                    <option key={t.id} value={t.id} className="bg-[#0E1826] text-[#F8FAFC] font-medium py-1">
                       {t.team_name}
                     </option>
                   ))}

@@ -127,11 +127,24 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                   <input
                     type="text"
                     required
+                    list="toronto-brokerages-list"
                     value={formData.brokerageName}
                     onChange={(e) => setFormData({ ...formData, brokerageName: e.target.value })}
-                    placeholder="e.g. Yorkville Luxury Group"
+                    placeholder="Select or type brokerage name..."
                     className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none transition-colors"
                   />
+                  <datalist id="toronto-brokerages-list">
+                    <option value="The Yorkville Luxury Group (GTA)" />
+                    <option value="Chestnut Park Real Estate • Christie's International" />
+                    <option value="Sotheby's International Realty Canada" />
+                    <option value="Harvey Kalles Real Estate Ltd." />
+                    <option value="Forest Hill Real Estate Inc." />
+                    <option value="Royal LePage Heritage Realty" />
+                    <option value="Engel & Völkers Toronto Central" />
+                    <option value="PSR Brokerage • Private Service Realty" />
+                    <option value="Hazelton Real Estate Inc." />
+                    <option value="King West & Waterfront Modern Living Co." />
+                  </datalist>
                 </div>
               </div>
 

@@ -32,15 +32,66 @@ const initialTenants: Tenant[] = [
     }
   },
   {
-    id: 'tenant_king_west_02',
-    team_name: 'King West Modern Living Co.',
+    id: 'tenant_chestnut_park_02',
+    team_name: "Chestnut Park Real Estate • Rosedale & Bridle Path",
+    fub_api_key: 'fub_live_cp_9920192834',
+    twilio_sid: 'AC_99201928341029384',
+    twilio_auth_token: 'tw_auth_secret_881029',
+    twilio_phone_number: '+14165550177',
+    created_at: new Date(Date.now() - 25 * 24 * 3600 * 1000).toISOString(),
+    isa_settings: {
+      targetNeighborhoods: ['Bridle Path', 'Post Road', 'Rosedale', 'Lawrence Park'],
+      minBudget: 3000000,
+      maxBudget: 15000000,
+      caslOptInNotice: 'Reply STOP to cancel updates from Chestnut Park Real Estate / Christie’s International Real Estate.',
+      recoDisclaimer: 'Per Ontario TRESA requirements: Do you currently have an active signed Buyer Representation Agreement (BRA) with another Ontario broker?',
+      autoTagQualified: ['Estate_Buyer', 'Christies_Qualified', 'SpeedToLead_HighValue']
+    }
+  },
+  {
+    id: 'tenant_sothebys_03',
+    team_name: "Sotheby's International Realty • Forest Hill",
+    fub_api_key: 'fub_live_sir_5510293847',
+    twilio_sid: 'AC_55102938471029381',
+    twilio_auth_token: 'tw_auth_secret_772019',
+    twilio_phone_number: '+14165550166',
+    created_at: new Date(Date.now() - 20 * 24 * 3600 * 1000).toISOString(),
+    isa_settings: {
+      targetNeighborhoods: ['Forest Hill Village', 'Lytton Park', 'Deer Park', 'Summerhill'],
+      minBudget: 2000000,
+      maxBudget: 12000000,
+      caslOptInNotice: 'Sotheby’s International Realty Canada SMS notifications. Reply STOP at any time.',
+      recoDisclaimer: 'TRESA Disclosure: Are you currently working under an exclusive representation contract with another real estate team in Ontario?',
+      autoTagQualified: ['Sothebys_Global_Client', 'Verified_Unrepresented', 'ISA_Qualified']
+    }
+  },
+  {
+    id: 'tenant_harvey_kalles_04',
+    team_name: "Harvey Kalles Real Estate • Hazelton Private Collection",
+    fub_api_key: 'fub_live_hk_4410293810',
+    twilio_sid: 'AC_44102938102938102',
+    twilio_auth_token: 'tw_auth_secret_663019',
+    twilio_phone_number: '+14165550155',
+    created_at: new Date(Date.now() - 18 * 24 * 3600 * 1000).toISOString(),
+    isa_settings: {
+      targetNeighborhoods: ['Hazelton Ave', 'Cumberland St', 'Yorkville Ave', 'Avenue Rd'],
+      minBudget: 2500000,
+      maxBudget: 10000000,
+      caslOptInNotice: 'Harvey Kalles Real Estate Luxury Concierge SMS updates. Reply STOP to opt out.',
+      recoDisclaimer: 'RECO Compliance Check: Do you have an active representation agreement in effect with another brokerage?',
+      autoTagQualified: ['Kalles_VIP', 'Penthouse_Buyer', 'SpeedToLead_Engaged']
+    }
+  },
+  {
+    id: 'tenant_king_west_05',
+    team_name: 'King West & Waterfront Modern Living Co.',
     fub_api_key: 'fub_live_kw_3918204918',
     twilio_sid: 'AC_39182049182938102',
     twilio_auth_token: 'tw_auth_secret_441029',
     twilio_phone_number: '+14165550188',
     created_at: new Date(Date.now() - 15 * 24 * 3600 * 1000).toISOString(),
     isa_settings: {
-      targetNeighborhoods: ['King West', 'Liberty Village', 'CityPlace', 'Waterfront'],
+      targetNeighborhoods: ['King West', 'Liberty Village', 'CityPlace', 'Waterfront', 'The Well'],
       minBudget: 650000,
       maxBudget: 2500000,
       caslOptInNotice: 'Reply STOP to opt out anytime. Powered by ARGUS AI Sales Closer.',
@@ -233,10 +284,124 @@ const initialLeads: Lead[] = [
     created_at: new Date(Date.now() - 3 * 60 * 1000).toISOString()
   },
 
-  // --- King West Modern Living Co. Prospects ---
+  // --- Chestnut Park Real Estate • Rosedale & Bridle Path ---
+  {
+    id: 'lead_cp_201',
+    tenant_id: 'tenant_chestnut_park_02',
+    fub_person_id: 'fub_person_99101',
+    name: 'Sir Alistair Sterling',
+    phone: '+14165559090',
+    email: 'a.sterling@sterlingcapital.ca',
+    qualification_stage: 'Qualified',
+    timeline: 'Immediate',
+    budget: '$8.5M - $12.0M',
+    pre_approved: true,
+    representation_status: 'Unrepresented',
+    search_criteria: 'Bridle Path Gated Custom Mansion with tennis court & 6-car garage',
+    notes: 'Cash buyer, pre-screened through Christie’s Private Clients division. TRESA Form IBR verified.',
+    tags: ['Bridle_Path_Mansion', 'Christies_VIP', 'ISA_Qualified'],
+    last_contact_at: new Date(Date.now() - 10 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 1 * 3600 * 1000).toISOString()
+  },
+  {
+    id: 'lead_cp_202',
+    tenant_id: 'tenant_chestnut_park_02',
+    fub_person_id: 'fub_person_99102',
+    name: 'Penelope Montgomery',
+    phone: '+16478881234',
+    email: 'p.montgomery@montgomerylaw.ca',
+    qualification_stage: 'Engaged',
+    timeline: '30-60 Days',
+    budget: '$4.5M - $5.2M',
+    pre_approved: true,
+    representation_status: 'Needs_Verification',
+    search_criteria: 'Rosedale Heritage Estate on South Drive or Cluny Drive',
+    notes: 'Inquired via Chestnut Park luxury portal. Speed-to-lead SMS sent.',
+    tags: ['Rosedale_Heritage', 'Inbound_SMS'],
+    last_contact_at: new Date(Date.now() - 25 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 3 * 3600 * 1000).toISOString()
+  },
+
+  // --- Sotheby's International Realty • Forest Hill ---
+  {
+    id: 'lead_sir_301',
+    tenant_id: 'tenant_sothebys_03',
+    fub_person_id: 'fub_person_55101',
+    name: 'Jonathan Vance-Cross',
+    phone: '+14167773322',
+    email: 'jvancecross@vanceventures.io',
+    qualification_stage: 'Qualified',
+    timeline: '30 Days',
+    budget: '$5.0M - $6.5M',
+    pre_approved: true,
+    representation_status: 'Unrepresented',
+    search_criteria: 'Forest Hill Village Custom Stone Residence with indoor pool',
+    notes: 'Relocating from London, UK. Confirmed unrepresented via TRESA disclosure.',
+    tags: ['Sothebys_Global', 'ForestHill_Luxury', 'ISA_Qualified'],
+    last_contact_at: new Date(Date.now() - 12 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 2 * 3600 * 1000).toISOString()
+  },
+  {
+    id: 'lead_sir_302',
+    tenant_id: 'tenant_sothebys_03',
+    fub_person_id: 'fub_person_55102',
+    name: 'Claire Delacroix',
+    phone: '+16473338877',
+    email: 'c.delacroix@delacroixdesign.com',
+    qualification_stage: 'New',
+    timeline: '60-90 Days',
+    budget: '$3.8M - $4.5M',
+    pre_approved: true,
+    representation_status: 'Needs_Verification',
+    search_criteria: 'Lytton Park Georgian Manor with expansive gardens',
+    notes: 'Automated speed-to-lead outreach initiated via Twilio.',
+    tags: ['LyttonPark_Manor', 'SpeedToLead_Active'],
+    last_contact_at: new Date(Date.now() - 4 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 6 * 60 * 1000).toISOString()
+  },
+
+  // --- Harvey Kalles Real Estate • Hazelton Private Collection ---
+  {
+    id: 'lead_hk_401',
+    tenant_id: 'tenant_harvey_kalles_04',
+    fub_person_id: 'fub_person_44101',
+    name: 'Maximilian Von Stern',
+    phone: '+14169990088',
+    email: 'm.vonstern@sternholdings.ch',
+    qualification_stage: 'Qualified',
+    timeline: 'Immediate',
+    budget: '$6.0M - $8.5M',
+    pre_approved: true,
+    representation_status: 'Unrepresented',
+    search_criteria: 'Hazelton Avenue Full-Floor Private Residence with concierge & valet',
+    notes: 'International investor. Cash buyer verified.',
+    tags: ['Hazelton_Penthouse', 'Kalles_VIP', 'ISA_Qualified'],
+    last_contact_at: new Date(Date.now() - 18 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 4 * 3600 * 1000).toISOString()
+  },
+  {
+    id: 'lead_hk_402',
+    tenant_id: 'tenant_harvey_kalles_04',
+    fub_person_id: 'fub_person_44102',
+    name: 'Vivienne Leclair',
+    phone: '+16472224411',
+    email: 'v.leclair@leclairpartners.ca',
+    qualification_stage: 'Escalated_Human_Review',
+    timeline: '60 Days',
+    budget: '$2.8M - $3.4M',
+    pre_approved: true,
+    representation_status: 'Needs_Verification',
+    search_criteria: 'Cumberland Street 2 Bed Luxury Suite',
+    notes: 'Ambiguous BRA status reported during open house check. Escalated to senior broker.',
+    tags: ['Hazelton_Collection', 'Needs_Human_Review'],
+    last_contact_at: new Date(Date.now() - 32 * 60 * 1000).toISOString(),
+    created_at: new Date(Date.now() - 5 * 3600 * 1000).toISOString()
+  },
+
+  // --- King West & Waterfront Modern Living Co. Prospects ---
   {
     id: 'lead_kw_201',
-    tenant_id: 'tenant_king_west_02',
+    tenant_id: 'tenant_king_west_05',
     fub_person_id: 'fub_person_77190',
     name: 'David Miller',
     phone: '+14167005544',
@@ -254,7 +419,7 @@ const initialLeads: Lead[] = [
   },
   {
     id: 'lead_kw_202',
-    tenant_id: 'tenant_king_west_02',
+    tenant_id: 'tenant_king_west_05',
     fub_person_id: 'fub_person_77191',
     name: 'Elena Rostova',
     phone: '+16478889900',
