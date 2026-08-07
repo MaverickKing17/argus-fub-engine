@@ -10,7 +10,7 @@ interface PilotRequestModalProps {
 export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestModalProps) {
   const [formData, setFormData] = useState({
     fullName: '',
-    brokerageName: teamName || '',
+    brokerageName: teamName || 'The Yorkville Luxury Group (GTA)',
     teamSize: '6-20',
     currentCrm: 'Follow Up Boss',
     leadVolume: '50-200',
@@ -124,27 +124,49 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                   <label className="block text-[11px] font-semibold text-[#CBD5E1] mb-1">
                     Brokerage / Team Name <span className="text-rose-400">*</span>
                   </label>
-                  <input
-                    type="text"
+                  <select
                     required
-                    list="toronto-brokerages-list"
                     value={formData.brokerageName}
                     onChange={(e) => setFormData({ ...formData, brokerageName: e.target.value })}
-                    placeholder="Select or type brokerage name..."
-                    className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none transition-colors"
-                  />
-                  <datalist id="toronto-brokerages-list">
-                    <option value="The Yorkville Luxury Group (GTA)" />
-                    <option value="Chestnut Park Real Estate • Christie's International" />
-                    <option value="Sotheby's International Realty Canada" />
-                    <option value="Harvey Kalles Real Estate Ltd." />
-                    <option value="Forest Hill Real Estate Inc." />
-                    <option value="Royal LePage Heritage Realty" />
-                    <option value="Engel & Völkers Toronto Central" />
-                    <option value="PSR Brokerage • Private Service Realty" />
-                    <option value="Hazelton Real Estate Inc." />
-                    <option value="King West & Waterfront Modern Living Co." />
-                  </datalist>
+                    className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none transition-colors cursor-pointer font-medium"
+                  >
+                    <option value="" disabled className="bg-[#071524] text-slate-400">
+                      -- Select Toronto Luxury Brokerage --
+                    </option>
+                    <option value="The Yorkville Luxury Group (GTA)" className="bg-[#071524]">
+                      The Yorkville Luxury Group (GTA)
+                    </option>
+                    <option value="Chestnut Park Real Estate • Christie's International" className="bg-[#071524]">
+                      Chestnut Park Real Estate • Christie's International
+                    </option>
+                    <option value="Sotheby's International Realty Canada" className="bg-[#071524]">
+                      Sotheby's International Realty Canada
+                    </option>
+                    <option value="Harvey Kalles Real Estate Ltd. • Hazelton Collection" className="bg-[#071524]">
+                      Harvey Kalles Real Estate Ltd. • Hazelton Collection
+                    </option>
+                    <option value="Forest Hill Real Estate Inc. • Bridle Path & Rosedale" className="bg-[#071524]">
+                      Forest Hill Real Estate Inc. • Bridle Path & Rosedale
+                    </option>
+                    <option value="Royal LePage Johnston & Daniel Division" className="bg-[#071524]">
+                      Royal LePage Johnston & Daniel Division
+                    </option>
+                    <option value="Engel & Völkers Toronto Central" className="bg-[#071524]">
+                      Engel & Völkers Toronto Central
+                    </option>
+                    <option value="PSR Brokerage • Private Service Realty" className="bg-[#071524]">
+                      PSR Brokerage • Private Service Realty
+                    </option>
+                    <option value="Hazelton Real Estate Inc. Yorkville" className="bg-[#071524]">
+                      Hazelton Real Estate Inc. Yorkville
+                    </option>
+                    <option value="King West & Waterfront Modern Living Co." className="bg-[#071524]">
+                      King West & Waterfront Modern Living Co.
+                    </option>
+                    <option value="Other Toronto / GTA Luxury Brokerage" className="bg-[#071524]">
+                      Other Toronto / GTA Luxury Brokerage
+                    </option>
+                  </select>
                 </div>
               </div>
 
