@@ -363,6 +363,21 @@ async function startServer() {
     }
   });
 
+  // Human Agent Escalation Resolution Endpoint
+  app.post('/api/v1/leads/:id/resolve-escalation', (req: Request, res: Response) => {
+    try {
+      const { newStage, representationStatus, note } = req.body;
+      const updated = dbStore.resolveEscalatedLead(req.params.id, newStage, representationStatus, note);
+      if (!updated) {
+        res.status(404).json({ error: 'Lead not found' });
+        return;
+      }
+      res.json({ success: true, lead: updated });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   // Notifications API
   app.get('/api/v1/notifications', (req: Request, res: Response) => {
     const tenantId = req.query.tenantId as string;

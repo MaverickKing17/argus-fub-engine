@@ -74,6 +74,12 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
 
         {/* Document Content Area */}
         <div className="p-6 overflow-y-auto space-y-6 text-xs text-[#E2E8F0] leading-relaxed font-sans bg-[#0F131D]">
+          {/* Visible Draft Header Note required by audit */}
+          <div className="p-3.5 bg-amber-950/40 border border-amber-800/60 rounded-xl flex items-center space-x-3 text-amber-300 text-xs font-semibold">
+            <AlertTriangle className="h-4 w-4 shrink-0 text-amber-400" />
+            <span>Draft — pending legal review. Not yet reviewed by counsel.</span>
+          </div>
+
           {/* TAB 1: TERMS & CONDITIONS */}
           {activeTab === 'terms' && (
             <div className="space-y-5">
@@ -96,7 +102,7 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
                 <section className="space-y-1.5">
                   <h4 className="text-sm font-bold text-[#F8FAFC]">2. Automated Messaging & ISA Operations</h4>
                   <p className="text-[#CBD5E1]">
-                    ARGUS AI provides automated 30-second Speed-to-Lead SMS outreach. The Licensee remains solely responsible for setting appropriate lead routing rules, human agent handoffs, and monitoring active conversation logs. ARGUS AI does not act as a licensed real estate salesperson or broker; it functions purely as an automated communication & data processing technology layer.
+                    ARGUS AI provides automated 30-second Speed-to-Lead SMS outreach. The Licensee remains solely responsible for setting appropriate lead routing rules, human agent handoffs, and monitoring active conversation logs. ARGUS AI does not act as a licensed real estate salesperson or broker; it functions purely as an automated communication & data processing technology layer designed to align with TRESA/RECO disclosure guidelines.
                   </p>
                 </section>
 
@@ -123,8 +129,8 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
               <div className="p-4 bg-[#151A24] rounded-xl border border-[#283042] flex items-start space-x-3">
                 <Lock className="h-5 w-5 text-[#10B981] shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">Canadian Privacy & Data Protection Policy (PIPEDA Compliant)</h3>
-                  <p className="text-[11px] text-[#CBD5E1] mt-0.5">Compliant with the Personal Information Protection and Electronic Documents Act (PIPEDA) & Ontario Freedom of Information standards.</p>
+                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">Canadian Privacy & Data Protection Policy (Designed to align with PIPEDA)</h3>
+                  <p className="text-[11px] text-[#CBD5E1] mt-0.5">Designed to align with the Personal Information Protection and Electronic Documents Act (PIPEDA) & Ontario Freedom of Information standards.</p>
                 </div>
               </div>
 
@@ -139,7 +145,7 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
                 <section className="space-y-1.5">
                   <h4 className="text-sm font-bold text-[#F8FAFC]">2. Data Encryption & Storage Standards</h4>
                   <p className="text-[#CBD5E1]">
-                    All lead payloads are encrypted in transit using TLS 1.3 and at rest using AES-256 bit encryption within our secure Canadian Cloud infrastructure. SMS messages routed through Twilio and Follow Up Boss are masked according to strict privacy guidelines. We never sell, rent, or trade prospect data to third-party ad networks or external brokerages.
+                    All lead payloads are encrypted in transit using TLS 1.3 and at rest using AES-256 bit encryption within our secure Canadian Cloud infrastructure. SMS messages routed through Twilio and Follow Up Boss are masked according to privacy guidelines. We never sell, rent, or trade prospect data to third-party ad networks or external brokerages.
                   </p>
                 </section>
 
@@ -159,8 +165,8 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
               <div className="p-4 bg-[#151A24] rounded-xl border border-[#283042] flex items-start space-x-3">
                 <ShieldCheck className="h-5 w-5 text-[#E5C178] shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">Ontario RECO & TRESA v2 Regulatory Disclaimer</h3>
-                  <p className="text-[11px] text-[#CBD5E1] mt-0.5">Mandatory disclosure under the Trust in Real Estate Services Act (TRESA v2) and Real Estate Council of Ontario (RECO).</p>
+                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">Ontario RECO & TRESA Regulatory Alignment Disclaimer</h3>
+                  <p className="text-[11px] text-[#CBD5E1] mt-0.5">Disclosure regarding the Trust in Real Estate Services Act (TRESA) and Real Estate Council of Ontario (RECO) workflows.</p>
                 </div>
               </div>
 
@@ -173,9 +179,9 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
                 </section>
 
                 <section className="space-y-1.5">
-                  <h4 className="text-sm font-bold text-[#F8FAFC]">2. TRESA v2 Representation Safeguards</h4>
+                  <h4 className="text-sm font-bold text-[#F8FAFC]">2. TRESA Representation Safeguards</h4>
                   <p className="text-[#CBD5E1]">
-                    Under Ontario TRESA v2 rules, the ARGUS AI ISA is programmed to automatically issue the required Information Before Representation (IBR) notice and inquire whether an inbound prospect is currently party to an active Buyer Representation Agreement (BRA) with another brokerage. If a prospect discloses active representation, the AI immediately halts qualification outreach to prevent intentional interference with contractual relations.
+                    Under workflows designed to align with Ontario TRESA rules, the ARGUS AI ISA is programmed to automatically issue Information Before Representation (IBR) notices and inquire whether an inbound prospect is currently party to an active Buyer Representation Agreement (BRA) with another brokerage. If a prospect discloses active representation, the AI immediately halts qualification outreach to prevent intentional interference with contractual relations.
                   </p>
                 </section>
 
@@ -237,8 +243,8 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
               <div className="p-4 bg-[#151A24] rounded-xl border border-[#283042] flex items-start space-x-3">
                 <Smartphone className="h-5 w-5 text-[#10B981] shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">Canada’s Anti-Spam Legislation (CASL) & Telemarketing Compliance</h3>
-                  <p className="text-[11px] text-[#CBD5E1] mt-0.5">Strict enforcement of commercial electronic messages (CEM) regulations and automated opt-out protocols.</p>
+                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">Canada’s Anti-Spam Legislation (CASL Alignment) & Telemarketing Guidelines</h3>
+                  <p className="text-[11px] text-[#CBD5E1] mt-0.5">Designed to align with commercial electronic messages (CEM) regulations and automated opt-out protocols.</p>
                 </div>
               </div>
 
@@ -246,14 +252,14 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
                 <section className="space-y-1.5">
                   <h4 className="text-sm font-bold text-[#F8FAFC]">1. Express & Implied Consent Requirements</h4>
                   <p className="text-[#CBD5E1]">
-                    ARGUS AI only initiates automated SMS messaging to leads that have submitted an inbound inquiry (implied consent under CASL for 2 years) or explicitly checked an SMS consent box (express consent). All outbound messages identify the brokerage tenant ({teamName}) and include contact information.
+                    ARGUS AI only initiates automated SMS messaging to leads that have submitted an inbound inquiry (implied consent under CASL guidelines) or explicitly checked an SMS consent box (express consent). All outbound messages identify the brokerage tenant ({teamName}) and include contact information.
                   </p>
                 </section>
 
                 <section className="space-y-1.5">
                   <h4 className="text-sm font-bold text-[#F8FAFC]">2. Immediate Automated Opt-Out ('STOP' Processing)</h4>
                   <p className="text-[#CBD5E1]">
-                    In compliance with CASL and CRTC regulations, if a recipient replies with "STOP", "UNSUBSCRIBE", or "QUIT", our Twilio gateway immediately revokes messaging permissions, flags the contact record in Follow Up Boss CRM, and ceases all future outreach. No further automated SMS will be transmitted.
+                    In alignment with CASL and CRTC regulations, if a recipient replies with "STOP", "UNSUBSCRIBE", or "QUIT", our Twilio gateway immediately revokes messaging permissions, flags the contact record in Follow Up Boss CRM, and ceases all future outreach. No further automated SMS will be transmitted.
                   </p>
                 </section>
 

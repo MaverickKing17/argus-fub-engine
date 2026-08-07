@@ -43,8 +43,13 @@ export function Footer({ teamName, onOpenLegal }: FooterProps) {
             </div>
 
             <p className="text-xs leading-relaxed text-[#CBD5E1] font-medium max-w-md">
-              Autonomous speed-to-lead ISA engine tailored specifically for high-ticket Toronto & GTA luxury real estate brokerages. Fully integrated with Follow Up Boss & TRESA v2 RECO compliance standards.
+              Autonomous speed-to-lead ISA engine tailored specifically for high-ticket Toronto & GTA luxury real estate brokerages. Integrated with Follow Up Boss & designed to align with TRESA / RECO disclosure guidelines.
             </p>
+
+            <div className="p-3 bg-[#111522] border border-[#283042] rounded-xl text-[11px] text-[#CBD5E1] leading-relaxed font-medium">
+              <span className="text-[#E5C178] font-bold block mb-0.5">Early-Stage Platform Notice</span>
+              Workflows are designed to align with TRESA/RECO disclosure guidelines but do not substitute for formal legal or brokerage compliance review.
+            </div>
 
             <div className="flex items-center space-x-2 text-[11px] text-[#E5C178] font-mono">
               <CheckCircle2 className="h-3.5 w-3.5 text-[#10B981]" />
@@ -107,30 +112,30 @@ export function Footer({ teamName, onOpenLegal }: FooterProps) {
             </ul>
           </div>
 
-          {/* Col 3: Regulatory Compliance (TRESA v2 & RECO) */}
+          {/* Col 3: Regulatory Alignment (TRESA & RECO) */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-white flex items-center space-x-1.5">
               <ShieldCheck className="h-3.5 w-3.5 text-[#10B981]" />
-              <span>Ontario Compliance</span>
+              <span>Ontario Compliance Alignment</span>
             </h4>
             <div className="space-y-2 text-xs">
               <div className="p-2.5 rounded-lg bg-[#111522] border border-[#283042] space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-white text-[11px]">TRESA v2 Standard</span>
-                  <span className="text-[10px] text-[#10B981] font-mono font-bold">ENFORCED</span>
+                  <span className="font-semibold text-white text-[11px]">TRESA Alignment</span>
+                  <span className="text-[10px] text-[#10B981] font-mono font-bold">ALIGNED</span>
                 </div>
                 <p className="text-[11px] text-[#CBD5E1] leading-normal font-normal">
-                  Information Before Representation (IBR) disclosures executed automatically via SMS before intent capture.
+                  Information Before Representation (IBR) disclosures issued automatically via SMS before intent capture.
                 </p>
               </div>
 
               <div className="p-2.5 rounded-lg bg-[#111522] border border-[#283042] space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-white text-[11px]">RECO BRA Audit Trail</span>
-                  <span className="text-[10px] text-[#10B981] font-mono font-bold">ACTIVE</span>
+                  <span className="font-semibold text-white text-[11px]">RECO BRA Safeguards</span>
+                  <span className="text-[10px] text-[#10B981] font-mono font-bold">ALIGNED</span>
                 </div>
                 <p className="text-[11px] text-[#CBD5E1] leading-normal font-normal">
-                  Immediate halt on leads represented under active Buyer Representation Agreements.
+                  Immediate halt or escalation on leads represented under active Buyer Representation Agreements.
                 </p>
               </div>
             </div>

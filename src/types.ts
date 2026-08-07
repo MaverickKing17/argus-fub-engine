@@ -2,6 +2,7 @@ export type QualificationStage =
   | 'New'
   | 'Engaged'
   | 'Qualified'
+  | 'Escalated_Human_Review'
   | 'Unrepresented_Disqualified';
 
 export type MessageDirection = 'inbound' | 'outbound';

@@ -22,8 +22,29 @@ export default function App() {
   const [selectedLeadId, setSelectedLeadId] = useState<string | undefined>(() => dbStore.getLeads(dbStore.getTenants()[0]?.id)?.[0]?.id);
   const [kpis, setKpis] = useState<DashboardKPIs>(() => dbStore.getKPIs(dbStore.getTenants()[0]?.id));
   const [health, setHealth] = useState<IntegrationHealth>(() => dbStore.getIntegrationHealth());
+  const [showDemoBanner, setShowDemoBanner] = useState(true);
   const [isLoadingMessage, setIsLoadingMessage] = useState(false);
   const [isSimulatingWebhook, setIsSimulatingWebhook] = useState(false);
+
+  const handleResetDemoState = () => {
+    // Reset dbStore and re-fetch data
+    window.location.reload();
+  };
+
+  const handleResolveEscalation = async (leadId: string, newStage: any, representationStatus: any, note?: string) => {
+    try {
+      const res = await fetch(`/api/v1/leads/${leadId}/resolve-escalation`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newStage, representationStatus, note })
+      });
+      if (res.ok) {
+        await fetchData();
+      }
+    } catch (err) {
+      console.error('Error resolving lead escalation:', err);
+    }
+  };
 
   // Fetch initial SaaS data
   const fetchData = async () => {
@@ -178,6 +199,35 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F7] font-sans selection:bg-[#C5A059] selection:text-black">
+      {/* Persistent Dismissible Demo Environment Banner */}
+      {showDemoBanner && (
+        <div className="bg-[#1C180E] border-b border-[#E5C178]/30 px-4 py-2 text-xs font-sans text-[#CBD5E1] flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center space-x-2">
+            <span className="bg-[#E5C178]/20 text-[#E5C178] border border-[#E5C178]/40 px-2 py-0.5 rounded text-[10px] font-bold font-mono uppercase tracking-wider">
+              DEMO ENVIRONMENT
+            </span>
+            <span className="font-medium">
+              Connected to Follow Up Boss Sandbox (<strong className="text-white font-semibold">{currentTenant.team_name}</strong>). All messages and leads are simulated for evaluation.
+            </span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={handleResetDemoState}
+              className="text-[#E5C178] hover:text-white text-[11px] font-semibold underline underline-offset-2 transition-colors cursor-pointer"
+            >
+              Reset Demo State
+            </button>
+            <button
+              onClick={() => setShowDemoBanner(false)}
+              className="text-[#CBD5E1] hover:text-white text-xs p-0.5 rounded cursor-pointer"
+              aria-label="Dismiss banner"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Top Navbar */}
       <Navbar
         tenants={tenants}
@@ -201,7 +251,7 @@ export default function App() {
             TRESA & RECO AUDIT STREAM:
           </span>
           <span className="text-[#94A3B8] hidden sm:inline">•</span>
-          <span className="text-emerald-400 font-medium hidden sm:inline">100% DISCLOSURE COMPLIANCE VERIFIED</span>
+          <span className="text-emerald-400 font-medium hidden sm:inline">TRESA DISCLOSURE CHECK COMPLETE</span>
           <span className="text-[#94A3B8] hidden md:inline">•</span>
           <span className="text-[#94A3B8] hidden md:inline">0 Unrepresented Disqualifications Flagged</span>
         </div>

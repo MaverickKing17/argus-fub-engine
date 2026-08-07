@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Tenant, NotificationItem } from '../types.js';
-import { ShieldCheck, Bot, Sparkles, Zap, Building2, Plus, CheckCircle2, BookOpen, X, ExternalLink, HelpCircle, FileText, Scale } from 'lucide-react';
+import { ShieldCheck, Bot, Sparkles, Zap, Building2, Plus, CheckCircle2, BookOpen, X, ExternalLink, HelpCircle, FileText, Scale, Send } from 'lucide-react';
 import { NotificationBell } from './NotificationBell.js';
 import { LegalModal } from './LegalModal.js';
+import { PilotRequestModal } from './PilotRequestModal.js';
 
 interface NavbarProps {
   tenants: Tenant[];
@@ -31,6 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [showDocsModal, setShowDocsModal] = useState(false);
   const [showLegalModal, setShowLegalModal] = useState(false);
+  const [showPilotModal, setShowPilotModal] = useState(false);
 
   return (
     <>
@@ -59,14 +61,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span>LIVE</span>
                   </span>
 
-                  {/* Executive Compliance Badge (Replaces Technical LLM Badge) */}
+                  {/* Executive Alignment Badge */}
                   <span className="bg-amber-950/40 text-[#C5A059] border border-[#C5A059]/30 text-[10px] px-2.5 py-0.5 rounded-full font-medium font-mono hidden sm:inline-flex items-center space-x-1 uppercase tracking-wider">
                     <CheckCircle2 className="h-3 w-3 text-[#C5A059]" />
-                    <span>TRESA V2 COMPLIANT</span>
+                    <span>TRESA-ALIGNED WORKFLOW</span>
                   </span>
                 </div>
                 <p className="text-xs text-[#CBD5E1] font-medium tracking-wide hidden sm:block mt-0.5 font-sans">
-                  Autonomous Luxury Lead Engine | GTA Brokerage Suite
+                  Autonomous Speed-to-Lead ISA Engine • Early-Access Pilot Program
                 </p>
               </div>
             </div>
@@ -125,17 +127,28 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="hidden lg:inline">Legal Policies</span>
               </button>
 
-              {/* Executive Metallic Champagne Gold Action Button */}
+              {/* Developer Test / Simulation Button (Secondary) */}
               <button
                 id="simulate-inbound-lead-btn"
                 onClick={onSimulateWebhook}
                 disabled={isSimulating}
-                className="btn-executive-primary px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-all flex items-center space-x-2 text-xs sm:text-sm cursor-pointer disabled:opacity-50 shrink-0"
-                title="Simulate inbound FUB lead creation & instant 30s SMS outreach"
+                className="text-[#CBD5E1] hover:text-[#E5C178] text-[11px] font-medium transition-colors flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-[#262626] bg-[#141414] hover:border-[#E5C178]/40 cursor-pointer disabled:opacity-50 shrink-0"
+                title="[Developer Test Tool] Simulate inbound lead creation & instant 30s SMS outreach"
               >
-                <Plus className={`h-4 w-4 text-[#07090E] stroke-[2.5] ${isSimulating ? 'animate-spin' : ''}`} />
-                <span className="hidden md:inline">+ Simulate Inbound Lead</span>
-                <span className="md:hidden">+ Trigger Lead</span>
+                <Zap className={`h-3.5 w-3.5 text-[#E5C178] ${isSimulating ? 'animate-spin' : ''}`} />
+                <span className="hidden xl:inline">[Dev] Simulate Lead</span>
+              </button>
+
+              {/* Executive Primary CTA: Request a Pilot Partnership */}
+              <button
+                id="request-pilot-partnership-btn"
+                onClick={() => setShowPilotModal(true)}
+                className="btn-executive-primary px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-all flex items-center space-x-2 text-xs sm:text-sm cursor-pointer shrink-0"
+                title="Apply to join the ARGUS AI Founding Brokerage Design Partner Program"
+              >
+                <Sparkles className="h-4 w-4 text-[#07090E]" />
+                <span className="hidden sm:inline">Request a Pilot Partnership</span>
+                <span className="sm:hidden">Request Pilot</span>
               </button>
             </div>
           </div>
@@ -267,6 +280,13 @@ export const Navbar: React.FC<NavbarProps> = ({
       <LegalModal
         isOpen={showLegalModal}
         onClose={() => setShowLegalModal(false)}
+        teamName={currentTenant.team_name}
+      />
+
+      {/* Pilot Request Modal */}
+      <PilotRequestModal
+        isOpen={showPilotModal}
+        onClose={() => setShowPilotModal(false)}
         teamName={currentTenant.team_name}
       />
     </>

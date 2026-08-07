@@ -28,6 +28,7 @@ export async function syncToFollowUpBoss(
         'New': 'New Lead',
         'Engaged': 'Engaged',
         'Qualified': 'Hot Prospect',
+        'Escalated_Human_Review': 'Pending Agent Review',
         'Unrepresented_Disqualified': 'Trash / Disqualified'
       };
 

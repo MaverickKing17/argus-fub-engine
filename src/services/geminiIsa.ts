@@ -26,10 +26,12 @@ Qualification Parameters:
 1. Timeline (e.g., immediate, 30-90 days, 6+ months).
 2. Financial Readiness (Pre-approved, cash, or needs broker).
 3. Search Criteria (Neighborhoods, property type, budget).
-4. TRESA & RECO Representation Check: Per Ontario TRESA regulations, ask if they are under a signed buyer representation agreement (BRA) with another real estate brokerage.
+4. TRESA & RECO Representation Check: Per Ontario TRESA guidelines, ask if they are under a signed buyer representation agreement (BRA) with another real estate brokerage.
 Guardrails:
-- CASL Compliance: Ensure user opted in.
+- CASL Guidelines: Ensure user opted in.
 - Legal & TRESA/RECO Rules: If the prospect confirms active representation under TRESA with another agent, politely terminate the sales pitch and set qualification_stage to 'Unrepresented_Disqualified'.
+- Ambiguous BRA Response: If the prospect's answer regarding BRA representation is ambiguous, uncertain, or unparseable (e.g., "I signed something at an open house but I don't know what it was", "maybe", "not sure"), set qualificationStage to 'Escalated_Human_Review' and representationStatus to 'Needs_Verification'.
+- Suspended Auto-Advancement: Do NOT auto-advance a lead in 'Escalated_Human_Review' stage to Qualified or Disqualified. Keep it in 'Escalated_Human_Review' until resolved by a human agent.
 - Zero Hallucination: Do NOT fabricate property details or legal terms.
 
 SMS Messaging Format Guidelines:
@@ -87,7 +89,7 @@ Return JSON matching schema.`;
               },
               qualificationStage: {
                 type: Type.STRING,
-                description: 'New | Engaged | Qualified | Unrepresented_Disqualified'
+                description: 'New | Engaged | Qualified | Escalated_Human_Review | Unrepresented_Disqualified'
               },
               timelineExtracted: {
                 type: Type.STRING,
@@ -149,8 +151,28 @@ function fallbackIsaEngine(
 ): GeminiQualificationResult {
   const lower = inboundBody.toLowerCase();
 
+  // Check for Ambiguous BRA response (Needs Human Escalation)
+  const isAmbiguousRep = lower.includes('not sure') || 
+                        lower.includes('signed something') || 
+                        lower.includes('open house') || 
+                        lower.includes('guest sheet') || 
+                        lower.includes('maybe') || 
+                        lower.includes('dont know') || 
+                        lower.includes("don't know");
+
+  if (isAmbiguousRep || lead.qualification_stage === 'Escalated_Human_Review') {
+    return {
+      replyMessage: `Thank you for letting us know ${lead.name}. To ensure full alignment with TRESA rules, I am connecting you with our senior licensed agent to verify your representation status before we proceed.`,
+      qualificationStage: 'Escalated_Human_Review',
+      representationStatus: 'Needs_Verification',
+      internalNotes: 'Prospect provided an ambiguous response regarding BRA representation status. Escalated to human agent review.',
+      fubTagsToAdd: ['Needs_Human_Review', 'BRA_Ambiguous'],
+      aiReasoning: 'BRA Representation Status: Ambiguous — routed to human agent for confirmation before qualification stage is finalized.'
+    };
+  }
+
   // Check for RECO Disqualification (Representation by another agent)
-  const isRepresented = lower.includes('signed') || 
+  const isRepresented = lower.includes('signed a bra') || 
                         lower.includes('other agent') || 
                         lower.includes('realtor cousin') || 
                         lower.includes('working with an agent') ||

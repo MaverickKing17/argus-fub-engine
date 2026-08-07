@@ -1,4 +1,4 @@
-import { Tenant, Lead, Message, DashboardKPIs, IntegrationHealth, NotificationItem } from '../types.js';
+import { Tenant, Lead, Message, DashboardKPIs, IntegrationHealth, NotificationItem, QualificationStage, RepresentationStatus } from '../types.js';
 import { 
   saveTenantToFirestore, 
   saveLeadToFirestore, 
@@ -131,14 +131,14 @@ const initialLeads: Lead[] = [
     name: 'Camilla Sterling',
     phone: '+16473339102',
     email: 'c.sterling@sterlingholdings.ca',
-    qualification_stage: 'Engaged',
+    qualification_stage: 'Escalated_Human_Review',
     timeline: '60 Days',
     budget: '$3.0M - $3.8M',
     pre_approved: true,
     representation_status: 'Needs_Verification',
     search_criteria: 'Four Seasons Residences Yorkville high-floor 2 Bed suite',
-    notes: 'Inquired regarding valet parking spots and monthly condo maintenance inclusions.',
-    tags: ['FourSeasons_Residences', 'Engaged_ISA'],
+    notes: 'BRA Representation Status: Ambiguous (Prospect mentioned signing open house guest sheet). Escalated to human agent confirmation.',
+    tags: ['FourSeasons_Residences', 'Needs_Human_Review', 'BRA_Ambiguous'],
     last_contact_at: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
     created_at: new Date(Date.now() - 4 * 3600 * 1000).toISOString()
   },
@@ -368,6 +368,33 @@ const initialMessages: Message[] = [
     body: 'Hi! Yes looking for 2+1 beds in Forest Hill under $2.2M in about 90 days. Does the building have EV charging?',
     created_at: new Date(Date.now() - 45 * 60 * 1000).toISOString(),
     status: 'received'
+  },
+
+  // Conversation for Camilla Sterling (Escalated Human Review)
+  {
+    id: 'msg_yov_cs_1',
+    lead_id: 'lead_yov_105',
+    direction: 'outbound',
+    body: 'Hi Camilla! Thank you for inquiring about Four Seasons Residences Yorkville. Per Ontario TRESA rules, are you currently under a signed representation agreement with another brokerage?',
+    created_at: new Date(Date.now() - 35 * 60 * 1000).toISOString(),
+    status: 'delivered'
+  },
+  {
+    id: 'msg_yov_cs_2',
+    lead_id: 'lead_yov_105',
+    direction: 'inbound',
+    body: 'I signed a paper at an open house last weekend with another agent, but I am not sure if it was a Buyer Representation Agreement or just an open house visitor sheet.',
+    created_at: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
+    status: 'received'
+  },
+  {
+    id: 'msg_yov_cs_3',
+    lead_id: 'lead_yov_105',
+    direction: 'outbound',
+    body: 'Thank you for letting us know Camilla. To ensure full alignment with TRESA rules, I am connecting you with our senior licensed agent who will clarify your agreement status before we proceed.',
+    created_at: new Date(Date.now() - 29 * 60 * 1000).toISOString(),
+    ai_reasoning: 'BRA Representation Status: Ambiguous (Open house visitor sheet vs BRA). AI confidence below classification threshold. Transitioned to Escalated_Human_Review and notified human agent.',
+    status: 'delivered'
   },
 
   // Conversation for David Miller (Disqualified)
@@ -647,6 +674,29 @@ class DBStore {
     }
 
     return newMsg;
+  }
+
+  resolveEscalatedLead(
+    leadId: string,
+    newStage: QualificationStage,
+    newRepStatus: RepresentationStatus,
+    note?: string
+  ): Lead | undefined {
+    const lead = this.leads.get(leadId);
+    if (!lead) return undefined;
+    const updated = this.updateLead(leadId, {
+      qualification_stage: newStage,
+      representation_status: newRepStatus,
+      notes: note || `Human agent confirmed BRA representation status as ${newRepStatus}. Stage updated to ${newStage}.`
+    });
+    this.addNotification({
+      tenant_id: lead.tenant_id,
+      lead_id: lead.id,
+      event_type: 'HUMAN_HANDOFF',
+      title: 'Human Review Resolved',
+      message: `${lead.name} BRA status confirmed as ${newRepStatus}. Stage updated to ${newStage}.`
+    });
+    return updated;
   }
 
   // Analytics & KPIs
