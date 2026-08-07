@@ -66,7 +66,7 @@ export interface NotificationItem {
   id: string;
   tenant_id: string;
   lead_id?: string;
-  event_type: 'LEAD_QUALIFIED' | 'URGENT_INTENT' | 'HUMAN_HANDOFF';
+  event_type: 'LEAD_QUALIFIED' | 'URGENT_INTENT' | 'HUMAN_HANDOFF' | 'WEBHOOK_RECEIVED';
   title: string;
   message: string;
   is_read: boolean;

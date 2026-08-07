@@ -25,6 +25,7 @@ export default function App() {
   const [showDemoBanner, setShowDemoBanner] = useState(true);
   const [isLoadingMessage, setIsLoadingMessage] = useState(false);
   const [isSimulatingWebhook, setIsSimulatingWebhook] = useState(false);
+  const [simulatedToast, setSimulatedToast] = useState<{ show: boolean; name: string; phone: string; stage: string } | null>(null);
 
   const handleResetDemoState = () => {
     // Reset dbStore and re-fetch data
@@ -145,6 +146,10 @@ export default function App() {
         if (data.result?.leadId) {
           setSelectedLeadId(data.result.leadId);
         }
+        const leadName = data.simulatedPayload?.data?.name || 'Inbound Prospect';
+        const leadPhone = data.simulatedPayload?.data?.phone || '';
+        setSimulatedToast({ show: true, name: leadName, phone: leadPhone, stage: 'New Lead' });
+        setTimeout(() => setSimulatedToast(null), 6000);
       }
     } catch (err) {
       console.error('Error simulating FUB webhook:', err);
@@ -303,6 +308,32 @@ export default function App() {
           <SettingsPanel tenant={currentTenant} onUpdateTenant={handleUpdateTenant} />
         )}
       </main>
+
+      {/* Floating Webhook Success Toast Alert */}
+      {simulatedToast?.show && (
+        <div className="fixed bottom-6 right-6 z-50 bg-[#141414] border border-[#E5C178] text-white p-4 rounded-xl shadow-2xl max-w-sm animate-bounce-short flex items-start space-x-3">
+          <div className="w-8 h-8 rounded-lg bg-[#E5C178]/20 text-[#E5C178] border border-[#E5C178]/40 flex items-center justify-center shrink-0 mt-0.5">
+            ⚡
+          </div>
+          <div className="flex-1 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-[#E5C178] uppercase tracking-wider font-mono">FUB Webhook Executed</span>
+              <button
+                onClick={() => setSimulatedToast(null)}
+                className="text-[#94A3B8] hover:text-white text-xs cursor-pointer ml-2"
+              >
+                ✕
+              </button>
+            </div>
+            <p className="text-xs text-white font-bold">
+              {simulatedToast.name} <span className="text-[#94A3B8] font-mono text-[10px]">({simulatedToast.phone})</span>
+            </p>
+            <p className="text-[11px] text-[#CBD5E1] font-medium leading-tight">
+              Lead ingested from Follow Up Boss. Speed-to-lead SMS dispatched within 15 seconds.
+            </p>
+          </div>
+        </div>
+      )}
 
       <Footer teamName={currentTenant.team_name} />
     </div>

@@ -26,74 +26,87 @@ async function startServer() {
     next();
   });
 
+  // Helper function to process FUB personCreated webhook directly
+  async function processFubWebhookPayload(payload: any) {
+    console.log('Processing FUB Webhook payload:', JSON.stringify(payload));
+    const tenantId = payload.tenantId || 'tenant_yorkville_01';
+    const tenant = dbStore.getTenantById(String(tenantId)) || dbStore.getTenants()[0];
+
+    const fubData = payload.data || payload.person || payload;
+    const fubPersonId = String(fubData.id || `fub_${Date.now()}`);
+    const name = fubData.name || `${fubData.firstName || 'Inbound'} ${fubData.lastName || 'Prospect'}`.trim();
+    const phone = fubData.phone || fubData.phones?.[0]?.value || '+1416555' + Math.floor(1000 + Math.random() * 9000);
+    const email = fubData.email || fubData.emails?.[0]?.value || 'lead@toronto-realestate.ca';
+
+    // Check if lead already exists
+    let lead = dbStore.getLeadByFubId(fubPersonId, tenant.id);
+    if (!lead) {
+      lead = dbStore.createLead({
+        tenant_id: tenant.id,
+        fub_person_id: fubPersonId,
+        name,
+        phone,
+        email,
+        qualification_stage: 'New',
+        timeline: 'Immediate',
+        budget: '$2.5M - $4.0M',
+        pre_approved: true,
+        representation_status: 'Needs_Verification',
+        search_criteria: `Inquiry via ${fubData.source || 'Realtor.ca Luxury Listing'}`,
+        notes: 'Created via Follow Up Boss personCreated Webhook',
+        tags: ['FUB_Webhook_Inbound', 'SpeedToLead_Initiated']
+      });
+    }
+
+    // Automated initial outreach SMS via Twilio within 30 seconds
+    const initialOutreachBody = `Hi ${lead.name}! Thanks for reaching out to ${tenant.team_name}. Are you currently looking to buy or sell a property in the Toronto area in the next 30-90 days?`;
+    
+    const twilioRes = await sendSMSViaTwilio(tenant, lead.phone, initialOutreachBody);
+
+    // Log outbound message
+    const msg = dbStore.addMessage({
+      lead_id: lead.id,
+      direction: 'outbound',
+      body: initialOutreachBody,
+      status: twilioRes.success ? 'delivered' : 'failed',
+      ai_reasoning: 'Automated speed-to-lead initial outreach triggered on FUB personCreated webhook.'
+    });
+
+    // Add high-priority notification to dashboard
+    dbStore.addNotification({
+      tenant_id: tenant.id,
+      lead_id: lead.id,
+      event_type: 'WEBHOOK_RECEIVED',
+      title: 'Inbound FUB Lead Ingested',
+      message: `New prospect ${lead.name} (${lead.phone}) created via Follow Up Boss Webhook. Speed-to-Lead SMS dispatched.`
+    });
+
+    // Sync back to FUB
+    await syncToFollowUpBoss(
+      tenant,
+      lead,
+      `Speed-to-lead SMS sent automatically within 15 seconds: "${initialOutreachBody}"`,
+      ['SpeedToLead_SMS_Sent', 'ISA_Active'],
+      'Engaged'
+    );
+
+    return {
+      success: true,
+      message: 'FUB Webhook processed successfully',
+      leadId: lead.id,
+      outreachMessageId: msg.id,
+      twilioStatus: twilioRes.status
+    };
+  }
+
   // -------------------------------------------------------------
   // WEBHOOK 1: FUB personCreated Webhook
   // POST /api/v1/webhooks/fub
   // -------------------------------------------------------------
   app.post('/api/v1/webhooks/fub', async (req: Request, res: Response) => {
     try {
-      console.log('Received FUB Webhook payload:', JSON.stringify(req.body));
-      const payload = req.body || {};
-      
-      // FUB Webhook payload structure: { event: 'personCreated', data: { id: 1234, name: '...', phone: '...', email: '...' }, tenantId?: '...' }
-      const tenantId = payload.tenantId || req.query.tenantId || 'tenant_yorkville_01';
-      const tenant = dbStore.getTenantById(String(tenantId)) || dbStore.getTenants()[0];
-
-      const fubData = payload.data || payload.person || payload;
-      const fubPersonId = String(fubData.id || `fub_${Date.now()}`);
-      const name = fubData.name || `${fubData.firstName || 'Inbound'} ${fubData.lastName || 'Prospect'}`.trim();
-      const phone = fubData.phone || fubData.phones?.[0]?.value || '+1416555' + Math.floor(1000 + Math.random() * 9000);
-      const email = fubData.email || fubData.emails?.[0]?.value || 'lead@toronto-realestate.ca';
-
-      // Check if lead already exists
-      let lead = dbStore.getLeadByFubId(fubPersonId, tenant.id);
-      if (!lead) {
-        lead = dbStore.createLead({
-          tenant_id: tenant.id,
-          fub_person_id: fubPersonId,
-          name,
-          phone,
-          email,
-          qualification_stage: 'New',
-          timeline: 'Unknown',
-          budget: 'Unknown',
-          pre_approved: false,
-          representation_status: 'Needs_Verification',
-          notes: 'Created via Follow Up Boss personCreated Webhook',
-          tags: ['FUB_Webhook_Inbound', 'SpeedToLead_Initiated']
-        });
-      }
-
-      // Automated initial outreach SMS via Twilio within 30 seconds
-      const initialOutreachBody = `Hi ${lead.name}! Thanks for reaching out to ${tenant.team_name}. Are you currently looking to buy or sell a property in the Toronto area in the next 30-90 days?`;
-      
-      const twilioRes = await sendSMSViaTwilio(tenant, lead.phone, initialOutreachBody);
-
-      // Log outbound message
-      const msg = dbStore.addMessage({
-        lead_id: lead.id,
-        direction: 'outbound',
-        body: initialOutreachBody,
-        status: twilioRes.success ? 'delivered' : 'failed',
-        ai_reasoning: 'Automated speed-to-lead initial outreach triggered on FUB personCreated webhook.'
-      });
-
-      // Sync back to FUB
-      await syncToFollowUpBoss(
-        tenant,
-        lead,
-        `Speed-to-lead SMS sent automatically within 15 seconds: "${initialOutreachBody}"`,
-        ['SpeedToLead_SMS_Sent', 'ISA_Active'],
-        'Engaged'
-      );
-
-      res.status(200).json({
-        success: true,
-        message: 'FUB Webhook processed successfully',
-        leadId: lead.id,
-        outreachMessageId: msg.id,
-        twilioStatus: twilioRes.status
-      });
+      const result = await processFubWebhookPayload(req.body || {});
+      res.status(200).json(result);
     } catch (err: any) {
       console.error('Error handling FUB Webhook:', err);
       res.status(500).json({ success: false, error: err.message });
@@ -349,15 +362,63 @@ async function startServer() {
         }
       };
 
-      // Call internal handler
-      const internalRes = await fetch(`http://localhost:${PORT}/api/v1/webhooks/fub`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fakeFubPayload)
-      });
-      const data = await internalRes.json();
+      // Call internal processing logic directly
+      const data = await processFubWebhookPayload(fakeFubPayload);
 
       res.json({ success: true, simulatedPayload: fakeFubPayload, result: data });
+    } catch (err: any) {
+      console.error('Error simulating FUB webhook:', err);
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Pilot Partnership Application Form Endpoint (Resend integration ready)
+  app.post('/api/v1/pilot-request', async (req: Request, res: Response) => {
+    try {
+      const { fullName, brokerageName, teamSize, currentCrm, leadVolume, email, phone, notes } = req.body;
+      console.log('Received Pilot Request:', { fullName, brokerageName, email, phone, teamSize, currentCrm });
+
+      const resendApiKey = process.env.RESEND_API_KEY;
+      let emailStatus = 'simulated';
+
+      if (resendApiKey && resendApiKey.startsWith('re_')) {
+        try {
+          const resendResponse = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${resendApiKey}`
+            },
+            body: JSON.stringify({
+              from: 'ARGUS AI Pilot Desk <onboarding@resend.dev>',
+              to: [email, 'kingnarmer702@gmail.com'],
+              subject: `ARGUS AI Pilot Partnership Request - ${brokerageName}`,
+              html: `
+                <h2>ARGUS AI Luxury Brokerage Pilot Application</h2>
+                <p><strong>Full Name:</strong> ${fullName}</p>
+                <p><strong>Brokerage:</strong> ${brokerageName}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Team Size:</strong> ${teamSize}</p>
+                <p><strong>Current CRM:</strong> ${currentCrm}</p>
+                <p><strong>Monthly Lead Volume:</strong> ${leadVolume}</p>
+                <p><strong>Notes:</strong> ${notes || 'None'}</p>
+              `
+            })
+          });
+          if (resendResponse.ok) {
+            emailStatus = 'sent_via_resend';
+          }
+        } catch (resendErr) {
+          console.warn('Resend email dispatch error:', resendErr);
+        }
+      }
+
+      res.json({
+        success: true,
+        message: 'Pilot request received successfully',
+        emailStatus
+      });
     } catch (err: any) {
       res.status(500).json({ error: err.message });
     }

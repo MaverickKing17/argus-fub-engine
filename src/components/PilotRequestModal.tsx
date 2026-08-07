@@ -24,13 +24,22 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await fetch('/api/v1/pilot-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
       setSubmitted(true);
-    }, 600);
+    } catch (err) {
+      console.error('Error submitting pilot request:', err);
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleResetAndClose = () => {
