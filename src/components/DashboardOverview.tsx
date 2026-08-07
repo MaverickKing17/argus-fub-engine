@@ -1,6 +1,7 @@
-import React from 'react';
-import { DashboardKPIs, IntegrationHealth, Lead, Tenant } from '../types.js';
-import { Users, MessageSquare, CheckCircle2, ShieldAlert, ArrowUpRight, Zap, Clock, Sparkles, Building2, TrendingUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { DashboardKPIs, IntegrationHealth, Lead, Tenant, QualificationStage, RepresentationStatus } from '../types.js';
+import { Users, MessageSquare, CheckCircle2, ShieldAlert, ArrowUpRight, Zap, Clock, Sparkles, Building2, TrendingUp, AlertTriangle, Eye, Filter } from 'lucide-react';
+import { LeadDetailModal } from './LeadDetailModal.js';
 
 interface DashboardOverviewProps {
   kpis: DashboardKPIs;
@@ -9,6 +10,7 @@ interface DashboardOverviewProps {
   tenant: Tenant;
   onNavigateTab: (tab: string, leadId?: string) => void;
   onSimulateWebhook: () => void;
+  onResolveEscalation?: (leadId: string, newStage: QualificationStage, representationStatus: RepresentationStatus, note?: string) => Promise<void>;
 }
 
 export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
@@ -17,9 +19,19 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   leads,
   tenant,
   onNavigateTab,
-  onSimulateWebhook
+  onSimulateWebhook,
+  onResolveEscalation
 }) => {
-  const recentLeads = leads.slice(0, 5);
+  const [selectedFilter, setSelectedFilter] = useState<string>('ALL');
+  const [inspectLead, setInspectLead] = useState<Lead | null>(null);
+
+  const filteredLeads = leads.filter((l) => {
+    if (selectedFilter === 'ALL') return true;
+    return l.qualification_stage === selectedFilter;
+  });
+
+  const recentLeads = filteredLeads.slice(0, 6);
+  const escalatedCount = leads.filter((l) => l.qualification_stage === 'Escalated_Human_Review').length;
 
   return (
     <div className="space-y-6 font-sans">
@@ -41,9 +53,9 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           <button
             id="overview-test-lead-btn"
             onClick={onSimulateWebhook}
-            className="w-full md:w-auto btn-executive-primary text-xs px-4 py-2.5 rounded-lg flex items-center justify-center space-x-2"
+            className="w-full md:w-auto btn-executive-primary text-xs px-4 py-2.5 rounded-lg flex items-center justify-center space-x-2 cursor-pointer"
           >
-            <Sparkles className="h-4 w-4" />
+            <Sparkles className="h-4 w-4 text-[#07090E]" />
             <span>Fire Inbound FUB Webhook</span>
           </button>
         </div>
@@ -219,87 +231,152 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
       {/* Main Grid: Recent Activity Stream + Integration Health */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Leads Stream */}
-        <div className="lg:col-span-2 card-executive p-6 flex flex-col justify-between">
+        <div className="lg:col-span-2 card-executive p-6 flex flex-col justify-between space-y-4">
           <div>
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#262626]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#262626]">
               <div>
-                <h3 className="text-base font-bold text-[#F8FAFC] tracking-wide">
-                  Live Inbound Qualification Stream
-                </h3>
+                <div className="flex items-center space-x-2">
+                  <h3 className="text-base font-bold text-[#F8FAFC] tracking-wide">
+                    Live Inbound Qualification Stream
+                  </h3>
+                  {escalatedCount > 0 && (
+                    <span className="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-mono px-2 py-0.5 rounded-full font-bold flex items-center gap-1 animate-pulse">
+                      <AlertTriangle className="h-3 w-3" />
+                      {escalatedCount} Escalated
+                    </span>
+                  )}
+                </div>
                 <p className="text-xs text-[#CBD5E1] font-medium mt-0.5">Real-time status of GTA prospects in system</p>
               </div>
-              <button
-                id="view-all-leads-btn"
-                onClick={() => onNavigateTab('leads')}
-                className="text-xs font-bold text-[#E5C178] hover:text-[#F3DAA0] flex items-center space-x-1 transition-colors cursor-pointer"
-              >
-                <span>View All Pipeline</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </button>
+
+              <div className="flex items-center space-x-2">
+                <button
+                  id="view-all-leads-btn"
+                  onClick={() => onNavigateTab('leads')}
+                  className="text-xs font-bold text-[#E5C178] hover:text-[#F3DAA0] flex items-center space-x-1 transition-colors cursor-pointer shrink-0"
+                >
+                  <span>View Full Pipeline</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
             </div>
 
+            {/* Category Filter Pills */}
+            <div className="flex flex-wrap items-center gap-1.5 mb-4">
+              {[
+                { id: 'ALL', label: 'All Leads', count: leads.length },
+                { id: 'Qualified', label: 'Qualified', count: leads.filter(l => l.qualification_stage === 'Qualified').length },
+                { id: 'Engaged', label: 'Engaged', count: leads.filter(l => l.qualification_stage === 'Engaged').length },
+                { id: 'New', label: 'New', count: leads.filter(l => l.qualification_stage === 'New').length },
+                { id: 'Escalated_Human_Review', label: 'Escalated Review', count: escalatedCount }
+              ].map((pill) => (
+                <button
+                  key={pill.id}
+                  onClick={() => setSelectedFilter(pill.id)}
+                  className={`text-[11px] px-2.5 py-1 rounded-lg font-semibold transition-all cursor-pointer flex items-center space-x-1 ${
+                    selectedFilter === pill.id
+                      ? 'bg-[#E5C178] text-black font-bold shadow-sm'
+                      : 'bg-[#0A0A0A] text-[#CBD5E1] hover:text-white border border-[#262626]'
+                  }`}
+                >
+                  <span>{pill.label}</span>
+                  <span className={`text-[9px] px-1.5 py-0.2 rounded font-mono ${selectedFilter === pill.id ? 'bg-black/20 text-black' : 'bg-[#262626] text-[#CBD5E1]'}`}>
+                    {pill.count}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            {/* Stream List */}
             <div className="space-y-3">
-              {recentLeads.map((lead) => {
-                const isQualified = lead.qualification_stage === 'Qualified';
-                const isDisqualified = lead.qualification_stage === 'Unrepresented_Disqualified';
+              {recentLeads.length === 0 ? (
+                <div className="p-8 text-center bg-[#0A0A0A] rounded-xl border border-[#262626] text-xs text-[#94A3B8]">
+                  No leads found in this stage filter.
+                </div>
+              ) : (
+                recentLeads.map((lead) => {
+                  const isQualified = lead.qualification_stage === 'Qualified';
+                  const isEscalated = lead.qualification_stage === 'Escalated_Human_Review';
+                  const isDisqualified = lead.qualification_stage === 'Unrepresented_Disqualified';
 
-                return (
-                  <div
-                    key={lead.id}
-                    onClick={() => onNavigateTab('conversations', lead.id)}
-                    className="p-3.5 bg-[#0A0A0A]/50 hover:bg-[#0A0A0A] rounded-lg border border-[#262626] hover:border-[#C5A059]/40 cursor-pointer transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group"
-                  >
-                    <div className="flex items-start space-x-3.5">
-                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 ${
-                        isQualified
-                          ? 'bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30'
-                          : isDisqualified
-                          ? 'bg-rose-950/60 text-rose-400 border border-rose-800/60'
-                          : 'bg-[#262626] text-[#F8FAFC] border border-[#262626]'
-                      }`}>
-                        {lead.name.split(' ').map(n => n[0]).join('')}
-                      </div>
-                      <div>
-                        <div className="flex items-center space-x-2">
-                          <h4 className="font-bold text-xs sm:text-sm text-[#F8FAFC] group-hover:text-[#E5C178] transition-colors">{lead.name}</h4>
-                          <span className="text-[10px] text-[#E2E8F0] font-mono font-medium">{lead.phone}</span>
+                  return (
+                    <div
+                      key={lead.id}
+                      className="p-3.5 bg-[#0A0A0A]/60 hover:bg-[#0A0A0A] rounded-xl border border-[#262626] hover:border-[#C5A059]/40 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group"
+                    >
+                      <div className="flex items-start space-x-3.5 min-w-0 flex-1">
+                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 ${
+                          isQualified
+                            ? 'bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30'
+                            : isEscalated
+                            ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                            : isDisqualified
+                            ? 'bg-rose-950/60 text-rose-400 border border-rose-800/60'
+                            : 'bg-[#262626] text-[#F8FAFC] border border-[#262626]'
+                        }`}>
+                          {lead.name.split(' ').map(n => n[0]).join('')}
                         </div>
-                        <p className="text-xs text-[#CBD5E1] font-medium truncate max-w-sm mt-0.5">
-                          {lead.search_criteria || 'Inbound property inquiry'}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-1.5 mt-2">
-                          <span className="text-[10px] bg-[#0A0A0A] px-2 py-0.5 rounded text-[#F8FAFC] font-mono border border-[#262626] font-semibold">
-                            {lead.budget}
-                          </span>
-                          <span className="text-[10px] bg-[#0A0A0A] px-2 py-0.5 rounded text-[#CBD5E1] font-mono border border-[#262626]">
-                            Timeline: <span className="text-white font-semibold">{lead.timeline}</span>
-                          </span>
-                          {lead.pre_approved && (
-                            <span className="text-[9px] bg-[#10B981]/15 text-[#10B981] px-1.5 py-0.5 rounded border border-[#10B981]/30 font-bold uppercase tracking-wide">
-                              Pre-Approved
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center space-x-2">
+                            <h4 className="font-bold text-xs sm:text-sm text-[#F8FAFC] group-hover:text-[#E5C178] transition-colors truncate">{lead.name}</h4>
+                            <span className="text-[10px] text-[#CBD5E1] font-mono font-medium">{lead.phone}</span>
+                          </div>
+                          <p className="text-xs text-[#CBD5E1] font-medium truncate mt-0.5">
+                            {lead.search_criteria || 'Inbound property inquiry'}
+                          </p>
+                          <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                            <span className="text-[10px] bg-[#141414] px-2 py-0.5 rounded text-[#F8FAFC] font-mono border border-[#262626] font-semibold">
+                              {lead.budget}
                             </span>
-                          )}
+                            <span className="text-[10px] bg-[#141414] px-2 py-0.5 rounded text-[#CBD5E1] font-mono border border-[#262626]">
+                              Timeline: <span className="text-white font-semibold">{lead.timeline}</span>
+                            </span>
+                            {lead.pre_approved && (
+                              <span className="text-[9px] bg-[#10B981]/15 text-[#10B981] px-1.5 py-0.5 rounded border border-[#10B981]/30 font-bold uppercase tracking-wide">
+                                Pre-Approved
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex sm:flex-col items-end justify-between w-full sm:w-auto shrink-0 border-t sm:border-t-0 border-[#262626] pt-2 sm:pt-0 gap-2">
+                        <span className={`text-[10px] px-2.5 py-0.5 rounded font-bold border uppercase tracking-wider ${
+                          isQualified
+                            ? 'bg-[#10B981]/15 text-[#10B981] border-[#10B981]/30'
+                            : isEscalated
+                            ? 'bg-amber-500/20 text-amber-400 border-amber-500/40 animate-pulse'
+                            : isDisqualified
+                            ? 'bg-rose-950/60 text-rose-400 border-rose-800/60'
+                            : 'bg-[#262626] text-[#F8FAFC] border border-[#262626]'
+                        }`}>
+                          {lead.qualification_stage.replace(/_/g, ' ')}
+                        </span>
+
+                        <div className="flex items-center space-x-1.5">
+                          <button
+                            onClick={() => setInspectLead(lead)}
+                            className="bg-[#262626] hover:bg-[#333] text-[#CBD5E1] hover:text-white text-[10px] px-2 py-1 rounded font-semibold transition-colors cursor-pointer flex items-center space-x-1"
+                            title="Inspect TRESA & Lead Profile"
+                          >
+                            <Eye className="h-3 w-3 text-[#E5C178]" />
+                            <span>Inspect</span>
+                          </button>
+
+                          <button
+                            onClick={() => onNavigateTab('conversations', lead.id)}
+                            className="bg-[#E5C178] hover:bg-[#D4B067] text-black text-[10px] px-2 py-1 rounded font-bold transition-colors cursor-pointer flex items-center space-x-1"
+                            title="Open SMS Thread"
+                          >
+                            <MessageSquare className="h-3 w-3" />
+                            <span>SMS</span>
+                          </button>
                         </div>
                       </div>
                     </div>
-
-                    <div className="flex sm:flex-col items-end justify-between w-full sm:w-auto shrink-0 border-t sm:border-t-0 border-[#262626] pt-2 sm:pt-0">
-                      <span className={`text-[10px] px-2.5 py-0.5 rounded font-bold border uppercase tracking-wider ${
-                        isQualified
-                          ? 'bg-[#10B981]/15 text-[#10B981] border-[#10B981]/30'
-                          : isDisqualified
-                          ? 'bg-rose-950/60 text-rose-400 border-rose-800/60'
-                          : 'bg-[#262626] text-[#F8FAFC] border border-[#262626]'
-                      }`}>
-                        {lead.qualification_stage.replace('_', ' ')}
-                      </span>
-                      <span className="text-[10px] text-[#CBD5E1] font-medium mt-1.5 font-mono">
-                        {new Date(lead.last_contact_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
@@ -379,6 +456,15 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Lead Detail / Inspection Modal */}
+      <LeadDetailModal
+        lead={inspectLead}
+        isOpen={!!inspectLead}
+        onClose={() => setInspectLead(null)}
+        onNavigateTab={onNavigateTab}
+        onResolveEscalation={onResolveEscalation}
+      />
     </div>
   );
 };

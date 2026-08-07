@@ -18,8 +18,9 @@ export async function syncToFollowUpBoss(
   stage: QualificationStage
 ): Promise<FUBSyncResult> {
   const apiKey = tenant.fub_api_key || process.env.FUB_API_KEY;
+  const isRealFubKey = apiKey && apiKey.length > 20 && !apiKey.startsWith('fub_live_') && !apiKey.includes('mock');
 
-  if (apiKey && apiKey.length > 5 && !apiKey.startsWith('fub_live_mock')) {
+  if (isRealFubKey) {
     try {
       const authHeader = `Basic ${Buffer.from(`${apiKey}:`).toString('base64')}`;
 

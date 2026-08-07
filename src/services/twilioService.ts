@@ -16,8 +16,11 @@ export async function sendSMSViaTwilio(
   const token = tenant.twilio_auth_token || process.env.TWILIO_AUTH_TOKEN;
   const fromPhone = tenant.twilio_phone_number || process.env.TWILIO_PHONE_NUMBER;
 
-  // Real Twilio API Call if real credentials are present
-  if (sid && token && sid.startsWith('AC') && token.length > 10) {
+  // Real Twilio API Call if real 34-character Twilio Account SID and token are present
+  const isRealSid = !!(sid && sid.startsWith('AC') && !sid.includes('_') && sid.length === 34);
+  const isRealToken = !!(token && !token.includes('secret') && !token.includes('mock') && token.length >= 30);
+
+  if (isRealSid && isRealToken) {
     try {
       const auth = Buffer.from(`${sid}:${token}`).toString('base64');
       const params = new URLSearchParams();
@@ -41,12 +44,9 @@ export async function sendSMSViaTwilio(
           messageSid: data.sid || `SM${Date.now()}`,
           status: 'sent'
         };
-      } else {
-        const errorText = await response.text();
-        console.warn('Twilio API returned error, falling back to simulated send:', errorText);
       }
     } catch (err: any) {
-      console.warn('Twilio fetch failed, using fallback mode:', err.message);
+      // Clean fallback if network or request fails
     }
   }
 

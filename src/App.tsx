@@ -275,6 +275,7 @@ export default function App() {
             tenant={currentTenant}
             onNavigateTab={handleNavigateTab}
             onSimulateWebhook={handleSimulateWebhook}
+            onResolveEscalation={handleResolveEscalation}
           />
         )}
 
