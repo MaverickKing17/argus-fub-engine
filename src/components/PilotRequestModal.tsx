@@ -49,11 +49,11 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in font-sans">
-      <div className="bg-[#0F131D] border border-[#283042] rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden relative">
+      <div className="bg-[#0B1726] border border-white/[0.12] rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden relative">
         {/* Header */}
-        <div className="p-5 border-b border-[#283042] bg-[#07090E] flex items-center justify-between">
+        <div className="p-5 border-b border-white/[0.08] bg-[#071524] flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-xl bg-[#151A24] border border-[#E5C178]/30 text-[#E5C178]">
+            <div className="p-2.5 rounded-xl bg-[#142133] border border-white/[0.1] text-[#E5C178]">
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
@@ -67,7 +67,7 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
           </div>
           <button
             onClick={handleResetAndClose}
-            className="p-1.5 rounded-lg text-[#CBD5E1] hover:text-white hover:bg-[#1C2333] transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-[#CBD5E1] hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="h-5 w-5" />
@@ -78,7 +78,7 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
         <div className="p-6">
           {submitted ? (
             <div className="py-8 text-center space-y-4">
-              <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-full bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981] flex items-center justify-center mx-auto">
                 <CheckCircle2 className="h-6 w-6" />
               </div>
               <div className="space-y-1.5">
@@ -90,7 +90,7 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
               <div className="pt-4">
                 <button
                   onClick={handleResetAndClose}
-                  className="btn-executive-primary px-6 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer"
+                  className="btn-executive-primary px-6 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-md"
                 >
                   Return to Dashboard
                 </button>
@@ -98,7 +98,7 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 text-xs font-sans">
-              <div className="p-3 bg-[#151A24] rounded-xl border border-[#283042] flex items-start space-x-2.5 text-[#CBD5E1]">
+              <div className="p-3.5 bg-[#071524] rounded-xl border border-white/[0.08] flex items-start space-x-2.5 text-[#CBD5E1]">
                 <Users className="h-4 w-4 text-[#E5C178] shrink-0 mt-0.5" />
                 <p className="text-[11px] leading-relaxed font-medium">
                   We are working directly with a select cohort of founding brokerages to refine our autonomous speed-to-lead ISA workflows.
@@ -116,7 +116,7 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     placeholder="e.g. Sarah Jenkins"
-                    className="w-full bg-[#07090E] border border-[#283042] focus:border-[#E5C178] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
+                    className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -130,7 +130,7 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                     value={formData.brokerageName}
                     onChange={(e) => setFormData({ ...formData, brokerageName: e.target.value })}
                     placeholder="e.g. Yorkville Luxury Group"
-                    className="w-full bg-[#07090E] border border-[#283042] focus:border-[#E5C178] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
+                    className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -146,7 +146,7 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="s.jenkins@brokerage.ca"
-                    className="w-full bg-[#07090E] border border-[#283042] focus:border-[#E5C178] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
+                    className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -160,7 +160,7 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+1 (416) 555-0199"
-                    className="w-full bg-[#07090E] border border-[#283042] focus:border-[#E5C178] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
+                    className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -173,12 +173,12 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                   <select
                     value={formData.teamSize}
                     onChange={(e) => setFormData({ ...formData, teamSize: e.target.value })}
-                    className="w-full bg-[#07090E] border border-[#283042] focus:border-[#E5C178] rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none"
+                    className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3 py-2 text-xs text-white focus:outline-none transition-colors cursor-pointer"
                   >
-                    <option value="1-5">1-5 agents</option>
-                    <option value="6-20">6-20 agents</option>
-                    <option value="21-50">21-50 agents</option>
-                    <option value="50+">50+ agents</option>
+                    <option value="1-5" className="bg-[#071524]">1-5 agents</option>
+                    <option value="6-20" className="bg-[#071524]">6-20 agents</option>
+                    <option value="21-50" className="bg-[#071524]">21-50 agents</option>
+                    <option value="50+" className="bg-[#071524]">50+ agents</option>
                   </select>
                 </div>
 
@@ -189,13 +189,13 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                   <select
                     value={formData.currentCrm}
                     onChange={(e) => setFormData({ ...formData, currentCrm: e.target.value })}
-                    className="w-full bg-[#07090E] border border-[#283042] focus:border-[#E5C178] rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none"
+                    className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3 py-2 text-xs text-white focus:outline-none transition-colors cursor-pointer"
                   >
-                    <option value="Follow Up Boss">Follow Up Boss</option>
-                    <option value="kvCORE">kvCORE</option>
-                    <option value="Salesforce">Salesforce</option>
-                    <option value="Lofty">Lofty / Chime</option>
-                    <option value="Other">Other CRM</option>
+                    <option value="Follow Up Boss" className="bg-[#071524]">Follow Up Boss</option>
+                    <option value="kvCORE" className="bg-[#071524]">kvCORE</option>
+                    <option value="Salesforce" className="bg-[#071524]">Salesforce</option>
+                    <option value="Lofty" className="bg-[#071524]">Lofty / Chime</option>
+                    <option value="Other" className="bg-[#071524]">Other CRM</option>
                   </select>
                 </div>
 
@@ -206,12 +206,12 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                   <select
                     value={formData.leadVolume}
                     onChange={(e) => setFormData({ ...formData, leadVolume: e.target.value })}
-                    className="w-full bg-[#07090E] border border-[#283042] focus:border-[#E5C178] rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none"
+                    className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3 py-2 text-xs text-white focus:outline-none transition-colors cursor-pointer"
                   >
-                    <option value="<50">Under 50</option>
-                    <option value="50-200">50 - 200</option>
-                    <option value="200-500">200 - 500</option>
-                    <option value="500+">500+</option>
+                    <option value="<50" className="bg-[#071524]">Under 50</option>
+                    <option value="50-200" className="bg-[#071524]">50 - 200</option>
+                    <option value="200-500" className="bg-[#071524]">200 - 500</option>
+                    <option value="500+" className="bg-[#071524]">500+</option>
                   </select>
                 </div>
               </div>
@@ -225,7 +225,7 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   placeholder="e.g. Realtor.ca PPC, Instagram ad leads, Yorkville listing inquiries..."
-                  className="w-full bg-[#07090E] border border-[#283042] focus:border-[#E5C178] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
+                  className="w-full bg-[#071524] border border-white/[0.1] focus:border-[#E5C178] rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none transition-colors"
                 />
               </div>
 
@@ -233,21 +233,21 @@ export function PilotRequestModal({ isOpen, onClose, teamName }: PilotRequestMod
                 <button
                   type="button"
                   onClick={handleResetAndClose}
-                  className="px-4 py-2 rounded-lg text-xs font-semibold text-[#CBD5E1] hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#CBD5E1] hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn-executive-primary px-5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center space-x-2"
+                  className="btn-executive-primary px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-2 shadow-md"
                 >
                   {isSubmitting ? (
                     <span>Submitting...</span>
                   ) : (
                     <>
                       <span>Submit Pilot Request</span>
-                      <Send className="h-3.5 w-3.5" />
+                      <Send className="h-3.5 w-3.5 text-[#050B14]" />
                     </>
                   )}
                 </button>

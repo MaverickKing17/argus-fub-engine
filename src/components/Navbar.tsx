@@ -36,12 +36,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <header className="bg-[#0A0A0A] border-b border-[#262626] text-[#F8FAFC] sticky top-0 z-40 backdrop-blur-md bg-opacity-95">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="bg-[#071524]/90 border-b border-white/[0.08] text-[#F8FAFC] sticky top-0 z-40 backdrop-blur-md">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between py-3 md:py-0 md:h-20 gap-3 md:gap-4">
             {/* Brand Logo & Executive Suite Name */}
             <div className="flex items-center space-x-3.5 shrink-0">
-              <div className="w-9 h-9 rounded-lg border border-[#C5A059]/40 bg-[#141414] shadow-md flex items-center justify-center shrink-0 overflow-hidden">
+              <div className="w-9 h-9 rounded-xl border border-[#C5A059]/40 bg-[#0E1826] shadow-md flex items-center justify-center shrink-0 overflow-hidden">
                 <img
                   src="https://i.imgur.com/1Ww7pS4.png"
                   alt="ARGUS AI Logo"
@@ -52,18 +52,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div>
                 <div className="flex items-center space-x-2">
                   <span className="font-bold tracking-wider text-lg sm:text-xl text-[#F8FAFC]">
-                    ARGUS <span className="text-[#C5A059] font-extrabold">AI</span>
+                    ARGUS <span className="text-[#E5C178] font-extrabold">AI</span>
                   </span>
 
                   {/* Live Status Badge */}
-                  <span className="bg-emerald-950/60 text-emerald-400 border border-emerald-800/50 text-[10px] font-semibold px-2.5 py-0.5 rounded-full flex items-center space-x-1 tracking-wider uppercase">
+                  <span className="bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold px-2.5 py-0.5 rounded-full flex items-center space-x-1 tracking-wider uppercase">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                     <span>LIVE</span>
                   </span>
 
                   {/* Executive Alignment Badge */}
-                  <span className="bg-amber-950/40 text-[#C5A059] border border-[#C5A059]/30 text-[10px] px-2.5 py-0.5 rounded-full font-medium font-mono hidden sm:inline-flex items-center space-x-1 uppercase tracking-wider">
-                    <CheckCircle2 className="h-3 w-3 text-[#C5A059]" />
+                  <span className="bg-amber-950/50 text-[#E5C178] border border-[#E5C178]/30 text-[10px] px-2.5 py-0.5 rounded-full font-bold font-mono hidden sm:inline-flex items-center space-x-1 uppercase tracking-wider">
+                    <CheckCircle2 className="h-3 w-3 text-[#E5C178]" />
                     <span>TRESA-ALIGNED WORKFLOW</span>
                   </span>
                 </div>
@@ -83,10 +83,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
 
               {/* Brokerage Tenant Selector Box */}
-              <div className="relative flex items-center bg-[#141414] rounded-lg px-2.5 sm:px-3 py-1.5 border border-[#262626] hover:border-[#C5A059]/50 transition-all shadow-sm max-w-[200px] sm:max-w-none">
+              <div className="relative flex items-center bg-[#0E1826] rounded-lg px-2.5 sm:px-3 py-1.5 border border-white/[0.08] hover:border-[#E5C178]/50 transition-all shadow-sm max-w-[200px] sm:max-w-none">
                 <div className="relative flex items-center shrink-0 mr-2">
-                  <Building2 className="h-4 w-4 text-[#C5A059]" />
-                  <span className="absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full bg-[#10B981] ring-2 ring-[#141414]" title="Follow Up Boss Account Connected"></span>
+                  <Building2 className="h-4 w-4 text-[#E5C178]" />
+                  <span className="absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full bg-[#10B981] ring-2 ring-[#0E1826]" title="Follow Up Boss Account Connected"></span>
                 </div>
                 <select
                   id="tenant-switcher-select"
@@ -98,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="bg-transparent text-xs sm:text-sm text-[#F8FAFC] font-medium focus:outline-none pr-1 cursor-pointer truncate"
                 >
                   {tenants.map((t) => (
-                    <option key={t.id} value={t.id} className="bg-[#141414] text-[#F8FAFC]">
+                    <option key={t.id} value={t.id} className="bg-[#0E1826] text-[#F8FAFC]">
                       {t.team_name}
                     </option>
                   ))}
@@ -109,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 id="open-docs-support-btn"
                 onClick={() => setShowDocsModal(true)}
-                className="text-[#CBD5E1] hover:text-[#E5C178] text-xs font-semibold transition-colors flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[#262626] bg-[#141414] hover:border-[#E5C178]/50 cursor-pointer shrink-0"
+                className="text-[#CBD5E1] hover:text-[#E5C178] text-xs font-semibold transition-colors flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-white/[0.08] bg-[#0E1826] hover:border-[#E5C178]/50 cursor-pointer shrink-0"
                 title="ARGUS AI Brokerage Executive Guide & Support Documentation"
               >
                 <BookOpen className="h-3.5 w-3.5 text-[#E5C178]" />
@@ -120,7 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 id="open-legal-governance-btn"
                 onClick={() => setShowLegalModal(true)}
-                className="text-[#CBD5E1] hover:text-[#E5C178] text-xs font-semibold transition-colors flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[#262626] bg-[#141414] hover:border-[#E5C178]/50 cursor-pointer shrink-0"
+                className="text-[#CBD5E1] hover:text-[#E5C178] text-xs font-semibold transition-colors flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-white/[0.08] bg-[#0E1826] hover:border-[#E5C178]/50 cursor-pointer shrink-0"
                 title="View Terms & Conditions, Privacy Policy, RECO Disclaimer, DMCA & CASL Policies"
               >
                 <Scale className="h-3.5 w-3.5 text-[#E5C178]" />
@@ -132,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 id="simulate-inbound-lead-btn"
                 onClick={onSimulateWebhook}
                 disabled={isSimulating}
-                className="text-[#CBD5E1] hover:text-[#E5C178] text-[11px] font-medium transition-colors flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-[#262626] bg-[#141414] hover:border-[#E5C178]/40 cursor-pointer disabled:opacity-50 shrink-0"
+                className="text-[#CBD5E1] hover:text-[#E5C178] text-[11px] font-medium transition-colors flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-white/[0.08] bg-[#0E1826] hover:border-[#E5C178]/40 cursor-pointer disabled:opacity-50 shrink-0"
                 title="[Developer Test Tool] Simulate inbound lead creation & instant 30s SMS outreach"
               >
                 <Zap className={`h-3.5 w-3.5 text-[#E5C178] ${isSimulating ? 'animate-spin' : ''}`} />
@@ -146,7 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="btn-executive-primary px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-all flex items-center space-x-2 text-xs sm:text-sm cursor-pointer shrink-0"
                 title="Apply to join the ARGUS AI Founding Brokerage Design Partner Program"
               >
-                <Sparkles className="h-4 w-4 text-[#07090E]" />
+                <Sparkles className="h-4 w-4 text-[#050B14]" />
                 <span className="hidden sm:inline">Request a Pilot Partnership</span>
                 <span className="sm:hidden">Request Pilot</span>
               </button>
@@ -154,7 +154,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Minimal Luxury Underline Navigation Tab Bar */}
-          <div className="flex space-x-6 sm:space-x-8 border-t border-[#262626]/80 overflow-x-auto pt-2 scrollbar-none">
+          <div className="flex space-x-6 sm:space-x-8 border-t border-white/[0.08] overflow-x-auto pt-2 scrollbar-none">
             {[
               { id: 'overview', label: 'Overview KPIs', icon: Zap },
               { id: 'conversations', label: 'Live SMS Threads', icon: Bot },

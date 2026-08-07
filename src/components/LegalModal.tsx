@@ -25,11 +25,11 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in font-sans">
-      <div className="bg-[#0F131D] border border-[#283042] rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div className="bg-[#0B1726] border border-white/[0.12] rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
         {/* Modal Header */}
-        <div className="p-5 border-b border-[#283042] bg-[#07090E] flex items-center justify-between">
+        <div className="p-5 border-b border-white/[0.08] bg-[#071524] flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-xl bg-[#151A24] border border-[#E5C178]/30">
+            <div className="p-2.5 rounded-xl bg-[#142133] border border-white/[0.1]">
               <Scale className="h-5 w-5 text-[#E5C178]" />
             </div>
             <div>
@@ -43,7 +43,7 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#CBD5E1] hover:text-white hover:bg-[#1C2333] transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-[#CBD5E1] hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer"
             aria-label="Close legal modal"
           >
             <X className="h-5 w-5" />
@@ -51,7 +51,7 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
         </div>
 
         {/* Tab Navigation Ribbon */}
-        <div className="flex items-center border-b border-[#283042] bg-[#0B0E17] px-4 overflow-x-auto">
+        <div className="flex items-center border-b border-white/[0.08] bg-[#071524] px-4 overflow-x-auto">
           {tabs.map((t) => {
             const Icon = t.icon;
             const isActive = activeTab === t.id;
@@ -61,7 +61,7 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
                 onClick={() => setActiveTab(t.id as LegalTab)}
                 className={`flex items-center space-x-2 py-3 px-3.5 text-xs font-semibold whitespace-nowrap transition-all border-b-2 cursor-pointer ${
                   isActive
-                    ? 'border-[#E5C178] text-[#E5C178] bg-[#E5C178]/5'
+                    ? 'border-[#E5C178] text-[#E5C178] bg-[#E5C178]/10'
                     : 'border-transparent text-[#CBD5E1] hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -73,7 +73,7 @@ export function LegalModal({ isOpen, initialTab = 'terms', onClose, teamName }: 
         </div>
 
         {/* Document Content Area */}
-        <div className="p-6 overflow-y-auto space-y-6 text-xs text-[#E2E8F0] leading-relaxed font-sans bg-[#0F131D]">
+        <div className="p-6 overflow-y-auto space-y-6 text-xs text-[#E2E8F0] leading-relaxed font-sans bg-[#0B1726]">
           {/* Visible Draft Header Note required by audit */}
           <div className="p-3.5 bg-amber-950/40 border border-amber-800/60 rounded-xl flex items-center space-x-3 text-amber-300 text-xs font-semibold">
             <AlertTriangle className="h-4 w-4 shrink-0 text-amber-400" />

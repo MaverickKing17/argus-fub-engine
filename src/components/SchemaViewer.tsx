@@ -30,89 +30,89 @@ export const SchemaViewer: React.FC = () => {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 max-w-5xl mx-auto font-sans">
       {/* Header */}
-      <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="card-pop p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2 text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">
+          <div className="flex items-center space-x-2 text-[10px] font-bold text-[#38BDF8] uppercase tracking-widest mb-1 font-mono">
             <Database className="h-3.5 w-3.5" />
             <span>PostgreSQL / Supabase Migration DDL</span>
           </div>
-          <h2 className="text-lg font-bold text-zinc-100">Multi-Tenant Database Architecture</h2>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <h2 className="text-xl font-bold text-[#F8FAFC]">Multi-Tenant Database Architecture</h2>
+          <p className="text-xs sm:text-sm text-[#CBD5E1] mt-1 font-medium">
             SQL schema migration for tenants, leads, messages, indexes, and RECO qualification stage constraints.
           </p>
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2.5">
           <button
             id="copy-sql-migration-btn"
             onClick={handleCopy}
-            className="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold px-3.5 py-1.5 rounded-md border border-zinc-700 flex items-center space-x-1.5 transition-colors"
+            className="bg-[#142133] hover:bg-[#1C2C42] text-[#F8FAFC] text-xs font-bold px-4 py-2.5 rounded-xl border border-white/[0.1] flex items-center space-x-1.5 transition-all cursor-pointer shadow-sm"
           >
-            {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4 text-zinc-400" />}
+            {copied ? <Check className="h-4 w-4 text-[#10B981]" /> : <Copy className="h-4 w-4 text-[#CBD5E1]" />}
             <span>{copied ? 'Copied SQL!' : 'Copy DDL'}</span>
           </button>
           <button
             id="download-sql-migration-btn"
             onClick={handleDownload}
-            className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-1.5 rounded-md shadow-sm flex items-center space-x-1.5 transition-colors"
+            className="btn-executive-primary text-black text-xs font-bold px-4.5 py-2.5 rounded-xl flex items-center space-x-1.5 transition-all cursor-pointer shadow-md"
           >
-            <Download className="h-4 w-4" />
+            <Download className="h-4 w-4 text-[#050B14]" />
             <span>Download .sql</span>
           </button>
         </div>
       </div>
 
       {/* ERD Relationship Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Table 1 */}
-        <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 shadow-sm space-y-2">
-          <div className="flex items-center space-x-2 text-blue-400 font-bold text-xs">
+        <div className="card-executive p-5 space-y-2.5">
+          <div className="flex items-center space-x-2 text-[#38BDF8] font-bold text-xs">
             <Layers className="h-4 w-4" />
             <span>1. tenants</span>
           </div>
-          <p className="text-xs text-zinc-400">Stores real estate team profiles, FUB keys, Twilio credentials, and custom ISA settings.</p>
-          <div className="text-[11px] text-zinc-500 font-mono bg-zinc-950 p-2 rounded border border-zinc-800">
+          <p className="text-xs text-[#CBD5E1] leading-relaxed">Stores real estate team profiles, FUB keys, Twilio credentials, and custom ISA settings.</p>
+          <div className="text-[11px] text-[#94A3B8] font-mono bg-[#071524] p-2.5 rounded-lg border border-white/[0.08]">
             Primary Key: id (VARCHAR)
           </div>
         </div>
 
         {/* Table 2 */}
-        <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 shadow-sm space-y-2">
-          <div className="flex items-center space-x-2 text-emerald-400 font-bold text-xs">
+        <div className="card-executive p-5 space-y-2.5">
+          <div className="flex items-center space-x-2 text-[#10B981] font-bold text-xs">
             <Layers className="h-4 w-4" />
             <span>2. leads</span>
           </div>
-          <p className="text-xs text-zinc-400">Tracks inbound buyer/seller leads, qualification stage, timeline, budget, and RECO BRA status.</p>
-          <div className="text-[11px] text-zinc-500 font-mono bg-zinc-950 p-2 rounded border border-zinc-800">
+          <p className="text-xs text-[#CBD5E1] leading-relaxed">Tracks inbound buyer/seller leads, qualification stage, timeline, budget, and RECO BRA status.</p>
+          <div className="text-[11px] text-[#94A3B8] font-mono bg-[#071524] p-2.5 rounded-lg border border-white/[0.08]">
             Foreign Key: tenant_id -&gt; tenants(id)
           </div>
         </div>
 
         {/* Table 3 */}
-        <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 shadow-sm space-y-2">
+        <div className="card-executive p-5 space-y-2.5">
           <div className="flex items-center space-x-2 text-purple-400 font-bold text-xs">
             <Layers className="h-4 w-4" />
             <span>3. messages</span>
           </div>
-          <p className="text-xs text-zinc-400">Multi-turn SMS conversation history between Gemini ISA and prospects with AI rationale.</p>
-          <div className="text-[11px] text-zinc-500 font-mono bg-zinc-950 p-2 rounded border border-zinc-800">
+          <p className="text-xs text-[#CBD5E1] leading-relaxed">Multi-turn SMS conversation history between Gemini ISA and prospects with AI rationale.</p>
+          <div className="text-[11px] text-[#94A3B8] font-mono bg-[#071524] p-2.5 rounded-lg border border-white/[0.08]">
             Foreign Key: lead_id -&gt; leads(id)
           </div>
         </div>
       </div>
 
       {/* Code Viewer Container */}
-      <div className="bg-zinc-950 rounded-xl border border-zinc-800 shadow-sm overflow-hidden">
-        <div className="bg-zinc-900 px-4 py-3 border-b border-zinc-800 flex items-center justify-between text-xs text-zinc-400 font-mono">
+      <div className="card-executive rounded-2xl overflow-hidden shadow-md">
+        <div className="bg-[#0B1726] px-5 py-3.5 border-b border-white/[0.08] flex items-center justify-between text-xs text-[#CBD5E1] font-mono">
           <div className="flex items-center space-x-2">
-            <Code className="h-4 w-4 text-blue-400" />
+            <Code className="h-4 w-4 text-[#38BDF8]" />
             <span>001_initial_schema.sql</span>
           </div>
-          <span className="text-emerald-400 font-bold">PostgreSQL Standard DDL</span>
+          <span className="text-[#10B981] font-bold">PostgreSQL Standard DDL</span>
         </div>
-        <pre className="p-5 text-xs font-mono text-zinc-300 leading-relaxed overflow-x-auto max-h-[500px] scrollbar-thin select-all">
+        <pre className="p-6 text-xs font-mono text-[#CBD5E1] leading-relaxed overflow-x-auto max-h-[500px] scrollbar-thin select-all bg-[#071524]">
           {sqlContent || '-- Loading schema definition...'}
         </pre>
       </div>

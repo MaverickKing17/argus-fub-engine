@@ -193,25 +193,25 @@ export default function App() {
 
   if (!currentTenant) {
     return (
-      <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F7] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#071524] text-[#F8FAFC] flex items-center justify-center p-4">
         <div className="text-center space-y-3">
           <div className="h-10 w-10 rounded-full border-2 border-[#C5A059] border-t-transparent animate-spin mx-auto"></div>
-          <p className="text-xs font-mono text-[#A1A1AA]">Loading ARGUS AI Sales Closer Engine...</p>
+          <p className="text-xs font-mono text-[#CBD5E1]">Loading ARGUS AI Sales Closer Engine...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F7] font-sans selection:bg-[#C5A059] selection:text-black">
+    <div className="min-h-screen bg-[#071524] bg-enterprise-canvas text-[#F8FAFC] font-sans selection:bg-[#E5C178] selection:text-black">
       {/* Persistent Dismissible Demo Environment Banner */}
       {showDemoBanner && (
-        <div className="bg-[#1C180E] border-b border-[#E5C178]/30 px-4 py-2 text-xs font-sans text-[#CBD5E1] flex flex-wrap items-center justify-between gap-2">
+        <div className="bg-[#0B1726] border-b border-[#E5C178]/30 px-4 py-2 text-xs font-sans text-[#CBD5E1] flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
             <span className="bg-[#E5C178]/20 text-[#E5C178] border border-[#E5C178]/40 px-2 py-0.5 rounded text-[10px] font-bold font-mono uppercase tracking-wider">
               DEMO ENVIRONMENT
             </span>
-            <span className="font-medium">
+            <span className="font-medium text-[#E2E8F0]">
               Connected to Follow Up Boss Sandbox (<strong className="text-white font-semibold">{currentTenant.team_name}</strong>). All messages and leads are simulated for evaluation.
             </span>
           </div>
@@ -248,30 +248,30 @@ export default function App() {
       />
 
       {/* Persistent Thin Compliance-Status Audit Strip */}
-      <div className="bg-[#141414] border-b border-[#262626] py-1.5 px-4 sm:px-6 lg:px-8 text-[11px] font-sans flex flex-wrap items-center justify-between gap-2 shadow-sm relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-[#C5A059]/80 via-[#C5A059]/30 to-transparent"></div>
-        <div className="flex items-center space-x-2 text-[#94A3B8]">
+      <div className="bg-[#0B1726]/90 border-b border-white/[0.08] py-2 px-4 sm:px-6 lg:px-8 text-[11px] font-sans flex flex-wrap items-center justify-between gap-2 shadow-sm relative overflow-hidden backdrop-blur-md">
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-[#C5A059]/90 via-[#C5A059]/30 to-transparent"></div>
+        <div className="flex items-center space-x-2 text-[#CBD5E1]">
           <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
           <span className="font-semibold text-[#F8FAFC] tracking-wider uppercase text-[10px] font-mono">
             TRESA & RECO AUDIT STREAM:
           </span>
-          <span className="text-[#94A3B8] hidden sm:inline">•</span>
-          <span className="text-emerald-400 font-medium hidden sm:inline">TRESA DISCLOSURE CHECK COMPLETE</span>
-          <span className="text-[#94A3B8] hidden md:inline">•</span>
-          <span className="text-[#94A3B8] hidden md:inline">0 Unrepresented Disqualifications Flagged</span>
+          <span className="text-[#64748B] hidden sm:inline">•</span>
+          <span className="text-emerald-400 font-semibold hidden sm:inline">TRESA DISCLOSURE CHECK COMPLETE</span>
+          <span className="text-[#64748B] hidden md:inline">•</span>
+          <span className="text-[#CBD5E1] hidden md:inline">0 Unrepresented Disqualifications Flagged</span>
         </div>
-        <div className="flex items-center space-x-3 text-[10px] text-[#C5A059] font-mono">
-          <span className="bg-[#C5A059]/10 border border-[#C5A059]/30 px-2 py-0.5 rounded text-[10px]">
+        <div className="flex items-center space-x-3 text-[10px] text-[#E5C178] font-mono">
+          <span className="bg-[#E5C178]/10 border border-[#E5C178]/30 px-2 py-0.5 rounded text-[10px] font-bold">
             Follow Up Boss Sync: ACTIVE
           </span>
-          <span className="hidden lg:inline text-[#94A3B8]">
+          <span className="hidden lg:inline text-[#CBD5E1]">
             Tenant: <strong className="text-[#F8FAFC]">{currentTenant.team_name}</strong>
           </span>
         </div>
       </div>
 
       {/* Main App Content Viewport */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-7">
         {activeTab === 'overview' && (
           <DashboardOverview
             kpis={kpis}
