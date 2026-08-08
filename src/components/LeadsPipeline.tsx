@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Lead, QualificationStage, Tenant } from '../types.js';
 import { Search, Filter, ShieldCheck, ShieldAlert, CheckCircle2, User, Phone, Mail, Calendar, DollarSign, Tag, ArrowUpRight, Building2, MessageSquare, Sparkles, FileText, X } from 'lucide-react';
+import { formatQualificationStage, ChannelBadge } from '../lib/formatters.js';
 
 interface LeadsPipelineProps {
   leads: Lead[];
@@ -83,8 +84,8 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
                 <option value="ALL" className="bg-[#071524]">All Qualification Stages ({leads.length})</option>
                 <option value="New" className="bg-[#071524]">New Leads</option>
                 <option value="Engaged" className="bg-[#071524]">Engaged in SMS</option>
-                <option value="Qualified" className="bg-[#071524]">Qualified Appointments</option>
-                <option value="Unrepresented_Disqualified" className="bg-[#071524]">TRESA Disqualified</option>
+                <option value="Qualified" className="bg-[#071524]">Consultations Booked</option>
+                <option value="Unrepresented_Disqualified" className="bg-[#071524]">SRP / Disqualified</option>
               </select>
             </div>
           </div>
@@ -103,7 +104,7 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
               onClick={() => setSelectedStage(item.stage)}
               className={`p-3.5 rounded-xl border cursor-pointer transition-all ${item.color} ${selectedStage === item.stage ? 'ring-2 ring-[#E5C178]' : ''}`}
             >
-              <div className="text-[10px] font-bold uppercase tracking-widest text-[#CBD5E1]">{item.stage.replace('_', ' ')}</div>
+              <div className="text-[10px] font-bold uppercase tracking-widest text-[#CBD5E1] truncate">{formatQualificationStage(item.stage)}</div>
               <div className="text-2xl font-extrabold mt-0.5">{item.count}</div>
             </div>
           ))}
@@ -150,7 +151,10 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
                             {lead.name.split(' ').map((n) => n[0]).join('')}
                           </div>
                           <div className="min-w-0">
-                            <h4 className="font-bold text-xs text-[#F8FAFC] truncate">{lead.name}</h4>
+                            <div className="flex items-center space-x-2">
+                              <h4 className="font-bold text-xs text-[#F8FAFC] truncate">{lead.name}</h4>
+                              <ChannelBadge channel={lead.channel} />
+                            </div>
                             <div className="text-[10px] text-[#CBD5E1] font-mono mt-0.5 font-medium">
                               <span>{lead.phone}</span>
                             </div>
@@ -160,7 +164,7 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
 
                       <td className="py-3.5 px-4">
                         <span className={`px-2.5 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${getStageBadgeClass(lead.qualification_stage)}`}>
-                          {lead.qualification_stage.replace('_', ' ')}
+                          {formatQualificationStage(lead.qualification_stage)}
                         </span>
                       </td>
 
@@ -212,12 +216,15 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
                   {selectedLead.name.split(' ').map((n) => n[0]).join('')}
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-[#F8FAFC]">{selectedLead.name}</h3>
+                  <div className="flex items-center space-x-2">
+                    <h3 className="text-sm font-bold text-[#F8FAFC]">{selectedLead.name}</h3>
+                    <ChannelBadge channel={selectedLead.channel} />
+                  </div>
                   <span className="text-[10px] text-[#CBD5E1] font-mono font-medium">{selectedLead.phone}</span>
                 </div>
               </div>
               <span className={`text-[10px] px-2.5 py-0.5 rounded font-bold border uppercase tracking-wider ${getStageBadgeClass(selectedLead.qualification_stage)}`}>
-                {selectedLead.qualification_stage.replace('_', ' ')}
+                {formatQualificationStage(selectedLead.qualification_stage)}
               </span>
             </div>
 
@@ -246,7 +253,7 @@ export const LeadsPipeline: React.FC<LeadsPipelineProps> = ({
             {/* TRESA & RECO Regulatory Audit Status Checklist */}
             <div className="p-3.5 bg-[#071524] rounded-xl border border-white/[0.08] space-y-2">
               <div className="text-[10px] font-bold uppercase tracking-widest text-[#E5C178] flex items-center gap-1.5 font-mono">
-                <ShieldCheck className="h-3.5 w-3.5 text-[#E5C178]" />
+                <ShieldCheck className="h-3.5 w-3.5 text-[#10B981]" />
                 <span>Ontario RECO & TRESA Compliance Audit</span>
               </div>
               <div className="space-y-1.5 text-[11px]">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DashboardKPIs, IntegrationHealth, Lead, Tenant, QualificationStage, RepresentationStatus } from '../types.js';
 import { Users, MessageSquare, CheckCircle2, ShieldAlert, ArrowUpRight, Zap, Clock, Sparkles, Building2, TrendingUp, AlertTriangle, Eye, Filter } from 'lucide-react';
 import { LeadDetailModal } from './LeadDetailModal.js';
+import { formatQualificationStage, ChannelBadge } from '../lib/formatters.js';
 
 interface DashboardOverviewProps {
   kpis: DashboardKPIs;
@@ -145,14 +146,14 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           <p className="text-[11px] text-[#CBD5E1] font-medium font-sans">Normal load • Multi-turn active</p>
         </div>
 
-        {/* KPI 3: Qualified Appointments */}
+        {/* KPI 3: Consultations Booked (Synced to Calendar) */}
         <div className="card-pop p-5 sm:p-6 flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[#CBD5E1] text-[10px] uppercase font-bold tracking-widest font-sans">
-              Qualified Appointments
+              Consultations Booked (Synced to Calendar)
             </span>
             <span className="px-2 py-0.5 bg-[#10B981]/20 text-[#10B981] text-[10px] font-bold border border-[#10B981]/40 rounded-md uppercase font-mono">
-              Ready
+              Synced
             </span>
           </div>
 
@@ -183,7 +184,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </svg>
             </div>
           </div>
-          <p className="text-[11px] text-[#CBD5E1] font-medium font-sans">High Intent • Synced to FUB</p>
+          <p className="text-[11px] text-[#CBD5E1] font-medium font-sans">High-intent buyers routed to showing calendar.</p>
         </div>
 
         {/* KPI 4: Conversion Rate */}
@@ -224,7 +225,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </svg>
             </div>
           </div>
-          <p className="text-[11px] text-[#CBD5E1] font-medium font-sans">TRESA Compliance Safeguarded</p>
+          <p className="text-[11px] text-[#CBD5E1] font-medium font-sans">TRESA & RECO ALIGNED / PASSED</p>
         </div>
       </div>
 
@@ -320,6 +321,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                           <div className="flex items-center space-x-2">
                             <h4 className="font-bold text-xs sm:text-sm text-[#F8FAFC] group-hover:text-[#E5C178] transition-colors truncate">{lead.name}</h4>
                             <span className="text-[10px] text-[#CBD5E1] font-mono font-medium">{lead.phone}</span>
+                            <ChannelBadge channel={lead.channel} />
                           </div>
                           <p className="text-xs text-[#CBD5E1] font-medium truncate mt-0.5">
                             {lead.search_criteria || 'Inbound property inquiry'}
@@ -350,7 +352,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                             ? 'bg-rose-950/60 text-rose-400 border-rose-800/60'
                             : 'bg-white/[0.06] text-[#F8FAFC] border border-white/[0.08]'
                         }`}>
-                          {lead.qualification_stage.replace(/_/g, ' ')}
+                          {formatQualificationStage(lead.qualification_stage)}
                         </span>
 
                         <div className="flex items-center space-x-1.5">

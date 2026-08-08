@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Lead, QualificationStage, RepresentationStatus } from '../types.js';
 import { X, ShieldCheck, ShieldAlert, CheckCircle2, User, Phone, Mail, DollarSign, Calendar, Building2, Sparkles, Send, FileText, ExternalLink, RefreshCw, AlertTriangle } from 'lucide-react';
+import { formatQualificationStage, ChannelBadge } from '../lib/formatters.js';
 
 interface LeadDetailModalProps {
   lead: Lead | null;
@@ -57,13 +58,14 @@ export const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
             <div>
               <div className="flex items-center space-x-2">
                 <h3 className="text-lg font-bold text-white">{lead.name}</h3>
+                <ChannelBadge channel={lead.channel} />
                 <span className={`text-[10px] px-2.5 py-0.5 rounded font-bold border uppercase tracking-wider ${
                   isQualified ? 'bg-[#10B981]/20 text-[#10B981] border-[#10B981]/40' :
                   isEscalated ? 'bg-amber-500/20 text-amber-400 border-amber-500/40 animate-pulse' :
                   isDisqualified ? 'bg-rose-950/60 text-rose-400 border-rose-800/60' :
                   'bg-white/[0.06] text-white border-white/[0.1]'
                 }`}>
-                  {lead.qualification_stage.replace(/_/g, ' ')}
+                  {formatQualificationStage(lead.qualification_stage)}
                 </span>
               </div>
               <p className="text-xs text-[#CBD5E1] font-mono mt-0.5">
@@ -148,11 +150,19 @@ export const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
 
           {/* TRESA & RECO Compliance Audit Ledger */}
           <div className="p-4 bg-[#071524] rounded-xl border border-white/[0.08] space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono flex items-center space-x-1.5">
-              <ShieldCheck className="h-4 w-4 text-[#10B981]" />
-              <span>Ontario Compliance Ledger (TRESA v2 & RECO)</span>
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+            <div className="flex items-center justify-between">
+              <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono flex items-center space-x-1.5">
+                <ShieldCheck className="h-4 w-4 text-[#10B981]" />
+                <span>Ontario Compliance Ledger (TRESA v2 & RECO)</span>
+              </h4>
+              <span className="text-[10px] bg-[#10B981]/15 text-[#10B981] px-2 py-0.5 rounded border border-[#10B981]/30 font-mono font-bold uppercase">
+                TRESA & RECO ALIGNED / PASSED
+              </span>
+            </div>
+            <p className="text-xs text-[#CBD5E1]">
+              "TRESA Information Before Representation (IBR) disclosure issued automatically via SMS before intent capture."
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs pt-1">
               <div className="p-2.5 bg-[#0B1726] rounded-lg border border-white/[0.08] flex items-center justify-between">
                 <span className="text-[#CBD5E1]">IBR Disclosure Sent:</span>
                 <span className="text-[#10B981] font-mono font-bold flex items-center gap-1">
@@ -196,7 +206,7 @@ export const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                   className="btn-executive-primary px-3.5 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 cursor-pointer disabled:opacity-50"
                 >
                   <CheckCircle2 className="h-3.5 w-3.5 text-[#050B14]" />
-                  <span>Confirm Unrepresented & Promote to Qualified</span>
+                  <span>Confirm Unrepresented & Promote to Consultations Booked</span>
                 </button>
 
                 <button
@@ -212,7 +222,7 @@ export const LeadDetailModal: React.FC<LeadDetailModalProps> = ({
                   disabled={isSubmitting}
                   className="bg-rose-950/80 hover:bg-rose-900 text-rose-300 px-3.5 py-2 rounded-xl text-xs font-bold border border-rose-800 transition-colors cursor-pointer disabled:opacity-50"
                 >
-                  <span>Confirm Active BRA & Disqualify</span>
+                  <span>Confirm Active BRA & Set SRP / Disqualified</span>
                 </button>
               </div>
             </div>

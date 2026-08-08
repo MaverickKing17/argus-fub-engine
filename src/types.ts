@@ -48,6 +48,7 @@ export interface Lead {
   search_criteria?: string;
   notes?: string;
   tags?: string[];
+  channel?: 'Meta Ad' | 'Google PPC' | 'Luxury Web Widget' | 'Direct SMS';
   last_contact_at: string;
   created_at: string;
 }
